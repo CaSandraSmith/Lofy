@@ -2,8 +2,37 @@ from flask import Blueprint, jsonify, session, request
 from flask_login import current_user, login_user, logout_user, login_required
 from .auth_routes import validation_errors_to_error_messages
 from ..models import Playlist, User, db
+from ..forms import EditPlaylistForm
 
 playlist_routes = Blueprint('playlist', __name__)
+
+@playlist_routes.route("/<int:id>", methods=["PUT"])
+@login_required
+def edit_playlist(id):
+    playlist = Playlist.query.get(id)
+    
+    if not playlist:
+        return {"errors": "Playlist couldn't be found"}
+
+    if playlist.owner_id != current_user.id:
+        return {"errors": "You can't edit a playlist that's not yours"}
+    
+    form = EditPlaylistForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        data = form.data
+        playlist.name = data["name"]
+        playlist.cover_image = data["cover_image"]
+        playlist.description = data["description"]
+        db.session.commit()
+
+        return playlist.to_dict()
+        
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
 
 @playlist_routes.route("/new", methods=["POST"])
 @login_required
