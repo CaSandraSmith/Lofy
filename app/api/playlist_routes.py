@@ -25,7 +25,7 @@ def remove_song_from_playlist(playlist_id, song_id):
     
     playlist.songs.remove(song)
     db.session.commit()
-    return playlist.to_dict()
+    return playlist.detailed_to_dict()
 
 
 @playlist_routes.route("/<int:playlist_id>/songs/<int:song_id>", methods=["POST"])
@@ -48,7 +48,7 @@ def add_song_to_playlist(playlist_id, song_id):
     
     playlist.songs.append(song)
     db.session.commit()
-    return playlist.to_dict()
+    return playlist.detailed_to_dict()
 
 
 @playlist_routes.route("/<int:id>", methods=["DELETE"])
@@ -88,7 +88,7 @@ def edit_playlist(id):
         playlist.description = data["description"]
         db.session.commit()
 
-        return playlist.to_dict()
+        return playlist.detailed_to_dict()
         
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
@@ -108,7 +108,7 @@ def create_new_playlist():
 
     db.session.add(new_playlist)
     db.session.commit()
-    return new_playlist.to_dict()
+    return new_playlist.general_to_dict()
 
 
 # get playlist by id
@@ -119,7 +119,7 @@ def one_playlist(id):
     if not playlist:
         return {"errors": "Playlist not found"}
     else:
-        return playlist.to_dict()
+        return playlist.detailed_to_dict()
 
 # get all playlists
 @playlist_routes.route('/')
@@ -128,6 +128,6 @@ def all_playlists():
 
     playlists = {}
     for playlist in all_playlists:
-        playlists[playlist.id] = playlist.to_dict()
+        playlists[playlist.id] = playlist.general_to_dict()
     return playlists
 
