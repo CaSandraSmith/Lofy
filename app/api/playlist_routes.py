@@ -1,10 +1,71 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import current_user, login_user, logout_user, login_required
 from .auth_routes import validation_errors_to_error_messages
-from ..models import Playlist, User, db
+from ..models import Playlist, User, db, Song
 from ..forms import EditPlaylistForm
 
 playlist_routes = Blueprint('playlist', __name__)
+
+@playlist_routes.route("/<int:playlist_id>/songs/<int:song_id>", methods=["DELETE"])
+def remove_song_from_playlist(playlist_id, song_id):
+    playlist = Playlist.query.get(playlist_id)
+    song = Song.query.get(song_id)
+
+    if not playlist:
+        return {"errors": "Playlist couldn't be found"}   
+
+    if playlist.owner_id != current_user.id:
+        return {"errors": "You can't remove a song to a playlist that's not yours"}
+    
+    if not song:
+        return {"errors": "Song couldn't be found"}
+    
+    if song not in playlist.songs:
+        return {"errors": "You can't remove a song from a playlist that it's not on"}
+    
+    playlist.songs.remove(song)
+    db.session.commit()
+    return playlist.to_dict()
+
+
+@playlist_routes.route("/<int:playlist_id>/songs/<int:song_id>", methods=["POST"])
+@login_required
+def add_song_to_playlist(playlist_id, song_id):
+    playlist = Playlist.query.get(playlist_id)
+    song = Song.query.get(song_id)
+
+    if not playlist:
+        return {"errors": "Playlist couldn't be found"}   
+
+    if playlist.owner_id != current_user.id:
+        return {"errors": "You can't add a song to a playlist that's not yours"}
+    
+    if not song:
+        return {"errors": "Song couldn't be found"}
+    
+    if song in playlist.songs:
+        return {"errors": "Song already on playlist"}
+    
+    playlist.songs.append(song)
+    db.session.commit()
+    return playlist.to_dict()
+
+
+@playlist_routes.route("/<int:id>", methods=["DELETE"])
+@login_required
+def delete_playlist(id):
+    playlist = Playlist.query.get(id)
+
+    if not playlist:
+        return {"errors": "Playlist couldn't be found"}   
+
+    if playlist.owner_id != current_user.id:
+        return {"errors": "You can't delete a playlist that's not yours"}
+    
+    db.session.delete(playlist)
+    db.session.commit()
+    return {"message": "Playlist successfully deleted"}
+
 
 @playlist_routes.route("/<int:id>", methods=["PUT"])
 @login_required
@@ -31,7 +92,6 @@ def edit_playlist(id):
         
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
 
 
 @playlist_routes.route("/new", methods=["POST"])

@@ -36,5 +36,6 @@ class Playlist(db.Model):
             'owner': {
                 "username": self.user.username,
                 "profile_image": self.user.profile_image
-            }
+            },
+            'songs': {song.id: song.to_dict() for song in self.songs}
         }
