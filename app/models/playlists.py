@@ -13,7 +13,7 @@ class Playlist(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     cover_image = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(300), nullable=False)
+    description = db.Column(db.String(300))
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
