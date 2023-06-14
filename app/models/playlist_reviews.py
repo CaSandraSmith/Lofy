@@ -16,6 +16,6 @@ class PlaylistReview(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
-    playlist = db.Relationship('Playlist', back_populates='reviews')
-    user = db.Relationship('User', back_populates='reviews')
+    playlist = db.relationship('Playlist', back_populates='reviews')
+    user = db.relationship('User', back_populates='reviews')
 

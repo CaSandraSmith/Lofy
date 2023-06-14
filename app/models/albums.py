@@ -13,7 +13,7 @@ class Album(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
-    artist = db.Relationship('Artist', back_populates='albums')
-    songs = db.Relationship('Song',
+    artist = db.relationship('Artist', back_populates='albums')
+    songs = db.relationship('Song',
                              back_populates='album',
                              cascade="all, delete-orphan")

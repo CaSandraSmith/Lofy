@@ -18,10 +18,10 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
-    reviews = db.Relationship('PlaylistReview',
+    reviews = db.relationship('PlaylistReview',
                               back_populates='user',
                               cascade='all, delete')
-    playlists = db.Relationship('Playlist', 
+    playlists = db.relationship('Playlist', 
                                 back_populates='user',
                                 cascade='all, delete'
                                 )
