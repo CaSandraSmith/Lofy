@@ -16,7 +16,7 @@ class Song(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
-    artist = db.relationship('Artist', back_populates="artist")
+    artist = db.relationship('Artist', back_populates="songs")
     album = db.relationship('Album', back_populates='songs')
     playlists = db.relationship('Playlist', 
                                 back_populates='songs',secondary=playlist_songs,)
