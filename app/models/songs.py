@@ -21,4 +21,12 @@ class Song(db.Model):
     album = db.relationship('Album', back_populates='songs')
     playlists = db.relationship('Playlist', 
                                 back_populates='songs',secondary=playlist_songs,)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'artist_name': self.artist.name,
+            'audio': self.audio
+        }
 
