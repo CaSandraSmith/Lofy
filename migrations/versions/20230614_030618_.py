@@ -63,6 +63,7 @@ def upgrade():
     sa.Column('artist_id', sa.Integer(), nullable=False),
     sa.Column('album_id', sa.Integer(), nullable=False),
     sa.Column('audio', sa.String(length=255), nullable=False),
+    sa.Column('length', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['album_id'], ['artists.id'], ),

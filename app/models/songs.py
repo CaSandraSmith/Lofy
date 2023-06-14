@@ -14,6 +14,7 @@ class Song(db.Model):
     artist_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('artists.id')), nullable=False)
     album_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('albums.id')), nullable=False)
     audio = db.Column(db.String(255), nullable=False)
+    length = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
@@ -27,6 +28,7 @@ class Song(db.Model):
             'id': self.id,
             'name': self.name,
             'artist_name': self.artist.name,
-            'audio': self.audio
+            'audio': self.audio,
+            'length': self.length
         }
 

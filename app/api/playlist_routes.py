@@ -6,6 +6,8 @@ from ..forms import EditPlaylistForm
 
 playlist_routes = Blueprint('playlist', __name__)
 
+
+# remove a song from a playlist
 @playlist_routes.route("/<int:playlist_id>/songs/<int:song_id>", methods=["DELETE"])
 def remove_song_from_playlist(playlist_id, song_id):
     playlist = Playlist.query.get(playlist_id)
@@ -28,6 +30,7 @@ def remove_song_from_playlist(playlist_id, song_id):
     return playlist.detailed_to_dict()
 
 
+# add a song to a playlist
 @playlist_routes.route("/<int:playlist_id>/songs/<int:song_id>", methods=["POST"])
 @login_required
 def add_song_to_playlist(playlist_id, song_id):
@@ -51,6 +54,7 @@ def add_song_to_playlist(playlist_id, song_id):
     return playlist.detailed_to_dict()
 
 
+# delete a playlist
 @playlist_routes.route("/<int:id>", methods=["DELETE"])
 @login_required
 def delete_playlist(id):
@@ -67,6 +71,7 @@ def delete_playlist(id):
     return {"message": "Playlist successfully deleted"}
 
 
+# edit the details of a playlist
 @playlist_routes.route("/<int:id>", methods=["PUT"])
 @login_required
 def edit_playlist(id):
@@ -94,6 +99,7 @@ def edit_playlist(id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
+# create new playlist
 @playlist_routes.route("/new", methods=["POST"])
 @login_required
 def create_new_playlist():
