@@ -10,3 +10,6 @@ class Artist(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
+
+    songs = db.Relationship('Song', back_populates='artist', cascade="all, delete-orphan")
+    albums = db.Relationship('Album', back_populates='artist', cascade="all, delete-orphan")

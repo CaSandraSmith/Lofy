@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
+from .tables import playlist_songs
 
 
 class Playlist(db.Model):
@@ -13,3 +14,13 @@ class Playlist(db.Model):
     name = db.Column(db.String(100), nullable=False)
     cover_image = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(300), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
+
+    songs = db.Relationship('Song',
+                             back_populates='playlists', 
+                             secondary=playlist_songs)
+    reviews = db.Relationship('PlaylistReview',
+                              back_populates='playlist',
+                              cascade="all, delete-orphan")
+    user = db.Relationship('User', back_populates="playlists")

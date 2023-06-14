@@ -18,6 +18,14 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
+    reviews = db.Relationship('PlaylistReview',
+                              back_populates='user',
+                              cascade='all, delete')
+    playlists = db.Relationship('Playlist', 
+                                back_populates='user',
+                                cascade='all, delete'
+                                )
+    
     @property
     def password(self):
         return self.hashed_password
