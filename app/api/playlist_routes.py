@@ -5,7 +5,7 @@ from ..models import Playlist, User, db
 
 playlist_routes = Blueprint('playlist', __name__)
 
-@playlist_routes.route("/new", methods={"POST"})
+@playlist_routes.route("/new", methods=["POST"])
 @login_required
 def create_new_playlist():
     user = User.query.get(current_user.id)
@@ -16,7 +16,7 @@ def create_new_playlist():
         name=f"My playlist #{user_playlists_count + 1}",
         cover_image="google.com",
     )
-    
+
     db.session.add(new_playlist)
     db.session.commit()
     return new_playlist.to_dict()
