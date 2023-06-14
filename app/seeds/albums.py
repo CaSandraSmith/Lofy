@@ -7,19 +7,19 @@ def seed_albums():
         artist_id=1
     )
     album2 = Album (
-        name="album1",
+        name="album2",
         artist_id=2
     )
     album3 = Album (
-        name="album1",
+        name="album3",
         artist_id=3
     )
     album4 = Album (
-        name="album1",
+        name="album4",
         artist_id=4
     )
     album5 = Album (
-        name="album1",
+        name="album5",
         artist_id=5
     )
     db.session.add(album1)
