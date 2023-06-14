@@ -1,0 +1,41 @@
+.whole-splash-page {
+    background: linear-gradient(315deg, #6c0ee0, #e333ac);
+    min-width: 100vh;
+    min-height: 100vh;
+    position: relative;
+}
+
+.circle-one {
+    /* border: 2px solid black; */
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: linear-gradient(#c42ab9, #a21fc8);
+    top: 15%;
+}
+
+.circle-two {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    overflow: hidden;
+    top: 50%;
+    left: 30%;
+    background-color: #8516d5;
+}
+
+.circle-three {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: linear-gradient(315deg, #6e0fe0, #a01ec9);
+    right: 0;
+}
+
+.slash-page-text {
+    position: absolute;
+    z-index: 20000;
+}
