@@ -3,6 +3,7 @@
     min-width: 100vh;
     min-height: 100vh;
     overflow: hidden;
+    z-index: -1;
     position: relative;
 }
 
@@ -39,5 +40,4 @@
 
 .slash-page-text {
     position: absolute;
-    z-index: 20000;
 }
