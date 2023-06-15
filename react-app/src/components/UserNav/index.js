@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { findCurrentUserPlaylists } from "../../store/playlists"
+import { findCurrentUserPlaylists, createNewPlaylist } from "../../store/playlists"
 import { useEffect } from "react"
 
 export default function UserNav() {
@@ -10,6 +10,11 @@ export default function UserNav() {
     useEffect(() => {
         dispatch(findCurrentUserPlaylists())
     }, [dispatch])
+
+    let handleNewPlaylistClick = async () => {
+        let playlist = await dispatch(createNewPlaylist())
+        console.log("playlist", playlist)
+    }
 
     return (
         <div>
@@ -30,7 +35,7 @@ export default function UserNav() {
                         <p>Your library</p>
                     </div>
                     <div>
-                        <i className="fa-solid fa-plus"></i>
+                        <i className="fa-solid fa-plus" onClick={handleNewPlaylistClick}></i>
                     </div>
                 </div>
                 <div>
