@@ -117,6 +117,36 @@ def create_new_playlist():
     return new_playlist.general_to_dict()
 
 
+# get playlists of current user
+@playlist_routes.route("/current")
+@login_required
+def playlists_of_current_user():
+    user = User.query.get(current_user.id)
+
+    if not user:
+        return {"errors": "User couldn't be found"}
+    
+    user_playlists = {}
+    for playlist in user.playlists:
+        user_playlists[playlist.id] = playlist.detailed_to_dict()
+
+    return user_playlists
+
+
+# get playlists of user
+@playlist_routes.route("/user/<int:id>")
+def playlists_of_user(id):
+    user = User.query.get(id)
+
+    if not user:
+        return {"errors":"User couldn't be found"}
+    
+    user_playlists = {}
+    for playlist in user.playlists:
+        user_playlists[playlist.id] = playlist.general_to_dict()
+    
+    return user_playlists
+
 # get playlist by id
 @playlist_routes.route("/<int:id>")
 def one_playlist(id):
