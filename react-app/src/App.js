@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import SplashPage from "./components/HomePage/SplashPage";
 import HomePage from "./components/HomePage";
+import SinglePlaylistPage from "./components/SinglePlaylistPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,22 +20,27 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
       {isLoaded && (
-        <Switch>
-          <Route path="/login" >
-            <LoginFormPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-          <Route path="/home">
-            <HomePage />
-          </Route>
-          <Route exact path="/">
-            <SplashPage />
-          </Route>
-        </Switch>
+        <div>
+          <Switch>
+            <Route path="/home/playlist/:id">
+              <SinglePlaylistPage />
+            </Route>
+            <Route path="/home">
+              <HomePage />
+            </Route>
+            <Route path="/login" >
+              <LoginFormPage />
+            </Route>
+            <Route path="/signup">
+              <SignupFormPage />
+            </Route>
+            <Route exact path="/">
+              <Navigation isLoaded={isLoaded} />
+              <SplashPage />
+            </Route>
+          </Switch>
+        </div>
       )}
     </>
   );

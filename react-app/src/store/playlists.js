@@ -1,5 +1,6 @@
 const GET_CURRENT_USER_PLAYLISTS = "playlists/currentUser"
 const CREATE_PLAYLIST = "playlists/create"
+const GET_SINGLE_PLAYLIST = "playlists/getOne"
 
 
 const getCurrentUserPlaylists = (playlists) => ({
@@ -12,6 +13,10 @@ const createPlaylist = (playlist) => ({
     playlist
 })
 
+const getPlaylist = (playlist) => ({
+    type: GET_SINGLE_PLAYLIST,
+    playlist
+})
 
 export const findCurrentUserPlaylists = () => async (dispatch) => {
     let res = await fetch("/api/playlists/current")
@@ -42,10 +47,25 @@ export const createNewPlaylist = () => async(dispatch) => {
     }
 }
 
+export const getOnePlaylist = (id) => async (dispatch) => {
+    let res = await fetch(`/api/playlists/${id}`)
+
+    if (res.ok) {
+        let playlist = await res.json()
+        dispatch(getPlaylist(playlist))
+        return playlist
+    } else {
+        let errors = await res.json()
+        return errors
+    }
+}
+
 let initialState = {allPlaylists: {}, singlePlaylist: {}, currentUserPlaylists: {}}
 
 export default function playlistReducer(state = initialState, action) {
     switch (action.type) {
+        case GET_SINGLE_PLAYLIST:
+            return {...state, singlePlaylist: {...action.playlist}}
         case CREATE_PLAYLIST:
             return {...state, currentUserPlaylists: {...state.currentUserPlaylists, [action.playlist.id]: action.playlist}}
         case GET_CURRENT_USER_PLAYLISTS:

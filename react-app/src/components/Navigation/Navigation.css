@@ -5,3 +5,10 @@
 .hidden {
   display: none;
 }
+
+.navbar-full {
+  position: fixed;
+  background-color: red;
+  z-index: 2;
+  height: 60px;
+}
