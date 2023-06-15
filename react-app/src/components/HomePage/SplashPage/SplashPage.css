@@ -1,14 +1,14 @@
 .whole-splash-page {
     background: linear-gradient(315deg, #6c0ee0, #e333ac);
-    min-width: 100vh;
-    min-height: 100vh;
+    width: 100%;
+    height: calc(100vh - 140px);
     overflow: hidden;
     z-index: -1;
     position: relative;
+    /* top: 0px; */
 }
 
 .circle-one {
-    /* border: 2px solid black; */
     position: absolute;
     width: 500px;
     height: 500px;

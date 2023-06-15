@@ -21,23 +21,40 @@ function App() {
   return (
     <>
       {isLoaded && (
-        <div>
+        <div className="entire-page">
+          <div className="home">
+            <Switch>
+              <Route exact path="/">
+                <div className="splash-page-display">
+
+                  <Navigation isLoaded={isLoaded} />
+                  <SplashPage />
+                </div>
+              </Route>
+              <Route path="/">
+                <HomePage />
+              </Route>
+            </Switch>
+
+            <Switch>
+              <Route path="/home/playlist/:id">
+                <SinglePlaylistPage />
+              </Route>
+              <Route path="/login" >
+                <LoginFormPage />
+              </Route>
+              <Route path="/signup">
+                <SignupFormPage />
+              </Route>
+            </Switch>
+          </div>
+
           <Switch>
-            <Route path="/home/playlist/:id">
-              <SinglePlaylistPage />
-            </Route>
-            <Route path="/home">
-              <HomePage />
-            </Route>
-            <Route path="/login" >
-              <LoginFormPage />
-            </Route>
-            <Route path="/signup">
-              <SignupFormPage />
-            </Route>
             <Route exact path="/">
-              <Navigation isLoaded={isLoaded} />
-              <SplashPage />
+              <h1>Hello</h1>
+            </Route>
+            <Route path="/">
+              <h2>Goodbye</h2>
             </Route>
           </Switch>
         </div>

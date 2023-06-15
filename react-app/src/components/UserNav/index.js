@@ -45,7 +45,7 @@ export default function UserNav() {
                     {playlistArr.length ?
                         <div >
                             {playlistArr.map(playlist => (
-                                <div onClick={() => history.push(`/home/playlists/${playlist.id}`)}>
+                                <div onClick={() => history.push(`/home/playlist/${playlist.id}`)}>
                                     {playlist.name}
                                 </div>
                             ))}
