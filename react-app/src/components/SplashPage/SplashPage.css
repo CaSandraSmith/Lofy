@@ -2,6 +2,7 @@
     background: linear-gradient(315deg, #6c0ee0, #e333ac);
     min-width: 100vh;
     min-height: 100vh;
+    overflow: hidden;
     position: relative;
 }
 
@@ -24,6 +25,7 @@
     top: 50%;
     left: 30%;
     background-color: #8516d5;
+    overflow: hidden;
 }
 
 .circle-three {
