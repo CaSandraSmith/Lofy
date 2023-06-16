@@ -3,6 +3,7 @@ const CREATE_PLAYLIST = "playlists/create"
 const GET_SINGLE_PLAYLIST = "playlists/getOne"
 const DELETE_PLAYLIST = "playlist/delete"
 const CLEAR_SINGLE_PLAYLIST = "playlist/clear"
+const UPDATE_PLAYLIST = "playlist/updateDetails"
 
 const getCurrentUserPlaylists = (playlists) => ({
     type: GET_CURRENT_USER_PLAYLISTS,
@@ -24,6 +25,12 @@ const deletePlaylist = (playlistId) => ({
     playlistId
 })
 
+const updatePlaylistDetails = (playlist) => ({
+    type: UPDATE_PLAYLIST,
+    playlist
+})
+
+
 export const clearPlaylist = () => ({
     type: CLEAR_SINGLE_PLAYLIST
 })
@@ -42,7 +49,7 @@ export const findCurrentUserPlaylists = () => async (dispatch) => {
     }
 }
 
-export const createNewPlaylist = () => async(dispatch) => {
+export const createNewPlaylist = () => async (dispatch) => {
     let res = await fetch("/api/playlists/new", {
         method: "POST"
     })
@@ -85,23 +92,46 @@ export const deleteUserPlaylist = (playlistId) => async (dispatch) => {
     }
 }
 
-let initialState = {allPlaylists: {}, singlePlaylist: {}, currentUserPlaylists: {}}
+export const updatePlaylist = (playlistId, details) => async (dispatch) => {
+    let res = await fetch(`/api/playlists/${playlistId}`, {
+        method: "PUT",
+        body: details
+    })
+    if (res.ok) {
+        const playlist = await res.json()
+        dispatch(updatePlaylistDetails)
+        return playlist
+    } else {
+        let errors = await res.json()
+        return errors
+    }
+}
+
+let initialState = { allPlaylists: {}, singlePlaylist: {}, currentUserPlaylists: {} }
 
 export default function playlistReducer(state = initialState, action) {
     switch (action.type) {
+        case UPDATE_PLAYLIST:
+            let state2 = {...state, allPlaylists: {...state.allPlaylists}, singlePlaylist:{...state.singlePlaylist}, currentUserPlaylists: {...state.currentUserPlaylists}}
+
+            state2.allPlaylists[action.playlist.id] = action.playlist
+            state2.singlePlaylist = action.playlist
+            state2.currentUserPlaylists[action.playlist.id] = action.playlist
+            return state2
         case CLEAR_SINGLE_PLAYLIST:
-            return {...state, allPlaylists:{...state.allPlaylists}, singlePlaylist: {}, currentUserPlaylists: {...state.currentUserPlaylists}}
+            return { ...state, allPlaylists: { ...state.allPlaylists }, singlePlaylist: {}, currentUserPlaylists: { ...state.currentUserPlaylists } }
         case DELETE_PLAYLIST:
-            let state1 = {...state, allPlaylists:{...state.allPlaylists}, singlePlaylist: {...state.singlePlaylist}, currentUserPlaylists: {...state.currentUserPlaylists}}
+            let state1 = { ...state, allPlaylists: { ...state.allPlaylists }, singlePlaylist: { ...state.singlePlaylist }, currentUserPlaylists: { ...state.currentUserPlaylists } }
+            console.log(state1 === state)
             delete state.currentUserPlaylists[action.playlistId]
             return state1
         case GET_SINGLE_PLAYLIST:
-            return {...state, singlePlaylist: {...action.playlist}}
+            return { ...state, singlePlaylist: { ...action.playlist } }
         case CREATE_PLAYLIST:
-            return {...state, allPlaylists:{...state.allPlaylists}, singlePlaylist: {...state.singlePlaylist}, currentUserPlaylists: {...state.currentUserPlaylists, [action.playlist.id]: action.playlist}}
+            return { ...state, allPlaylists: { ...state.allPlaylists }, singlePlaylist: { ...state.singlePlaylist }, currentUserPlaylists: { ...state.currentUserPlaylists, [action.playlist.id]: action.playlist } }
         case GET_CURRENT_USER_PLAYLISTS:
-            return {...state, currentUserPlaylists: {...action.playlists}}
+            return { ...state, currentUserPlaylists: { ...action.playlists } }
         default:
-            return state 
+            return state
     }
 }
