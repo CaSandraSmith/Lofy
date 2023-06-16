@@ -3,3 +3,7 @@
     height: 85vh;
     border: 2px solid black;
 }
+
+.user-playlists-names {
+    cursor: pointer;
+}

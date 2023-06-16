@@ -29,6 +29,10 @@ class Song(db.Model):
             'name': self.name,
             'artist_name': self.artist.name,
             'audio': self.audio,
-            'length': self.length
+            'length': self.length,
+            'album': {
+                "id" : self.album.id,
+                "name" : self.album.name
+                }
         }
 

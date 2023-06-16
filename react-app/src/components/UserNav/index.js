@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom"
 import { findCurrentUserPlaylists, createNewPlaylist } from "../../store/playlists"
 import "./UserNav.css"
 
@@ -43,9 +43,9 @@ export default function UserNav() {
                 </div>
                 <div>
                     {playlistArr.length ?
-                        <div >
+                        <div>
                             {playlistArr.map(playlist => (
-                                <div onClick={() => history.push(`/home/playlist/${playlist.id}`)}>
+                                <div className="user-playlists-names" onClick={() => history.push(`/playlist/${playlist.id}`)}>
                                     {playlist.name}
                                 </div>
                             ))}

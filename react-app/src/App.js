@@ -26,7 +26,6 @@ function App() {
             <Switch>
               <Route exact path="/">
                 <div className="splash-page-display">
-
                   <Navigation isLoaded={isLoaded} />
                   <SplashPage />
                 </div>
@@ -37,7 +36,7 @@ function App() {
             </Switch>
 
             <Switch>
-              <Route path="/home/playlist/:id">
+              <Route path="/playlist/:id">
                 <SinglePlaylistPage />
               </Route>
               <Route path="/login" >
@@ -51,10 +50,10 @@ function App() {
 
           <Switch>
             <Route exact path="/">
-              <h1>Hello</h1>
+              <h1>Info</h1>
             </Route>
             <Route path="/">
-              <h2>Goodbye</h2>
+              <h2>Insert Player Here</h2>
             </Route>
           </Switch>
         </div>
