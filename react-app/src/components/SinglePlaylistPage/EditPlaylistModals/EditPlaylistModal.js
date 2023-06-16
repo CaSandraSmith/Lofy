@@ -2,6 +2,7 @@ import { useState } from "react"
 import { updatePlaylist } from "../../../store/playlists"
 import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
+import { useModal } from "../../../context/Modal"
 
 export default function EditPlaylistModal({ playlist, value, setter }) {
     const dispatch = useDispatch()
@@ -9,13 +10,15 @@ export default function EditPlaylistModal({ playlist, value, setter }) {
     const [image, setImage] = useState(playlist.cover_image)
     const [name, setName] = useState(playlist.name)
     const [desc, setDesc] = useState(playlist.description ? playlist.description : "")
+    const { closeModal } = useModal()
 
     let handleSubmit = async (e) => {
+        console.log("helloooooo")
         e.preventDefault()
 
         let data = {
             name,
-            desc
+            description: desc
         }
         console.log("DATA", data)
         let updatedPlaylist = await dispatch(updatePlaylist(playlist.id, data))
@@ -23,9 +26,8 @@ export default function EditPlaylistModal({ playlist, value, setter }) {
         if (updatedPlaylist.errors) {
             return playlist
         } else {
-            console.log("value", value)
             setter(true)
-            console.log("value", value)
+            closeModal()
             // history.push(`/playlist/${playlist.id}`)
         }
     }

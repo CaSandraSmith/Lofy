@@ -39,7 +39,6 @@ export const findCurrentUserPlaylists = () => async (dispatch) => {
     let res = await fetch("/api/playlists/current")
 
     if (res.ok) {
-        console.log("hello")
         let playlists = await res.json()
         dispatch(getCurrentUserPlaylists(playlists))
         return playlists
@@ -93,7 +92,6 @@ export const deleteUserPlaylist = (playlistId) => async (dispatch) => {
 }
 
 export const updatePlaylist = (playlistId, details) => async (dispatch) => {
-    console.log("DETAILES", details)
     let res = await fetch(`/api/playlists/${playlistId}`, {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
@@ -101,7 +99,7 @@ export const updatePlaylist = (playlistId, details) => async (dispatch) => {
     })
     if (res.ok) {
         const playlist = await res.json()
-        dispatch(updatePlaylistDetails)
+        dispatch(updatePlaylistDetails(playlist))
         return playlist
     } else {
         let errors = await res.json()
@@ -124,8 +122,7 @@ export default function playlistReducer(state = initialState, action) {
             return { ...state, allPlaylists: { ...state.allPlaylists }, singlePlaylist: {}, currentUserPlaylists: { ...state.currentUserPlaylists } }
         case DELETE_PLAYLIST:
             let state1 = { ...state, allPlaylists: { ...state.allPlaylists }, singlePlaylist: { ...state.singlePlaylist }, currentUserPlaylists: { ...state.currentUserPlaylists } }
-            console.log(state1 === state)
-            delete state.currentUserPlaylists[action.playlistId]
+            delete state1.currentUserPlaylists[action.playlistId]
             return state1
         case GET_SINGLE_PLAYLIST:
             return { ...state, singlePlaylist: { ...action.playlist } }

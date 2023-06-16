@@ -15,10 +15,6 @@ export default function LibraryBar() {
         dispatch(findCurrentUserPlaylists())
     }, [dispatch])
 
-    // useEffect(() => {
-
-    // })
-
     let handleNewPlaylistClick = async () => {
         let playlist = await dispatch(createNewPlaylist())
     }

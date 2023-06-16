@@ -20,14 +20,10 @@ export default function SinglePlaylistPage() {
     const [loading, setLoading] = useState(false)
     const [editPlaylistMenuOpen, setEditPlaylistMenuOpen] = useState(false)
     const [playlistEdits, setPlaylistEdits] = useState(false)
-    const [playing, setPlaying] = useState(false)
     const { setAudio } = useAudio()
-    // const [deleted, setDeleted] = useState(false)
-    console.log("playlistEdits", playlistEdits)
 
     useEffect(() => {
         dispatch(getOnePlaylist(id)).then(() => setLoading(true))
-        // return () => dispatch(clearPlaylist())
     }, [dispatch, id, playlistEdits])
 
     useEffect(() => {
@@ -94,6 +90,7 @@ export default function SinglePlaylistPage() {
                 <div>
                     <p>Playlist</p>
                     <h1>{playlist.name}</h1>
+                    <p>{playlist.description}</p>
                 </div>
                 <div>
                     <div>
