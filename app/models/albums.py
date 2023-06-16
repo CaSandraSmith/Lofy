@@ -10,6 +10,7 @@ class Album(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     artist_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('artists.id')), nullable=False)
+    cover_image = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
@@ -17,3 +18,10 @@ class Album(db.Model):
     songs = db.relationship('Song',
                              back_populates='album',
                              cascade="all, delete-orphan")
+    
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "artist": self.artist.name,
+            "songs": {song.id: song.general_to_dict() for song in self.songs}
+        }

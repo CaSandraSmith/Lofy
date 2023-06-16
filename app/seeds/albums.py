@@ -4,22 +4,27 @@ from sqlalchemy.sql import text
 def seed_albums():
     album1 = Album (
         name="album1",
+        cover_image="google.com",
         artist_id=1
     )
     album2 = Album (
         name="album2",
+        cover_image="google.com",
         artist_id=2
     )
     album3 = Album (
         name="album3",
+        cover_image="google.com",
         artist_id=3
     )
     album4 = Album (
         name="album4",
+        cover_image="google.com",
         artist_id=4
     )
     album5 = Album (
         name="album5",
+        cover_image="google.com",
         artist_id=5
     )
     db.session.add(album1)

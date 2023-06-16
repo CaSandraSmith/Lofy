@@ -22,7 +22,16 @@ class Song(db.Model):
     album = db.relationship('Album', back_populates='songs')
     playlists = db.relationship('Playlist', 
                                 back_populates='songs',secondary=playlist_songs,)
-    
+
+    def general_to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'audio': self.audio,
+            'length': self.length,
+        }
+
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -32,7 +41,8 @@ class Song(db.Model):
             'length': self.length,
             'album': {
                 "id" : self.album.id,
-                "name" : self.album.name
+                "name" : self.album.name,
+                "cover_image": self.album.cover_image
                 }
         }
 
