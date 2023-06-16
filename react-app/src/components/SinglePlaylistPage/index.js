@@ -42,12 +42,6 @@ export default function SinglePlaylistPage() {
 
     if (!loading) return <h1>Loading</h1>
 
-    // this is a bandaid for now, but the issue is that when a playlist is deleted, the browser attempts to go to the page, but the page no longer exsists, so it's throwing an error
-    if (!playlist) {
-        // setDeleted(true)
-        // history.push("/home")
-        return
-    }
     console.log("playlist", playlist)
     let songsArr = Object.values(playlistSongs)
 

@@ -22,7 +22,7 @@ export default function LibraryBar() {
     return (
         <div className="full-user-nav">
             <div>
-                <div>
+                <div onClick={() => history.push("/home")}>
                     <i className="fa-solid fa-house"></i>
                     <p>Home</p>
                 </div>

@@ -4,12 +4,13 @@ import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
-import Navigation from "./components/Navigation";
+import Navigation from "./components/NavigationBar/SplashPageNav";
 import SplashPage from "./components/HomePage/SplashPage";
-// import HomePage from "./components/HomePage";
+import HomePage from "./components/HomePage";
 import LibraryBar from "./components/ConstantUserNav/LibraryBar"
 import SinglePlaylistPage from "./components/SinglePlaylistPage";
 import AudioBar from "./components/ConstantUserNav/AudioBar";
+import GeneralNav from "./components/NavigationBar/GeneralNav";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,12 +40,19 @@ function App() {
 
             <Switch>
               <Route path="/playlist/:id">
+                <GeneralNav />
                 <SinglePlaylistPage />
               </Route>
+              <Route path="/home">
+                <GeneralNav />
+                <HomePage />
+              </Route>
               <Route path="/login" >
+                <GeneralNav />
                 <LoginFormPage />
               </Route>
               <Route path="/signup">
+                <GeneralNav />
                 <SignupFormPage />
               </Route>
             </Switch>
