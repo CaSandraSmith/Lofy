@@ -20,7 +20,7 @@ export default function SinglePlaylistPage() {
     const [editPlaylistMenuOpen, setEditPlaylistMenuOpen] = useState(false)
     const [playlistEdits, setPlaylistEdits] = useState(false)
     const [playing, setPlaying] = useState(false)
-    const [audio, setAudio] = useState()
+    const [audio, setAudio] = useState("")
     // const [deleted, setDeleted] = useState(false)
     console.log("playlistEdits", playlistEdits)
 
@@ -82,8 +82,10 @@ export default function SinglePlaylistPage() {
         setEditPlaylistMenuOpen(false)
     }
 
-    function handleAudio() {
-
+    function handleAudio(audio) {
+        setAudio(audio)
+        setPlaying(true)
+        console.log("audio", audio)
     }
 
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
@@ -162,8 +164,8 @@ export default function SinglePlaylistPage() {
                     :
                     <SinglePlaylistSearch />
                 }
-                <audio src={audio}/>
             </div>
+                <audio src={audio} controls autoPlay></audio>
         </div>
     )
 }
