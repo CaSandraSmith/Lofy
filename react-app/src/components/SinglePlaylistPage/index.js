@@ -19,6 +19,8 @@ export default function SinglePlaylistPage() {
     const [loading, setLoading] = useState(false)
     const [editPlaylistMenuOpen, setEditPlaylistMenuOpen] = useState(false)
     const [playlistEdits, setPlaylistEdits] = useState(false)
+    const [playing, setPlaying] = useState(false)
+    const [audio, setAudio] = useState()
     // const [deleted, setDeleted] = useState(false)
     console.log("playlistEdits", playlistEdits)
 
@@ -80,6 +82,10 @@ export default function SinglePlaylistPage() {
         setEditPlaylistMenuOpen(false)
     }
 
+    function handleAudio() {
+
+    }
+
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
 
     return (
@@ -135,7 +141,7 @@ export default function SinglePlaylistPage() {
                             </thead>
                             <tbody>
                                 {songsArr.map((song, i) => (
-                                    <tr>
+                                    <tr onClick={() => handleAudio(song.audio)}>
                                         <td>{i + 1}</td>
                                         <td>
                                             <div>
@@ -156,6 +162,7 @@ export default function SinglePlaylistPage() {
                     :
                     <SinglePlaylistSearch />
                 }
+                <audio src={audio}/>
             </div>
         </div>
     )
