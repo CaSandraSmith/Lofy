@@ -1,14 +1,39 @@
 import { useState } from "react"
+import { updatePlaylist } from "../../../store/playlists"
+import { useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
 
-export default function EditPlaylistModal({ playlist }) {
+export default function EditPlaylistModal({ playlist, value, setter }) {
+    const dispatch = useDispatch()
+    const history = useHistory()
     const [image, setImage] = useState(playlist.cover_image)
     const [name, setName] = useState(playlist.name)
-    const [desc, setDesc] = useState(playlist.description ? playlist.description : null)
+    const [desc, setDesc] = useState(playlist.description ? playlist.description : "")
 
-    console.log(name.length)
+    let handleSubmit = async (e) => {
+        e.preventDefault()
+
+        let data = {
+            name,
+            desc
+        }
+        console.log("DATA", data)
+        let updatedPlaylist = await dispatch(updatePlaylist(playlist.id, data))
+
+        if (updatedPlaylist.errors) {
+            return playlist
+        } else {
+            console.log("value", value)
+            setter(true)
+            console.log("value", value)
+            // history.push(`/playlist/${playlist.id}`)
+        }
+    }
+
+    
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <h3>Edit details</h3>
                     <i class="fa-solid fa-xmark"></i>

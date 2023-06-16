@@ -84,13 +84,15 @@ def edit_playlist(id):
         return {"errors": "You can't edit a playlist that's not yours"}
     
     form = EditPlaylistForm()
-
+    print("DATAAA", form.data)
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
         data = form.data
         playlist.name = data["name"]
         playlist.cover_image = data["cover_image"]
         playlist.description = data["description"]
+        playlist.cover_image = "doodles"
         db.session.commit()
 
         return playlist.detailed_to_dict()

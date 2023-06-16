@@ -11,20 +11,21 @@ import "./SinglePlaylistPage.css"
 export default function SinglePlaylistPage() {
     const dispatch = useDispatch()
     const editPlaylistRef = useRef()
-    const history = useHistory
+    const history = useHistory()
     const { setModalContent } = useModal()
     const { id } = useParams()
     let playlist = useSelector(state => state.playlists.singlePlaylist)
     let playlistSongs = useSelector(state => state.playlists.singlePlaylist.songs)
     const [loading, setLoading] = useState(false)
     const [editPlaylistMenuOpen, setEditPlaylistMenuOpen] = useState(false)
+    const [playlistEdits, setPlaylistEdits] = useState(false)
     // const [deleted, setDeleted] = useState(false)
-
+    console.log("playlistEdits", playlistEdits)
 
     useEffect(() => {
         dispatch(getOnePlaylist(id)).then(() => setLoading(true))
         // return () => dispatch(clearPlaylist())
-    }, [dispatch, id])
+    }, [dispatch, id, playlistEdits])
 
     useEffect(() => {
         if (!editPlaylistMenuOpen) return;
@@ -70,7 +71,7 @@ export default function SinglePlaylistPage() {
     }
 
     function editPlaylistClick() {
-        setModalContent(<EditPlaylistModal playlist={playlist} />)
+        setModalContent(<EditPlaylistModal playlist={playlist} value={playlistEdits} setter={(x) => setPlaylistEdits(x)}/>)
         setEditPlaylistMenuOpen(false)
     }
 
