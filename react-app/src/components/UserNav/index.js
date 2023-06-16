@@ -9,10 +9,11 @@ export default function UserNav() {
     const history = useHistory()
     const playlists = useSelector(state => state.playlists.currentUserPlaylists)
     const playlistArr = Object.values(playlists)
+    let playlistsLength = playlistArr.length
 
     useEffect(() => {
         dispatch(findCurrentUserPlaylists())
-    }, [dispatch])
+    }, [dispatch, playlistsLength])
 
     let handleNewPlaylistClick = async () => {
         let playlist = await dispatch(createNewPlaylist())

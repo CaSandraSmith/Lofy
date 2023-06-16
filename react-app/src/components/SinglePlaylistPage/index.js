@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import { useModal } from "../../context/Modal"
-import { getOnePlaylist } from "../../store/playlists"
+import { getOnePlaylist, clearPlaylist } from "../../store/playlists"
 import SinglePlaylistSearch from "./SinglePlaylistSearch"
 import DeletePlaylistModal from "./EditPlaylistModals/DeletePlaylistModal"
 import EditPlaylistModal from "./EditPlaylistModals/EditPlaylistModal"
@@ -11,16 +11,19 @@ import "./SinglePlaylistPage.css"
 export default function SinglePlaylistPage() {
     const dispatch = useDispatch()
     const editPlaylistRef = useRef()
+    const history = useHistory
     const { setModalContent } = useModal()
     const { id } = useParams()
     let playlist = useSelector(state => state.playlists.singlePlaylist)
     let playlistSongs = useSelector(state => state.playlists.singlePlaylist.songs)
     const [loading, setLoading] = useState(false)
     const [editPlaylistMenuOpen, setEditPlaylistMenuOpen] = useState(false)
+    // const [deleted, setDeleted] = useState(false)
 
 
     useEffect(() => {
         dispatch(getOnePlaylist(id)).then(() => setLoading(true))
+        // return () => dispatch(clearPlaylist())
     }, [dispatch, id])
 
     useEffect(() => {
@@ -37,8 +40,15 @@ export default function SinglePlaylistPage() {
         return () => document.removeEventListener("click", closeMenu);
     }, [editPlaylistMenuOpen]);
 
-
     if (!loading) return <h1>Loading</h1>
+
+    // this is a bandaid for now, but the issue is that when a playlist is deleted, the browser attempts to go to the page, but the page no longer exsists, so it's throwing an error
+    if (!playlist) {
+        // setDeleted(true)
+        // history.push("/home")
+        return
+    }
+    console.log("playlist", playlist)
     let songsArr = Object.values(playlistSongs)
 
     let convertLength = () => {
@@ -65,7 +75,7 @@ export default function SinglePlaylistPage() {
     }
 
     function deletePlaylistClick() {
-        setModalContent(<DeletePlaylistModal playlist={playlist} />)
+        setModalContent(<DeletePlaylistModal playlist={playlist}/>)
         setEditPlaylistMenuOpen(false)
     }
 

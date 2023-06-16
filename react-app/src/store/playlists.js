@@ -2,6 +2,7 @@ const GET_CURRENT_USER_PLAYLISTS = "playlists/currentUser"
 const CREATE_PLAYLIST = "playlists/create"
 const GET_SINGLE_PLAYLIST = "playlists/getOne"
 const DELETE_PLAYLIST = "playlist/delete"
+const CLEAR_SINGLE_PLAYLIST = "playlist/clear"
 
 const getCurrentUserPlaylists = (playlists) => ({
     type: GET_CURRENT_USER_PLAYLISTS,
@@ -18,9 +19,13 @@ const getPlaylist = (playlist) => ({
     playlist
 })
 
-const deletePlaylist = (playlist) => ({
+const deletePlaylist = (playlistId) => ({
     type: DELETE_PLAYLIST,
     playlistId
+})
+
+export const clearPlaylist = () => ({
+    type: CLEAR_SINGLE_PLAYLIST
 })
 
 export const findCurrentUserPlaylists = () => async (dispatch) => {
@@ -84,14 +89,16 @@ let initialState = {allPlaylists: {}, singlePlaylist: {}, currentUserPlaylists: 
 
 export default function playlistReducer(state = initialState, action) {
     switch (action.type) {
+        case CLEAR_SINGLE_PLAYLIST:
+            return {...state, allPlaylists:{...state.allPlaylists}, singlePlaylist: {}, currentUserPlaylists: {...state.currentUserPlaylists}}
         case DELETE_PLAYLIST:
-            let state1 = {...state, allPlaylists:{...state.allPlaylists}, singlePlaylist: {}, currentUserPlaylists: {...state.currentUserPlaylists}}
+            let state1 = {...state, allPlaylists:{...state.allPlaylists}, singlePlaylist: {...state.singlePlaylist}, currentUserPlaylists: {...state.currentUserPlaylists}}
             delete state.currentUserPlaylists[action.playlistId]
             return state1
         case GET_SINGLE_PLAYLIST:
             return {...state, singlePlaylist: {...action.playlist}}
         case CREATE_PLAYLIST:
-            return {...state, currentUserPlaylists: {...state.currentUserPlaylists, [action.playlist.id]: action.playlist}}
+            return {...state, allPlaylists:{...state.allPlaylists}, singlePlaylist: {...state.singlePlaylist}, currentUserPlaylists: {...state.currentUserPlaylists, [action.playlist.id]: action.playlist}}
         case GET_CURRENT_USER_PLAYLISTS:
             return {...state, currentUserPlaylists: {...action.playlists}}
         default:
