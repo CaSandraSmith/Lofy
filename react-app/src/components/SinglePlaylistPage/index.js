@@ -1,13 +1,17 @@
 import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
+import { useModal } from "../../context/Modal"
 import { getOnePlaylist } from "../../store/playlists"
 import SinglePlaylistSearch from "./SinglePlaylistSearch"
+import DeletePlaylistModal from "./EditPlaylistModals/DeletePlaylistModal"
+import EditPlaylistModal from "./EditPlaylistModals/EditPlaylistModal"
 import "./SinglePlaylistPage.css"
 
 export default function SinglePlaylistPage() {
     const dispatch = useDispatch()
     const editPlaylistRef = useRef()
+    const { setModalContent } = useModal()
     const { id } = useParams()
     let playlist = useSelector(state => state.playlists.singlePlaylist)
     let playlistSongs = useSelector(state => state.playlists.singlePlaylist.songs)
@@ -55,6 +59,16 @@ export default function SinglePlaylistPage() {
         return `${minutes}:${sec}`
     }
 
+    function editPlaylistClick() {
+        setModalContent(<EditPlaylistModal playlist={playlist}/>)
+        setEditPlaylistMenuOpen(false)
+    }
+
+    function deletePlaylistClick() {
+        setModalContent(<DeletePlaylistModal playlist={playlist}/>)
+        setEditPlaylistMenuOpen(false)
+    }
+
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
 
     return (
@@ -93,8 +107,8 @@ export default function SinglePlaylistPage() {
                     {songsArr.length ? <i className="fa-solid fa-play"></i> : null}
                     <i className="fa-solid fa-ellipsis" onClick={() => setEditPlaylistMenuOpen(!editPlaylistMenuOpen)}></i>
                     <div className={editMenuClassName} ref={editPlaylistRef}>
-                        <p>Edit Details</p>
-                        <p>Delete</p>
+                        <p onClick={editPlaylistClick}>Edit Details</p>
+                        <p onClick={deletePlaylistClick}>Delete</p>
                     </div>
                 </div>
                 {songsArr.length ?
