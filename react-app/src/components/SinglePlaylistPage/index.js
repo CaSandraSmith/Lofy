@@ -60,12 +60,12 @@ export default function SinglePlaylistPage() {
     }
 
     function editPlaylistClick() {
-        setModalContent(<EditPlaylistModal playlist={playlist}/>)
+        setModalContent(<EditPlaylistModal playlist={playlist} />)
         setEditPlaylistMenuOpen(false)
     }
 
     function deletePlaylistClick() {
-        setModalContent(<DeletePlaylistModal playlist={playlist}/>)
+        setModalContent(<DeletePlaylistModal playlist={playlist} />)
         setEditPlaylistMenuOpen(false)
     }
 
@@ -114,28 +114,32 @@ export default function SinglePlaylistPage() {
                 {songsArr.length ?
                     <div>
                         <table>
-                            <tr>
-                                <th>#</th>
-                                <th>Title</th>
-                                <th>Album</th>
-                                <th><i className="fa-regular fa-clock"></i></th>
-                            </tr>
-                            {songsArr.map((song, i) => (
+                            <thead>
                                 <tr>
-                                    <td>{i + 1}</td>
-                                    <td>
-                                        <div>
-                                            <img></img>
-                                            <div>
-                                                <p>{song.name}</p>
-                                                <p>{song.artist_name}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>{song.album.name}</td>
-                                    <td>{convertLengthTable(song.length)}</td>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Album</th>
+                                    <th><i className="fa-regular fa-clock"></i></th>
                                 </tr>
-                            ))}
+                            </thead>
+                            <tbody>
+                                {songsArr.map((song, i) => (
+                                    <tr>
+                                        <td>{i + 1}</td>
+                                        <td>
+                                            <div>
+                                                <img></img>
+                                                <div>
+                                                    <p>{song.name}</p>
+                                                    <p>{song.artist_name}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{song.album.name}</td>
+                                        <td>{convertLengthTable(song.length)}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
                         </table>
                     </div>
                     :
