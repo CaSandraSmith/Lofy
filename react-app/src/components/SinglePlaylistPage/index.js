@@ -1,20 +1,38 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { getOnePlaylist } from "../../store/playlists"
 import SinglePlaylistSearch from "./SinglePlaylistSearch"
+import "./SinglePlaylistPage.css"
 
 export default function SinglePlaylistPage() {
     const dispatch = useDispatch()
+    const editPlaylistRef = useRef()
     const { id } = useParams()
     let playlist = useSelector(state => state.playlists.singlePlaylist)
     let playlistSongs = useSelector(state => state.playlists.singlePlaylist.songs)
     const [loading, setLoading] = useState(false)
+    const [editPlaylistMenuOpen, setEditPlaylistMenuOpen] = useState(false)
 
 
     useEffect(() => {
         dispatch(getOnePlaylist(id)).then(() => setLoading(true))
     }, [dispatch, id])
+
+    useEffect(() => {
+        if (!editPlaylistMenuOpen) return;
+
+        const closeMenu = (e) => {
+            if (!editPlaylistRef.current.contains(e.target)) {
+                setEditPlaylistMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('click', closeMenu);
+
+        return () => document.removeEventListener("click", closeMenu);
+    }, [editPlaylistMenuOpen]);
+
 
     if (!loading) return <h1>Loading</h1>
     let songsArr = Object.values(playlistSongs)
@@ -36,6 +54,8 @@ export default function SinglePlaylistPage() {
         }
         return `${minutes}:${sec}`
     }
+
+    let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
 
     return (
         <div className="single-playlist-page">
@@ -69,38 +89,40 @@ export default function SinglePlaylistPage() {
                 </div>
             </div>
             <div>
+                <div className="single-playlist-options">
+                    {songsArr.length ? <i className="fa-solid fa-play"></i> : null}
+                    <i className="fa-solid fa-ellipsis" onClick={() => setEditPlaylistMenuOpen(!editPlaylistMenuOpen)}></i>
+                    <div className={editMenuClassName} ref={editPlaylistRef}>
+                        <p>Edit Details</p>
+                        <p>Delete</p>
+                    </div>
+                </div>
                 {songsArr.length ?
                     <div>
-                        <div>
-                            <i className="fa-solid fa-play"></i>
-                            <i className="fa-solid fa-ellipsis"></i>
-                        </div>
-                        <div>
-                            <table>
+                        <table>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Album</th>
+                                <th><i className="fa-regular fa-clock"></i></th>
+                            </tr>
+                            {songsArr.map((song, i) => (
                                 <tr>
-                                    <th>#</th>
-                                    <th>Title</th>
-                                    <th>Album</th>
-                                    <th><i className="fa-regular fa-clock"></i></th>
-                                </tr>
-                                {songsArr.map((song, i) => (
-                                    <tr>
-                                        <td>{i + 1}</td>
-                                        <td>
+                                    <td>{i + 1}</td>
+                                    <td>
+                                        <div>
+                                            <img></img>
                                             <div>
-                                                <img></img>
-                                                <div>
-                                                    <p>{song.name}</p>
-                                                    <p>{song.artist_name}</p>
-                                                </div>
+                                                <p>{song.name}</p>
+                                                <p>{song.artist_name}</p>
                                             </div>
-                                        </td>
-                                        <td>{song.album.name}</td>
-                                        <td>{convertLengthTable(song.length)}</td>
-                                    </tr>
-                                ))}
-                            </table>
-                        </div>
+                                        </div>
+                                    </td>
+                                    <td>{song.album.name}</td>
+                                    <td>{convertLengthTable(song.length)}</td>
+                                </tr>
+                            ))}
+                        </table>
                     </div>
                     :
                     <SinglePlaylistSearch />
