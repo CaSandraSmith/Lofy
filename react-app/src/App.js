@@ -6,8 +6,10 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import SplashPage from "./components/HomePage/SplashPage";
-import HomePage from "./components/HomePage";
+// import HomePage from "./components/HomePage";
+import LibraryBar from "./components/ConstantUserNav/LibraryBar"
 import SinglePlaylistPage from "./components/SinglePlaylistPage";
+import AudioBar from "./components/ConstantUserNav/AudioBar";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,7 +33,7 @@ function App() {
                 </div>
               </Route>
               <Route path="/">
-                <HomePage />
+                <LibraryBar />
               </Route>
             </Switch>
 
@@ -53,7 +55,7 @@ function App() {
               <h1>Info</h1>
             </Route>
             <Route path="/">
-              <h2>Insert Player Here</h2>
+              <AudioBar />
             </Route>
           </Switch>
         </div>

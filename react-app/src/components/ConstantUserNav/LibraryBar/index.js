@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { useHistory, Link } from "react-router-dom"
-import { findCurrentUserPlaylists, createNewPlaylist } from "../../store/playlists"
+import { findCurrentUserPlaylists, createNewPlaylist } from "../../../store/playlists"
 import "./UserNav.css"
 
-export default function UserNav() {
+export default function LibraryBar() {
     const dispatch = useDispatch()
     const history = useHistory()
     const playlists = useSelector(state => state.playlists.currentUserPlaylists)

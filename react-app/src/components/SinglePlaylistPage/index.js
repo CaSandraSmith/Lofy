@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
 import { useModal } from "../../context/Modal"
 import { getOnePlaylist, clearPlaylist } from "../../store/playlists"
+import { useAudio } from "../../context/Audio"
 import SinglePlaylistSearch from "./SinglePlaylistSearch"
 import DeletePlaylistModal from "./EditPlaylistModals/DeletePlaylistModal"
 import EditPlaylistModal from "./EditPlaylistModals/EditPlaylistModal"
@@ -20,7 +21,7 @@ export default function SinglePlaylistPage() {
     const [editPlaylistMenuOpen, setEditPlaylistMenuOpen] = useState(false)
     const [playlistEdits, setPlaylistEdits] = useState(false)
     const [playing, setPlaying] = useState(false)
-    const [audio, setAudio] = useState("")
+    const { setAudio } = useAudio()
     // const [deleted, setDeleted] = useState(false)
     console.log("playlistEdits", playlistEdits)
 
@@ -82,12 +83,6 @@ export default function SinglePlaylistPage() {
         setEditPlaylistMenuOpen(false)
     }
 
-    function handleAudio(audio) {
-        setAudio(audio)
-        setPlaying(true)
-        console.log("audio", audio)
-    }
-
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
 
     return (
@@ -143,7 +138,7 @@ export default function SinglePlaylistPage() {
                             </thead>
                             <tbody>
                                 {songsArr.map((song, i) => (
-                                    <tr onClick={() => handleAudio(song.audio)}>
+                                    <tr onClick={() => setAudio(song.audio)}>
                                         <td>{i + 1}</td>
                                         <td>
                                             <div>
@@ -165,7 +160,6 @@ export default function SinglePlaylistPage() {
                     <SinglePlaylistSearch />
                 }
             </div>
-                <audio src={audio} controls autoPlay></audio>
         </div>
     )
 }
