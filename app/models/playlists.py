@@ -12,7 +12,7 @@ class Playlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     name = db.Column(db.String(100), nullable=False)
-    cover_image = db.Column(db.String(255), nullable=False, default="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png")
+    cover_image = db.Column(db.String(255))
     description = db.Column(db.String(300))
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)

@@ -10,17 +10,33 @@ export default function EditPlaylistModal({ playlist, value, setter }) {
     const [image, setImage] = useState(playlist.cover_image)
     const [name, setName] = useState(playlist.name)
     const [desc, setDesc] = useState(playlist.description ? playlist.description : "")
+    const [errors, setErrors] = useState({})
+    // const [submit, setSubmit] = useState(false)
     const { closeModal } = useModal()
 
     let handleSubmit = async (e) => {
-        console.log("helloooooo")
         e.preventDefault()
+
+        let valErrors = {}
+        if (!name) {
+            valErrors.name = "Name is required"
+        }
+        if (name.length > 100) {
+            valErrors.name = "Name must be less that 100 characters"
+        }
+        if (desc.length > 300) {
+            valErrors.desc = "Description must be less than 300 characters"
+        }
+        if (Object.values(valErrors).length) {
+            setErrors(valErrors)
+            return
+        }
 
         let data = {
             name,
             description: desc
         }
-        console.log("DATA", data)
+
         let updatedPlaylist = await dispatch(updatePlaylist(playlist.id, data))
 
         if (updatedPlaylist.errors) {
@@ -28,7 +44,6 @@ export default function EditPlaylistModal({ playlist, value, setter }) {
         } else {
             setter(true)
             closeModal()
-            // history.push(`/playlist/${playlist.id}`)
         }
     }
 
@@ -50,11 +65,11 @@ export default function EditPlaylistModal({ playlist, value, setter }) {
                 </div>
                 <div>
                     <label>
-                        {/* <input
+                        <input
                         type="file"
                         accept="image/*"
                         onChange={(e) => setImage(e.target.files[0])}
-                    /> */}
+                    />
                     </label>
                     <div>
                         <label>

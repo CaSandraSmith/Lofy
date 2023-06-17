@@ -46,12 +46,18 @@ export default function LibraryBar() {
                     {playlistArr.length ?
                         <div>
                             {playlistArr.map(playlist => (
-                                <div className="user-playlists-names" onClick={() => history.push(`/playlist/${playlist.id}`)}>
+                                <div className="user-playlists-info" onClick={() => history.push(`/playlist/${playlist.id}`)}>
+                                    <img className="user-playlists-cover-image" 
+                                    src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"} 
+                                    alt={`Playlist ${playlist.name} cover image`}/>
                                     <p className="library-playlist-name">{playlist.name}</p>
                                 </div>
                             ))}
                         </div>
-                        : null
+                        : <div>
+                            <p>Create your first playlist</p>
+                            <p>It's easy, we'll help you</p>
+                        </div>
                     }
                 </div>
             </div>

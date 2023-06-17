@@ -6,8 +6,18 @@
     grid-template-rows: 20% 80%;
 }
 
-.user-playlists-names {
+.user-playlists-info {
     cursor: pointer;
+    height: 60px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.user-playlists-info:hover {
+    background-color: #1a1a1a;
 }
 
 .library-home-and-search {
@@ -65,4 +75,15 @@
 
 .library-playlist-name {
     color: white;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.user-playlists-cover-image {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
 }

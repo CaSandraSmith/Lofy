@@ -3,6 +3,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 from .auth_routes import validation_errors_to_error_messages
 from ..models import Playlist, User, db, Song
 from ..forms import EditPlaylistForm
+from ..aws_helpers.aws import get_unique_filename, upload_file_to_s3, remove_file_from_s3
+
 
 playlist_routes = Blueprint('playlist', __name__)
 
@@ -84,13 +86,23 @@ def edit_playlist(id):
         return {"errors": "You can't edit a playlist that's not yours"}
     
     form = EditPlaylistForm()
-    print("DATAAA", form.data)
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         data = form.data
+
+        playlist_cover = data["cover_image"]
+        upload = ""
+
+        if playlist_cover:
+            playlist_cover.filename = get_unique_filename(playlist_cover.filename)
+            upload = upload_file_to_s3(playlist_cover)
+
+            if "url" not in upload:
+                return {"errors": validation_errors_to_error_messages(upload)}
+
         playlist.name = data["name"]
-        playlist.cover_image = data["cover_image"]
+        playlist.cover_image = upload["url"] if len(upload) else None
         playlist.description = data["description"]
         playlist.cover_image = "doodles"
         db.session.commit()
@@ -110,8 +122,7 @@ def create_new_playlist():
 
     new_playlist = Playlist(
         owner_id=user.id,
-        name=f"My playlist #{user_playlists_count + 1}",
-        cover_image="google.com",
+        name=f"My playlist #{user_playlists_count + 1}"
     )
 
     db.session.add(new_playlist)
