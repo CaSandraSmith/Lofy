@@ -17,27 +17,28 @@ export default function LibraryBar() {
 
     let handleNewPlaylistClick = async () => {
         let playlist = await dispatch(createNewPlaylist())
+        history.push(`/playlist/${playlist.id}`)
     }
 
     return (
         <div className="full-user-nav">
-            <div>
-                <div onClick={() => history.push("/home")}>
+            <div className="library-home-and-search">
+                <div className="library-general-button" onClick={() => history.push("/home")}>
                     <i className="fa-solid fa-house"></i>
                     <p>Home</p>
                 </div>
-                <div>
+                <div className="library-general-button">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <p>Search</p>
                 </div>
             </div>
-            <div>
-                <div>
-                    <div>
+            <div className="library-all-user-playlists">
+                <div className="library-playlist-header">
+                    <div className="library-playlist-header-title">
                         <i className="fa-solid fa-cloud"></i>
                         <p>Your library</p>
                     </div>
-                    <div>
+                    <div className="library-create-playlist-button">
                         <i className="fa-solid fa-plus" onClick={handleNewPlaylistClick}></i>
                     </div>
                 </div>
@@ -46,7 +47,7 @@ export default function LibraryBar() {
                         <div>
                             {playlistArr.map(playlist => (
                                 <div className="user-playlists-names" onClick={() => history.push(`/playlist/${playlist.id}`)}>
-                                    {playlist.name}
+                                    <p className="library-playlist-name">{playlist.name}</p>
                                 </div>
                             ))}
                         </div>

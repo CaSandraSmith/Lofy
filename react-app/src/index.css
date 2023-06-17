@@ -10,6 +10,8 @@
 
 .home {
     display: flex;
+    height: 85vh;
+    /* border: 2px solid red; */
 }
 
 .splash-page-display {

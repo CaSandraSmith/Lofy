@@ -56,3 +56,8 @@
   color: #1ed660;
 }
 
+.splash-profile-image {
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+}

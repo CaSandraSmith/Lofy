@@ -1,9 +1,68 @@
 .full-user-nav {
-    width: 300px;
-    height: 85vh;
-    border: 2px solid black;
+    width: 400px;
+    height: 100%;
+    padding: 5px;
+    display: grid;
+    grid-template-rows: 20% 80%;
 }
 
 .user-playlists-names {
     cursor: pointer;
+}
+
+.library-home-and-search {
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10px;
+}
+
+.library-general-button {
+    display: flex;
+    align-items: center;
+}
+
+.library-general-button>* {
+    color: #b3b3b3;
+    font-size: 15px;
+    padding: 10px;
+}
+
+.full-user-nav>div {
+    background-color: #121212;
+    border: 1px solid #121212;
+    border-radius: 10px;
+}
+
+.library-playlist-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    align-items: flex-end;
+}
+
+.library-playlist-header > * {
+    color: #b3b3b3;
+
+}
+
+.library-all-user-playlists {
+    height: 100%;
+}
+
+.library-playlist-header-title {
+    display: flex;
+}
+
+.library-playlist-header-title > * {
+    padding: 10px;
+}
+
+.library-create-playlist-button {
+    padding: 10px;
+}
+
+.library-playlist-name {
+    color: white;
 }
