@@ -6,9 +6,53 @@
   display: none;
 }
 
-.navbar-full {
+.navbar-splash-full {
   position: sticky;
   background-color: black;
   width: 100%;
   height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 100px;
 }
+
+.navbar-splash-logo {
+  font-size: 30px;
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+}
+
+.navbar-splash-full > * {
+  color: white;
+}
+
+.navbar-splash-options {
+  display: flex;
+  position: relative;
+}
+
+.navbar-splash-profile-options {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: white;
+}
+
+/* .navbar-splash-profile-options:hover {
+  color: #1ed660;
+} */
+
+.navbar-splash-profile-options > * {
+  color: black;
+}
+
+.splash-profile-text {
+  font-weight: 600;
+}
+
+.splash-profile-icon-green {
+  color: #1ed660;
+}
+
