@@ -5,19 +5,18 @@ def seed_playlists():
     playlist1 = Playlist(
         name="Playlist1",
         owner_id=1,
-        cover_image="google.com",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/ab67706c0000da845e0d1386755fc7757591d2b5.jpg",
         description="really good"
     )
     playlist2 = Playlist(
         name="Playlist2",
         owner_id=2,
-        cover_image="google.com",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/ab67706c0000da845e0d1386755fc7757591d2b5.jpg",
         description="vibey"
     )
     playlist3 = Playlist(
         name="Playlist3",
         owner_id=3,
-        cover_image="google.com",
         description="gets me through studying"
     )
 

@@ -7,7 +7,7 @@ def seed_users():
     demo = User(
         username='Demo',
         email='demo@aa.io',
-        profile_image="google.com",
+        profile_image="https://lofy.s3.us-east-2.amazonaws.com/profile_images/457819187059607243_1594333397.jpg",
         password='password'
     )
     marnie = User(
@@ -18,13 +18,12 @@ def seed_users():
     bobbie = User(
         username='bobbie',
         email='bobbie@aa.io',
-        profile_image="google.com",
         password='password'
     )
     casandra = User(
         username='casandra',
         email='casandra@smith.io',
-        profile_image="google.com",
+        profile_image="https://lofy.s3.us-east-2.amazonaws.com/profile_images/6TBx37.webp",
         password='password'
     )
 
