@@ -97,14 +97,20 @@ def edit_playlist(id):
         if playlist_cover:
             playlist_cover.filename = get_unique_filename(playlist_cover.filename)
             upload = upload_file_to_s3(playlist_cover)
-
             if "url" not in upload:
                 return {"errors": validation_errors_to_error_messages(upload)}
 
+        image = ""
+        if len(upload):
+            image = upload["url"]
+        elif len(upload) == 0 and playlist.cover_image:
+            image = playlist.cover_image
+        else:
+            image = None
+
         playlist.name = data["name"]
-        playlist.cover_image = upload["url"] if len(upload) else None
+        playlist.cover_image = image
         playlist.description = data["description"]
-        playlist.cover_image = "doodles"
         db.session.commit()
 
         return playlist.detailed_to_dict()

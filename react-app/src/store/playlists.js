@@ -94,8 +94,7 @@ export const deleteUserPlaylist = (playlistId) => async (dispatch) => {
 export const updatePlaylist = (playlistId, details) => async (dispatch) => {
     let res = await fetch(`/api/playlists/${playlistId}`, {
         method: "PUT",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(details)
+        body: details
     })
     if (res.ok) {
         const playlist = await res.json()
