@@ -11,6 +11,7 @@ import LibraryBar from "./components/ConstantUserNav/LibraryBar"
 import SinglePlaylistPage from "./components/SinglePlaylistPage";
 import AudioBar from "./components/ConstantUserNav/AudioBar";
 import GeneralNav from "./components/NavigationBar/GeneralNav";
+import SingleAlbumPage from "./components/SingleAlbumPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,9 @@ function App() {
 
             <div className="changing-content">
               <Switch>
+                <Route path="/album/:id">
+                  <SingleAlbumPage />
+                </Route>
                 <Route path="/playlist/:id">
                   <GeneralNav />
                   <SinglePlaylistPage />

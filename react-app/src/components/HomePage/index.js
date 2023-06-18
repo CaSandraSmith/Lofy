@@ -41,7 +41,10 @@ export default function HomePage() {
                 <h2 className="home-section-headers">Checkout out these albums</h2>
                 <div className="home-all-albums-wrapper">
                     {albumsArr.map(album => (
-                        <div className="home-single-album-wrapper">
+                        <div 
+                        className="home-single-album-wrapper"
+                        onClick={() => history.push(`/album/${album.id}`)}
+                        >
                             <img className="home-all-albums-cover-image" src={album.cover_image} alt={`${album.name} cover image`} />
                             <p>{album.name}</p>
                             <p className="home-playlist-description">{album.artist}</p>
