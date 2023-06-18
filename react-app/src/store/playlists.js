@@ -4,6 +4,7 @@ const GET_SINGLE_PLAYLIST = "playlists/getOne"
 const DELETE_PLAYLIST = "playlist/delete"
 const CLEAR_SINGLE_PLAYLIST = "playlist/clear"
 const UPDATE_PLAYLIST = "playlist/updateDetails"
+const GET_ALL_PLAYLISTS = "playlist/getAll"
 
 const getCurrentUserPlaylists = (playlists) => ({
     type: GET_CURRENT_USER_PLAYLISTS,
@@ -28,6 +29,11 @@ const deletePlaylist = (playlistId) => ({
 const updatePlaylistDetails = (playlist) => ({
     type: UPDATE_PLAYLIST,
     playlist
+})
+
+const allPlaylists = (playlists) => ({
+    type: GET_ALL_PLAYLISTS,
+    playlists
 })
 
 
@@ -106,10 +112,25 @@ export const updatePlaylist = (playlistId, details) => async (dispatch) => {
     }
 }
 
+export const getAllPlaylists = () => async (dispatch) => {
+    let res = await fetch("/api/playlists")
+
+    if (res.ok) {
+        let playlists = await res.json()
+        dispatch(allPlaylists(playlists))
+        return playlists
+    } else {
+        let errors = await res.json()
+        return errors
+    }
+}
+
 let initialState = { allPlaylists: {}, singlePlaylist: {}, currentUserPlaylists: {} }
 
 export default function playlistReducer(state = initialState, action) {
     switch (action.type) {
+        case GET_ALL_PLAYLISTS:
+            return {...state, allPlaylists: {...action.playlists}, singlePlaylist: {...state.singlePlaylist}, currentUserPlaylists: {...state.currentUserPlaylists}}
         case UPDATE_PLAYLIST:
             let state2 = {...state, allPlaylists: {...state.allPlaylists}, singlePlaylist:{...state.singlePlaylist}, currentUserPlaylists: {...state.currentUserPlaylists}}
 

@@ -19,3 +19,9 @@
     flex-direction: column;
     width: 100%;
 }
+
+.changing-content {
+    padding: 15px;
+    overflow: scroll;
+    width: calc(100% - 400px);
+}

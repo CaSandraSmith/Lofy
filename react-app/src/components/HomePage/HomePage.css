@@ -1,0 +1,69 @@
+.home-time-title {
+    padding-top: 50px;
+}
+
+.home-page-user-playlists {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    padding: 20px 0;
+}
+
+.home-page-user-playlists-cover-image {
+    width: 80px;
+    height: 80px;
+}
+
+.home-page-user-playlists-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    column-gap: 15px;
+}
+
+.home-page-wrapper {
+    width: 100%;
+}
+
+.home-all-albums-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 15px;
+    grid-template-rows: 300px;
+    cursor: pointer;
+}
+
+.home-all-albums-cover-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.home-single-album-wrapper {
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    row-gap: 10px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.home-playlist-description {
+    font-size: 14px;
+}
+
+.home-single-album-wrapper > p {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.home-section-headers {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

@@ -38,24 +38,26 @@ function App() {
               </Route>
             </Switch>
 
-            <Switch>
-              <Route path="/playlist/:id">
-                <GeneralNav />
-                <SinglePlaylistPage />
-              </Route>
-              <Route path="/home">
-                <GeneralNav />
-                <HomePage />
-              </Route>
-              <Route path="/login" >
-                <GeneralNav />
-                <LoginFormPage />
-              </Route>
-              <Route path="/signup">
-                <GeneralNav />
-                <SignupFormPage />
-              </Route>
-            </Switch>
+            <div className="changing-content">
+              <Switch>
+                <Route path="/playlist/:id">
+                  <GeneralNav />
+                  <SinglePlaylistPage />
+                </Route>
+                <Route path="/home">
+                  <GeneralNav />
+                  <HomePage />
+                </Route>
+                <Route path="/login" >
+                  <GeneralNav />
+                  <LoginFormPage />
+                </Route>
+                <Route path="/signup">
+                  <GeneralNav />
+                  <SignupFormPage />
+                </Route>
+              </Switch>
+            </div>
           </div>
 
           <Switch>

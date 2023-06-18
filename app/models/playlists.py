@@ -35,6 +35,7 @@ class Playlist(db.Model):
             'first_created': self.created_at,
             'last_updated': self.updated_at,
             'owner': {
+                "id": self.user.id,
                 "username": self.user.username,
                 "profile_image": self.user.profile_image
             }

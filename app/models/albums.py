@@ -23,5 +23,6 @@ class Album(db.Model):
         return {
             "name": self.name,
             "artist": self.artist.name,
+            "cover_image": self.cover_image,
             "songs": {song.id: song.general_to_dict() for song in self.songs}
         }
