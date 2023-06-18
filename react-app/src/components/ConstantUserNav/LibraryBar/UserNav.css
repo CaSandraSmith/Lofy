@@ -50,6 +50,7 @@
     justify-content: space-between;
     padding: 0 10px;
     align-items: flex-end;
+    /* height: 100%; */
 }
 
 .library-playlist-header > * {
@@ -59,6 +60,7 @@
 
 .library-all-user-playlists {
     height: 100%;
+    border: 10px solid green;
 }
 
 .library-playlist-header-title {
@@ -87,3 +89,8 @@
     width: 50px;
     object-fit: cover;
 }
+/* 
+.current-user-playlists-wrapper {
+    overflow: scroll;
+    height: calc(100% - 40px);
+} */

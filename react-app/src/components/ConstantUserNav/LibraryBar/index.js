@@ -42,9 +42,8 @@ export default function LibraryBar() {
                         <i className="fa-solid fa-plus" onClick={handleNewPlaylistClick}></i>
                     </div>
                 </div>
-                <div>
                     {playlistArr.length ?
-                        <div>
+                        <div className="current-user-playlists-wrapper">
                             {playlistArr.map(playlist => (
                                 <div className="user-playlists-info" onClick={() => history.push(`/playlist/${playlist.id}`)}>
                                     <img className="user-playlists-cover-image" 
@@ -59,7 +58,6 @@ export default function LibraryBar() {
                             <p>It's easy, we'll help you</p>
                         </div>
                     }
-                </div>
             </div>
         </div>
     )
