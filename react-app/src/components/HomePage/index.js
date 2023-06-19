@@ -3,6 +3,8 @@ import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import { gatherAllAlbums } from "../../store/albums"
 import { findCurrentUserPlaylists, getAllPlaylists } from "../../store/playlists"
+import LoginFormModal from "../LoginFormModal"
+import { useModal } from "../../context/Modal";
 import "./HomePage.css"
 
 export default function HomePage() {
@@ -22,6 +24,7 @@ export default function HomePage() {
     const userPlaylistArr = Object.values(playlists).slice(0, 6)
     let allPlaylists = useSelector(state => state.playlists.allPlaylists)
     let otherUserPlaylists = Object.values(allPlaylists).filter(playlist => playlist.owner.id != user.id).slice(0, 4)
+    const { setModalContent } = useModal()
 
     return (
         <div className="home-page-wrapper">

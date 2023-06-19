@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useModal } from '../../../context/Modal';
 import ProfileButton from '../ProfileButton';
+import LoginFormModal from '../../LoginFormModal';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
 	const [menu, setMenu] = useState(false)
-	console.log("menu", menu)
+	const { setModalContent } = useModal()
 	// let splashMenuClassName = menu ? "splash-profile-icon-green" : "splash-profile-icon-white"
 	return (
 		<div className='navbar-splash-full'>
@@ -60,7 +62,7 @@ function Navigation({ isLoaded }) {
 								{/* <ProfileButton user={sessionUser} /> */}
 								<button>Check us out</button>
 								<button>Sign up</button>
-								<button>Log in</button>
+								<button onClick={() => setModalContent(LoginFormModal)}>Log in</button>
 							</div>
 					}
 				</div>

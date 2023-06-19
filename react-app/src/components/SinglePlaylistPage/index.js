@@ -20,6 +20,7 @@ export default function SinglePlaylistPage() {
     let playlist = useSelector(state => state.playlists.singlePlaylist)
     let playlistSongs = useSelector(state => state.playlists.singlePlaylist.songs)
     let reviews = useSelector(state => state.reviews.currentPlaylistReviews)
+    let user = useSelector(state => state.session.user)
     let reviewsArr = Object.values(reviews)
     // let userPlaylists = useSelector(state => state.playlists.currentUserPlaylists)
     let allSongs = useSelector(state => state.albums.songs)
@@ -236,6 +237,7 @@ export default function SinglePlaylistPage() {
                     :
                     <SinglePlaylistSearch />
                 }
+                {playlist.owner.id === user.id ?
                 <div>
                     <h3 className="playlist-reccommended-songs">Recommended</h3>
                     <div>
@@ -256,13 +258,16 @@ export default function SinglePlaylistPage() {
                                             </div>
                                         </td>
                                         <td>{song.album.name}</td>
+                                        
                                         <td><button onClick={() => handleAddSongClick(playlist.id, song.id)}>Add</button></td>
+                                        
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
                 </div>
+                : null}
                 {reviewsArr ? 
                 <div>
                     <h3 className="playlist-reccommended-songs">Reviews</h3>
@@ -278,6 +283,7 @@ export default function SinglePlaylistPage() {
                 </div>
                 : null
                 }
+                {playlist.owner.id != user.id ? <button>Create a review</button> : null}
             </div>
         </div>
     )
