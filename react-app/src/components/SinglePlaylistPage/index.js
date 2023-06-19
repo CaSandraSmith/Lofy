@@ -113,6 +113,15 @@ export default function SinglePlaylistPage() {
         await dispatch(addSongToPlaylist(playlistId, songId))
     }
 
+    let checkUser = () => {
+        for (let rev of reviewsArr) {
+            if (rev.user.id === user.id) {
+                return true
+            }
+        }
+        return false
+    }
+
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
 
     return (
@@ -244,7 +253,7 @@ export default function SinglePlaylistPage() {
                     </div>
                     : null
                 }
-                {playlist.owner.id != user.id ?
+                {playlist.owner.id != user.id && !checkUser() ?
                 <CreatePlaylistReview playlist={playlist}/> : null}
             </div>
         </div>

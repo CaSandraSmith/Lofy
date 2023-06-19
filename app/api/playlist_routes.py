@@ -22,6 +22,7 @@ def get_reviews_of_playlist(id):
     return reviews
 
 @playlist_routes.route("/<int:id>/reviews", methods=["POST"])
+@login_required
 def create_playlist_review(id):
     playlist = Playlist.query.get(id)
 
@@ -30,13 +31,15 @@ def create_playlist_review(id):
     
     form = CreateReviewForm()
 
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = form.data
 
         review = PlaylistReview(
             review=data["review"],
             stars=data["stars"],
-            playlist_id=id
+            playlist_id=id,
+            user_id=current_user.id
         )
 
         db.session.add(review)

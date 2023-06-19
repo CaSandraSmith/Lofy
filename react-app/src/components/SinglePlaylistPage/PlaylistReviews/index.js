@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { createNewReview } from "../../../store/reviews"
 
 
-export default function CreatePlaylistReview({ playlist }) {
+export default function CreatePlaylistReview({ playlist, reviews }) {
+    const dispatch = useDispatch()
     let user = useSelector(state => state.session.user)
     const [review, setReview] = useState("")
     const [stars, setStars] = useState(0)
@@ -32,6 +33,8 @@ export default function CreatePlaylistReview({ playlist }) {
             setErrors(valErrors)
             return
         }
+
+        let newReview = await dispatch(createNewReview(playlist.id, review, stars))
     }
 
     let cancelReview = () => {
@@ -57,7 +60,7 @@ export default function CreatePlaylistReview({ playlist }) {
                 <form onSubmit={handleNewReview}>
                     <h3>Create Review</h3>
                     <h4>Overall Rating</h4>
-                    <div>
+                    <div onMouseLeave={() => setHoverStars(0)}>
                         <i className={`${stars >= 1 || hoverStars >= 1 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(1)} onMouseEnter={() => setHoverStars(1)}></i>
                         <i className={`${stars >= 2 || hoverStars >= 2 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(2)} onMouseEnter={() => setHoverStars(2)}></i>
                         <i className={`${stars >= 3 || hoverStars >= 3 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(3)} onMouseEnter={() => setHoverStars(3)}></i>

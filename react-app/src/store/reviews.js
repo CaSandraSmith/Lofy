@@ -25,7 +25,7 @@ export const getPlaylistReviews = (playlistId) => async (dispatch) => {
 }
 
 export const createNewReview = (playlistId, review, stars) => async (dispatch) => {
-    let res = await fetch(`/${playlistId}/reviews`, {
+    let res = await fetch(`/api/playlists/${playlistId}/reviews`, {
         method: "POST",
         headers: {
 			"Content-Type": "application/json",
@@ -52,7 +52,7 @@ let initialState = {currentPlaylistReviews:{}}
 export default function reviewsReducer(state = initialState, action){
     switch(action.type ){
         case CREATE_REVIEW:
-            return {...state, currentPlaylistReviews:{...action.reviews, [action.review.id]: action.review}}
+            return {...state, currentPlaylistReviews:{...state.currentPlaylistReviews, [action.review.id]: action.review}}
         case GET_PLAYLIST_REVIEWS:
             return {...state, currentPlaylistReviews:{...action.reviews}}
         default:
