@@ -1,7 +1,7 @@
 import { useParams, useHistory } from "react-router-dom"
 import { gatherAllAlbums } from "../../store/albums"
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useAudio } from "../../context/Audio"
 
 export default function SingleAlbumPage() {
@@ -9,13 +9,18 @@ export default function SingleAlbumPage() {
     const dispatch = useDispatch()
     const history = useHistory()
     const { setAudio } = useAudio()
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        dispatch(gatherAllAlbums())
+        dispatch(gatherAllAlbums()).then(() => setLoading(true))
     }, [dispatch])
 
+    
     let albums = useSelector(state => state.albums.albums)
     let album = useSelector(state => state.albums.albums[id])
+
+    if (!loading) return <h1>Loading</h1>
+    
     let artistAlbums = Object.values(albums).filter(singleAlbum => singleAlbum.artist === album.artist).slice(0, 4)
     let songsArr = Object.values(album.songs)
 

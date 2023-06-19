@@ -4,10 +4,110 @@
 
 .edit-playlist-menu {
     position: absolute;
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     z-index: 2;
     background-color: #282828;
     color: white;
     left: 50px;
     bottom: 10px;
+}
+
+.single-playlist-header {
+    display: flex;
+    margin-top: 50px;
+    padding: 20px 0;
+    column-gap: 25px;
+}
+
+.single-playlist-cover-image {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+}
+
+.playlist-profile-image {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.single-playlist-no-image {
+    font-size: 20px;
+    padding: 10px;
+}
+
+.single-playlist-header-text {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.single-playlist-header-owner-text {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+}
+
+.single-profile-with-songs {
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+}
+
+.single-profile-with-songs > i {
+    font-size: 3px;
+}
+
+.single-playlist-album-cover-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+.single-playlist-title {
+    display: flex;
+    column-gap: 10px;
+}
+
+.single-playlist-songs-table {
+    /* display: flex;
+    border: 2px solid red;
+    flex-direction: column;
+    align-items: flex-start; */
+    table-layout: fixed;
+    width: 100%;
+}
+
+/* .single-playlist-table-headers {
+    display: flex;
+    column-gap: 10px;
+} */
+
+.single-playlist-table-headers > th {
+    padding-right: 10px;
+}
+.single-playlist-table-headers > th:nth-child(1) {
+    width: 5%;
+    text-align: left;
+}
+
+.single-playlist-table-headers > th:nth-child(2) {
+    width: 40%;
+    text-align: left;
+}
+
+.single-playlist-table-headers > th:nth-child(3) {
+    text-align: left;
+    width: 40%;
+}
+
+.single-playlist-table-headers > th:nth-child(4) {
+    text-align: right;
+    width: 10%;
+}
+
+.single-playlist-song-length{
+    text-align: right;
+    padding-right: 15px;
 }

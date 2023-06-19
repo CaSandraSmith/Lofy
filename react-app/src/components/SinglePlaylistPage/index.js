@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
 import { useModal } from "../../context/Modal"
-import { getOnePlaylist, clearPlaylist } from "../../store/playlists"
+import { getOnePlaylist, clearPlaylist, findCurrentUserPlaylists } from "../../store/playlists"
 import { useAudio } from "../../context/Audio"
 import SinglePlaylistSearch from "./SinglePlaylistSearch"
 import DeletePlaylistModal from "./EditPlaylistModals/DeletePlaylistModal"
@@ -17,13 +17,17 @@ export default function SinglePlaylistPage() {
     const { id } = useParams()
     let playlist = useSelector(state => state.playlists.singlePlaylist)
     let playlistSongs = useSelector(state => state.playlists.singlePlaylist.songs)
+    let userPlaylists = useSelector(state => state.playlists.currentUserPlaylists)
     const [loading, setLoading] = useState(false)
     const [editPlaylistMenuOpen, setEditPlaylistMenuOpen] = useState(false)
     const [playlistEdits, setPlaylistEdits] = useState(false)
+    const [hoverSongDiv, setHoverSongDiv] = useState("")
+    const [hoverSong, setHoverSong] = useState(false)
     const { setAudio } = useAudio()
 
     useEffect(() => {
         dispatch(getOnePlaylist(id)).then(() => setLoading(true))
+        dispatch(findCurrentUserPlaylists())
     }, [dispatch, id, playlistEdits])
 
     useEffect(() => {
@@ -42,8 +46,10 @@ export default function SinglePlaylistPage() {
 
     if (!loading) return <h1>Loading</h1>
 
-    console.log("playlist", playlist)
-    let songsArr = Object.values(playlistSongs)
+    let songsArr
+    if (playlistSongs) {
+        songsArr = Object.values(playlistSongs)
+    }
 
     let convertLength = () => {
         let length = 0
@@ -64,47 +70,62 @@ export default function SinglePlaylistPage() {
     }
 
     function editPlaylistClick() {
-        setModalContent(<EditPlaylistModal playlist={playlist} value={playlistEdits} setter={(x) => setPlaylistEdits(x)}/>)
+        setModalContent(<EditPlaylistModal playlist={playlist} value={playlistEdits} setter={(x) => setPlaylistEdits(x)} />)
         setEditPlaylistMenuOpen(false)
     }
 
     function deletePlaylistClick() {
-        setModalContent(<DeletePlaylistModal playlist={playlist}/>)
+        setModalContent(<DeletePlaylistModal playlist={playlist} />)
         setEditPlaylistMenuOpen(false)
+    }
+
+    let handleSongHover = (id) => {
+        setHoverSong(true)
+        setHoverSongDiv(id)
+    }
+
+    let handleSongHoverOff = () => {
+        setHoverSong(false)
+        setHoverSongDiv("")
     }
 
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
 
     return (
         <div className="single-playlist-page">
-            <div>
+            <div className="single-playlist-header">
                 <div>
-                    <img></img>
+                    <img className="single-playlist-cover-image" src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"} />
                 </div>
-                <div>
-                    <p>Playlist</p>
-                    <h1>{playlist.name}</h1>
-                    <p>{playlist.description}</p>
-                </div>
-                <div>
+                <div className="single-playlist-header-text">
                     <div>
-                        <img></img>
+                        <p>Playlist</p>
+                        <h1>{playlist.name}</h1>
+                        <p>{playlist.description}</p>
                     </div>
-                    <div>
-                        <p>{playlist.owner.username}</p>
-                    </div>
-                    {songsArr.length ?
+                    <div className="single-playlist-header-owner-text">
                         <div>
-                            <i class="fa-solid fa-circle"></i>
-                            <div>
-                                <p>{`${songsArr.length} songs,`}</p>
-                            </div>
-                            <div>
-                                {convertLength()}
-                            </div>
+                            {playlist.owner.profile_image ?
+                                <img className="playlist-profile-image" src={playlist.owner.profile_image} alt={`user ${playlist.owner.username}'s profile imafe`} />
+                                : <i className="fa-regular fa-user single-playlist-no-image"></i>
+                            }
                         </div>
-                        : null
-                    }
+                        <div>
+                            <p>{playlist.owner.username}</p>
+                        </div>
+                        {songsArr.length ?
+                            <div className="single-profile-with-songs">
+                                <i class="fa-solid fa-circle"></i>
+                                <div>
+                                    <p>{`${songsArr.length} songs,`}</p>
+                                </div>
+                                <div>
+                                    {convertLength()}
+                                </div>
+                            </div>
+                            : null
+                        }
+                    </div>
                 </div>
             </div>
             <div>
@@ -118,9 +139,9 @@ export default function SinglePlaylistPage() {
                 </div>
                 {songsArr.length ?
                     <div>
-                        <table>
+                        <table className="single-playlist-songs-table">
                             <thead>
-                                <tr>
+                                <tr className="single-playlist-table-headers">
                                     <th>#</th>
                                     <th>Title</th>
                                     <th>Album</th>
@@ -129,11 +150,17 @@ export default function SinglePlaylistPage() {
                             </thead>
                             <tbody>
                                 {songsArr.map((song, i) => (
-                                    <tr onClick={() => setAudio(song.audio)}>
+                                    <tr
+                                        onMouseOver={() => handleSongHover(song.id)}
+                                        onMouseLeave={() => handleSongHoverOff()}
+                                        onClick={() => setAudio(song.audio)}>
                                         <td>{i + 1}</td>
                                         <td>
-                                            <div>
-                                                <img></img>
+                                            <div className="single-playlist-title">
+                                                <img
+                                                    className="single-playlist-album-cover-image"
+                                                    src={song.album.cover_image}
+                                                    alt={`Album ${song.album.cover_image}'s cover image`} />
                                                 <div>
                                                     <p>{song.name}</p>
                                                     <p>{song.artist_name}</p>
@@ -141,7 +168,16 @@ export default function SinglePlaylistPage() {
                                             </div>
                                         </td>
                                         <td>{song.album.name}</td>
-                                        <td>{convertLengthTable(song.length)}</td>
+                                        <td className="single-playlist-song-length">{convertLengthTable(song.length)}</td>
+                                        <td>
+                                            {hoverSong && hoverSongDiv === song.id ?
+                                                <div>
+                                                    <i className="fa-solid fa-ellipsis " />
+
+                                                </div>
+                                                : null
+                                            }
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
