@@ -157,7 +157,6 @@ export default function playlistReducer(state = initialState, action) {
                 currentUserPlaylists: {...state.currentUserPlaylists}}
 
             state3.currentUserPlaylists[action.playlist.id] = action.playlist
-            // state3.singlePlaylist[action.playlist.id] = action.splaylist
             state3.singlePlaylist.songs = {...state3.singlePlaylist.songs, [action.song.id]: action.song}
             return state3
         case GET_ALL_PLAYLISTS:
