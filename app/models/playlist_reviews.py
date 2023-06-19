@@ -19,3 +19,15 @@ class PlaylistReview(db.Model):
     playlist = db.relationship('Playlist', back_populates='reviews')
     user = db.relationship('User', back_populates='reviews')
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "playlist_id": self.playlist_id,
+            "review": self.review,
+            "stars": self.stars,
+            "user": {
+                "id": self.user.id,
+                "username": self.user.username
+            }
+        }
+

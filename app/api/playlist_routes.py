@@ -1,13 +1,22 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import current_user, login_user, logout_user, login_required
 from .auth_routes import validation_errors_to_error_messages
-from ..models import Playlist, User, db, Song
+from ..models import Playlist, User, db, Song, PlaylistReview
 from ..forms import EditPlaylistForm
 from ..aws_helpers.aws import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
 
 playlist_routes = Blueprint('playlist', __name__)
 
+@playlist_routes.route("/<int:id>/reviews")
+def get_reviews_of_playlist(id):
+    playlist = playlist.query.get(id)
+
+    reviews = {}
+    for review in playlist.reviews:
+        reviews[review.id] = review.to_dict()
+    
+    return reviews
 
 # remove a song from a playlist
 @playlist_routes.route("/<int:playlist_id>/songs/<int:song_id>", methods=["DELETE"])
