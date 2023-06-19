@@ -151,10 +151,14 @@ let initialState = { allPlaylists: {}, singlePlaylist: {}, currentUserPlaylists:
 export default function playlistReducer(state = initialState, action) {
     switch (action.type) {
         case ADD_SONG_TO_PLAYLIST:
-            let state3 = {...state, allPlaylists: {...state.allPlaylists}, singlePlaylist:{...state.singlePlaylist}, currentUserPlaylists: {...state.currentUserPlaylists}}
+            let state3 = {...state, 
+                allPlaylists: {...state.allPlaylists}, 
+                singlePlaylist:{...state.singlePlaylist}, 
+                currentUserPlaylists: {...state.currentUserPlaylists}}
+
             state3.currentUserPlaylists[action.playlist.id] = action.playlist
-            state3.singlePlaylist[action.playlist.id] = action.playlist
-            state3.singlePlaylist[action.playlist.id].songs = {...state3.singlePlaylist[action.playlist.id].songs, ...action.song}
+            // state3.singlePlaylist[action.playlist.id] = action.splaylist
+            state3.singlePlaylist.songs = {...state3.singlePlaylist.songs, [action.song.id]: action.song}
             return state3
         case GET_ALL_PLAYLISTS:
             return {...state, allPlaylists: {...action.playlists}, singlePlaylist: {...state.singlePlaylist}, currentUserPlaylists: {...state.currentUserPlaylists}}

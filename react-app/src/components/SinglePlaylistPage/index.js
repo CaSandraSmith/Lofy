@@ -244,7 +244,7 @@ export default function SinglePlaylistPage() {
                         </div>
                     </div>
                     : null}
-                {reviewsArr ?
+                {reviewsArr.length ?
                     <div>
                         <h3 className="playlist-reccommended-songs">Reviews</h3>
                         <div>
