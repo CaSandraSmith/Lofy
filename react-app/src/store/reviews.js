@@ -77,7 +77,6 @@ export default function reviewsReducer(state = initialState, action){
             let state1 = {
                 ...state, currentPlaylistReviews: {...state.currentPlaylistReviews}
             }
-
             delete state1.currentPlaylistReviews[action.reviewId]
             return state1
         case CREATE_REVIEW:

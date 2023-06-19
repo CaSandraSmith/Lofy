@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, session, request
 from flask_login import current_user, login_user, logout_user, login_required
 from .auth_routes import validation_errors_to_error_messages
 from ..models import Playlist, User, db, Song, PlaylistReview
-from ..forms import EditPlaylistForm, CreateReviewForm
+from ..forms import EditPlaylistForm, ReviewForm
 from ..aws_helpers.aws import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
 
@@ -29,7 +29,7 @@ def create_playlist_review(id):
     if not playlist:
         return {"errors": "Playlist couldn't be found"}
     
-    form = CreateReviewForm()
+    form = ReviewForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
