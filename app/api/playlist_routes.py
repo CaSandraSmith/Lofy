@@ -10,13 +10,17 @@ playlist_routes = Blueprint('playlist', __name__)
 
 @playlist_routes.route("/<int:id>/reviews")
 def get_reviews_of_playlist(id):
-    playlist = playlist.query.get(id)
+    playlist = Playlist.query.get(id)
 
     reviews = {}
     for review in playlist.reviews:
         reviews[review.id] = review.to_dict()
     
     return reviews
+
+@playlist_routes.route("/<int:id>/reviews")
+def create_playlist_review(id):
+    pass
 
 # remove a song from a playlist
 @playlist_routes.route("/<int:playlist_id>/songs/<int:song_id>", methods=["DELETE"])

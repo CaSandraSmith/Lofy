@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom"
 import { useModal } from "../../context/Modal"
 import { gatherAllSongs } from "../../store/albums"
 import { getOnePlaylist, clearPlaylist, findCurrentUserPlaylists, addSongToPlaylist } from "../../store/playlists"
+import { getPlaylistReviews } from "../../store/reviews"
 import { useAudio } from "../../context/Audio"
 import SinglePlaylistSearch from "./SinglePlaylistSearch"
 import DeletePlaylistModal from "./EditPlaylistModals/DeletePlaylistModal"
@@ -18,6 +19,8 @@ export default function SinglePlaylistPage() {
     const { id } = useParams()
     let playlist = useSelector(state => state.playlists.singlePlaylist)
     let playlistSongs = useSelector(state => state.playlists.singlePlaylist.songs)
+    let reviews = useSelector(state => state.reviews.currentPlaylistReviews)
+    let reviewsArr = Object.values(reviews)
     // let userPlaylists = useSelector(state => state.playlists.currentUserPlaylists)
     let allSongs = useSelector(state => state.albums.songs)
     const [loading, setLoading] = useState(false)
@@ -33,6 +36,7 @@ export default function SinglePlaylistPage() {
         dispatch(getOnePlaylist(id)).then(() => setLoading(true))
         dispatch(findCurrentUserPlaylists())
         dispatch(gatherAllSongs())
+        dispatch(getPlaylistReviews(id))
     }, [dispatch, id, playlistEdits])
 
     useEffect(() => {
@@ -259,6 +263,21 @@ export default function SinglePlaylistPage() {
                         </table>
                     </div>
                 </div>
+                {reviewsArr ? 
+                <div>
+                    <h3 className="playlist-reccommended-songs">Reviews</h3>
+                    <div>
+                        {reviewsArr.map(review => (
+                            <div>
+                                <p>{review.user.username}</p>
+                                <p>{review.stars}</p>
+                                <p>{review.review}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                : null
+                }
             </div>
         </div>
     )
