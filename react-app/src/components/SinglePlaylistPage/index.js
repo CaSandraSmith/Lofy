@@ -247,6 +247,12 @@ export default function SinglePlaylistPage() {
                                     <p>{review.user.username}</p>
                                     <p>{review.stars}</p>
                                     <p>{review.review}</p>
+                                    {review.user.id === user.id ? <div>
+                                        <button>Edit</button>
+                                        <button>Delete</button>
+                                    </div>
+                                        : null
+                                    }
                                 </div>
                             ))}
                         </div>
@@ -254,7 +260,7 @@ export default function SinglePlaylistPage() {
                     : null
                 }
                 {playlist.owner.id != user.id && !checkUser() ?
-                <CreatePlaylistReview playlist={playlist}/> : null}
+                    <CreatePlaylistReview playlist={playlist} /> : null}
             </div>
         </div>
     )
