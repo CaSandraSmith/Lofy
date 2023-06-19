@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useModal } from '../../../context/Modal';
 import ProfileButton from '../ProfileButton';
@@ -9,6 +9,7 @@ import './Navigation.css';
 function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
 	const [menu, setMenu] = useState(false)
+	const history = useHistory()
 	const { setModalContent } = useModal()
 	// let splashMenuClassName = menu ? "splash-profile-icon-green" : "splash-profile-icon-white"
 	return (
@@ -62,7 +63,7 @@ function Navigation({ isLoaded }) {
 								{/* <ProfileButton user={sessionUser} /> */}
 								<button>Check us out</button>
 								<button>Sign up</button>
-								<button onClick={() => setModalContent(LoginFormModal)}>Log in</button>
+								<button onClick={() => history.push("/login")}>Log in</button>
 							</div>
 					}
 				</div>

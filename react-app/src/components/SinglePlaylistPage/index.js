@@ -9,6 +9,7 @@ import { useAudio } from "../../context/Audio"
 import SinglePlaylistSearch from "./SinglePlaylistSearch"
 import DeletePlaylistModal from "./EditPlaylistModals/DeletePlaylistModal"
 import EditPlaylistModal from "./EditPlaylistModals/EditPlaylistModal"
+import CreatePlaylistReview from "./PlaylistReviews"
 import "./SinglePlaylistPage.css"
 
 export default function SinglePlaylistPage() {
@@ -22,15 +23,10 @@ export default function SinglePlaylistPage() {
     let reviews = useSelector(state => state.reviews.currentPlaylistReviews)
     let user = useSelector(state => state.session.user)
     let reviewsArr = Object.values(reviews)
-    // let userPlaylists = useSelector(state => state.playlists.currentUserPlaylists)
     let allSongs = useSelector(state => state.albums.songs)
     const [loading, setLoading] = useState(false)
     const [editPlaylistMenuOpen, setEditPlaylistMenuOpen] = useState(false)
     const [playlistEdits, setPlaylistEdits] = useState(false)
-    // const [hoverSongDiv, setHoverSongDiv] = useState("")
-    // const [hoverSong, setHoverSong] = useState(false)
-    // const [songMenu, setSongMenu] = useState(false)
-    // const [slickSongDiv, setClickSongDiv] = useState("")
     const { setAudio } = useAudio()
 
     useEffect(() => {
@@ -113,27 +109,11 @@ export default function SinglePlaylistPage() {
         setEditPlaylistMenuOpen(false)
     }
 
-    // let handleSongHover = (id) => {
-    //     setHoverSong(true)
-    //     setHoverSongDiv(id)
-    // }
-
-    // let handleSongHoverOff = () => {
-    //     setHoverSong(false)
-    //     setHoverSongDiv("")
-    // }
-
-    // let handleSongMenuClick = (id) => {
-    //     setSongMenu(!songMenu)
-    //     songMenu ? setClickSongDiv(id) : setClickSongDiv("")
-    // }
-
-    let handleAddSongClick = async(playlistId, songId) => {
+    let handleAddSongClick = async (playlistId, songId) => {
         await dispatch(addSongToPlaylist(playlistId, songId))
     }
 
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
-    // let songMenuClassName = songMenu ? "playlist-song-menu" : "hidden"
 
     return (
         <div className="single-playlist-page">
@@ -212,23 +192,6 @@ export default function SinglePlaylistPage() {
                                         </td>
                                         <td>{song.album.name}</td>
                                         <td className="single-playlist-song-length">{convertLengthTable(song.length)}</td>
-                                        {/* <td>
-                                            {hoverSong && hoverSongDiv === song.id ?
-                                                <div>
-                                                    <i 
-                                                    onClick={() => setSongMenu(!songMenu)}
-                                                    className="fa-solid fa-ellipsis "/>
-                                                </div>
-                                                : null
-                                            }
-                                            { songMenu && hoverSongDiv === song.id ?
-                                                    <div className={songMenuClassName}>
-                                                        <p>Add to playlist</p>
-                                                        <i class="fa-solid fa-caret-right"></i>
-                                                    </div>
-                                            : null
-                                            }
-                                        </td> */}
                                     </tr>
                                 ))}
                             </tbody>
@@ -238,52 +201,51 @@ export default function SinglePlaylistPage() {
                     <SinglePlaylistSearch />
                 }
                 {playlist.owner.id === user.id ?
-                <div>
-                    <h3 className="playlist-reccommended-songs">Recommended</h3>
                     <div>
-                        <table className="single-playlist-add-songs-table">
-                            <tbody className="single-playlist-add-songs-body">
-                                {otherSongs.map(song => (
-                                    <tr>
-                                        <td>
-                                            <div className="single-playlist-title">
-                                                <img
-                                                    className="single-playlist-album-cover-image"
-                                                    src={song.album.cover_image}
-                                                    alt={`Album ${song.album.cover_image}'s cover image`} />
-                                                <div>
-                                                    <p>{song.name}</p>
-                                                    <p>{song.artist_name}</p>
+                        <h3 className="playlist-reccommended-songs">Recommended</h3>
+                        <div>
+                            <table className="single-playlist-add-songs-table">
+                                <tbody className="single-playlist-add-songs-body">
+                                    {otherSongs.map(song => (
+                                        <tr>
+                                            <td>
+                                                <div className="single-playlist-title">
+                                                    <img
+                                                        className="single-playlist-album-cover-image"
+                                                        src={song.album.cover_image}
+                                                        alt={`Album ${song.album.cover_image}'s cover image`} />
+                                                    <div>
+                                                        <p>{song.name}</p>
+                                                        <p>{song.artist_name}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>{song.album.name}</td>
-                                        
-                                        <td><button onClick={() => handleAddSongClick(playlist.id, song.id)}>Add</button></td>
-                                        
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                            </td>
+                                            <td>{song.album.name}</td>
+                                            <td><button onClick={() => handleAddSongClick(playlist.id, song.id)}>Add</button></td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                : null}
-                {reviewsArr ? 
-                <div>
-                    <h3 className="playlist-reccommended-songs">Reviews</h3>
+                    : null}
+                {reviewsArr ?
                     <div>
-                        {reviewsArr.map(review => (
-                            <div>
-                                <p>{review.user.username}</p>
-                                <p>{review.stars}</p>
-                                <p>{review.review}</p>
-                            </div>
-                        ))}
+                        <h3 className="playlist-reccommended-songs">Reviews</h3>
+                        <div>
+                            {reviewsArr.map(review => (
+                                <div>
+                                    <p>{review.user.username}</p>
+                                    <p>{review.stars}</p>
+                                    <p>{review.review}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
-                : null
+                    : null
                 }
-                {playlist.owner.id != user.id ? <button>Create a review</button> : null}
+                {playlist.owner.id != user.id ?
+                <CreatePlaylistReview playlist={playlist}/> : null}
             </div>
         </div>
     )
