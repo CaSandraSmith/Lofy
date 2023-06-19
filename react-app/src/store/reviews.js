@@ -1,6 +1,7 @@
 const GET_PLAYLIST_REVIEWS = "reviews/playlist"
 const CREATE_REVIEW = "reviews/create"
 const DELETE_REVIEW = "reviews/delete"
+const EDIT_REVIEW = "reviews/edit"
 
 const getReviewsofPlaylist = (reviews) => ({
     type: GET_PLAYLIST_REVIEWS,
@@ -15,6 +16,11 @@ const createReview = (review) => ({
 const deleteReview = (reviewId) => ({
     type: DELETE_REVIEW,
     reviewId
+})
+
+const editReview = (review) => ({
+    type: EDIT_REVIEW,
+    review
 })
 
 export const getPlaylistReviews = (playlistId) => async (dispatch) => {
@@ -69,10 +75,34 @@ export const deletePlaylistReview = (reviewId) => async (dispatch) => {
     }
 }
 
+export const editPlaylistReview = (reviewId, review, stars) => async (dispatch) => {
+    const res = await fetch(`/api/reviews/${reviewId}`, {
+        method: "PUT",
+        body: JSON.stringify({
+            review,
+            stars
+        })
+    })
+    if (res.ok) {
+        let review = await res.json()
+        dispatch(editReview(review))
+        return review
+    } else {
+        let errors = await res.json()
+        return errors
+    }
+}
+
 let initialState = {currentPlaylistReviews:{}}
 
 export default function reviewsReducer(state = initialState, action){
     switch(action.type ){
+        case EDIT_REVIEW:
+            let state2 = {
+                ...state, currentPlaylistReviews: {...state.currentPlaylistReviews}
+            }
+            state2.currentPlaylistReviews[action.review.id] = action.review
+            return state2
         case DELETE_REVIEW:
             let state1 = {
                 ...state, currentPlaylistReviews: {...state.currentPlaylistReviews}
