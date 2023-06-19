@@ -79,11 +79,6 @@
     width: 100%;
 }
 
-/* .single-playlist-table-headers {
-    display: flex;
-    column-gap: 10px;
-} */
-
 .single-playlist-table-headers > th {
     padding-right: 10px;
 }
@@ -110,4 +105,25 @@
 .single-playlist-song-length{
     text-align: right;
     padding-right: 15px;
+}
+
+.single-playlist-add-songs-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.single-playlist-add-songs-body > tr > td:nth-child(1) {
+    width: 50%;
+}
+
+.single-playlist-add-songs-body > tr > td:nth-child(2) {
+    width: 30%;
+}
+
+.single-playlist-add-songs-body > tr > td:nth-child(3) {
+    text-align: right;
+}
+
+.playlist-reccommended-songs {
+    padding-top: 50px;
 }

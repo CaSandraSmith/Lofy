@@ -53,7 +53,7 @@ def add_song_to_playlist(playlist_id, song_id):
     
     playlist.songs.append(song)
     db.session.commit()
-    return playlist.detailed_to_dict()
+    return [playlist.detailed_to_dict(), song.to_dict()]
 
 
 # delete a playlist

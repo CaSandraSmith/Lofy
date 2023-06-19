@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
 import { useModal } from "../../context/Modal"
-import { getOnePlaylist, clearPlaylist, findCurrentUserPlaylists } from "../../store/playlists"
+import { gatherAllSongs } from "../../store/albums"
+import { getOnePlaylist, clearPlaylist, findCurrentUserPlaylists, addSongToPlaylist } from "../../store/playlists"
 import { useAudio } from "../../context/Audio"
 import SinglePlaylistSearch from "./SinglePlaylistSearch"
 import DeletePlaylistModal from "./EditPlaylistModals/DeletePlaylistModal"
@@ -17,17 +18,21 @@ export default function SinglePlaylistPage() {
     const { id } = useParams()
     let playlist = useSelector(state => state.playlists.singlePlaylist)
     let playlistSongs = useSelector(state => state.playlists.singlePlaylist.songs)
-    let userPlaylists = useSelector(state => state.playlists.currentUserPlaylists)
+    // let userPlaylists = useSelector(state => state.playlists.currentUserPlaylists)
+    let allSongs = useSelector(state => state.albums.songs)
     const [loading, setLoading] = useState(false)
     const [editPlaylistMenuOpen, setEditPlaylistMenuOpen] = useState(false)
     const [playlistEdits, setPlaylistEdits] = useState(false)
-    const [hoverSongDiv, setHoverSongDiv] = useState("")
-    const [hoverSong, setHoverSong] = useState(false)
+    // const [hoverSongDiv, setHoverSongDiv] = useState("")
+    // const [hoverSong, setHoverSong] = useState(false)
+    // const [songMenu, setSongMenu] = useState(false)
+    // const [slickSongDiv, setClickSongDiv] = useState("")
     const { setAudio } = useAudio()
 
     useEffect(() => {
         dispatch(getOnePlaylist(id)).then(() => setLoading(true))
         dispatch(findCurrentUserPlaylists())
+        dispatch(gatherAllSongs())
     }, [dispatch, id, playlistEdits])
 
     useEffect(() => {
@@ -46,9 +51,33 @@ export default function SinglePlaylistPage() {
 
     if (!loading) return <h1>Loading</h1>
 
+    function filterAndShuffleSongs(songs) {
+        let getSongIds = (songs) => {
+            let arr = []
+            for (let song of songs) {
+                arr.push(song.id)
+            }
+            return arr
+        }
+
+        let playlistSongsIds = getSongIds(songs)
+        let allSongsArr = Object.values(allSongs).filter(song => !playlistSongsIds.includes(song.id))
+
+        let songList = []
+        let copy = [...allSongsArr]
+        while (copy.length) {
+            let i = Math.floor(Math.random() * copy.length)
+            songList.push(copy[i])
+            copy.splice(i, 1)
+        }
+        return songList.slice(0, 5)
+    }
+
+    let otherSongs
     let songsArr
     if (playlistSongs) {
         songsArr = Object.values(playlistSongs)
+        otherSongs = filterAndShuffleSongs(songsArr)
     }
 
     let convertLength = () => {
@@ -79,17 +108,27 @@ export default function SinglePlaylistPage() {
         setEditPlaylistMenuOpen(false)
     }
 
-    let handleSongHover = (id) => {
-        setHoverSong(true)
-        setHoverSongDiv(id)
-    }
+    // let handleSongHover = (id) => {
+    //     setHoverSong(true)
+    //     setHoverSongDiv(id)
+    // }
 
-    let handleSongHoverOff = () => {
-        setHoverSong(false)
-        setHoverSongDiv("")
+    // let handleSongHoverOff = () => {
+    //     setHoverSong(false)
+    //     setHoverSongDiv("")
+    // }
+
+    // let handleSongMenuClick = (id) => {
+    //     setSongMenu(!songMenu)
+    //     songMenu ? setClickSongDiv(id) : setClickSongDiv("")
+    // }
+
+    let handleAddSongClick = async(playlistId, songId) => {
+        await dispatch(addSongToPlaylist(playlistId, songId))
     }
 
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
+    // let songMenuClassName = songMenu ? "playlist-song-menu" : "hidden"
 
     return (
         <div className="single-playlist-page">
@@ -151,8 +190,7 @@ export default function SinglePlaylistPage() {
                             <tbody>
                                 {songsArr.map((song, i) => (
                                     <tr
-                                        onMouseOver={() => handleSongHover(song.id)}
-                                        onMouseLeave={() => handleSongHoverOff()}
+                                        // sSongHoverOff()}
                                         onClick={() => setAudio(song.audio)}>
                                         <td>{i + 1}</td>
                                         <td>
@@ -169,15 +207,23 @@ export default function SinglePlaylistPage() {
                                         </td>
                                         <td>{song.album.name}</td>
                                         <td className="single-playlist-song-length">{convertLengthTable(song.length)}</td>
-                                        <td>
+                                        {/* <td>
                                             {hoverSong && hoverSongDiv === song.id ?
                                                 <div>
-                                                    <i className="fa-solid fa-ellipsis " />
-
+                                                    <i 
+                                                    onClick={() => setSongMenu(!songMenu)}
+                                                    className="fa-solid fa-ellipsis "/>
                                                 </div>
                                                 : null
                                             }
-                                        </td>
+                                            { songMenu && hoverSongDiv === song.id ?
+                                                    <div className={songMenuClassName}>
+                                                        <p>Add to playlist</p>
+                                                        <i class="fa-solid fa-caret-right"></i>
+                                                    </div>
+                                            : null
+                                            }
+                                        </td> */}
                                     </tr>
                                 ))}
                             </tbody>
@@ -186,6 +232,33 @@ export default function SinglePlaylistPage() {
                     :
                     <SinglePlaylistSearch />
                 }
+                <div>
+                    <h3 className="playlist-reccommended-songs">Recommended</h3>
+                    <div>
+                        <table className="single-playlist-add-songs-table">
+                            <tbody className="single-playlist-add-songs-body">
+                                {otherSongs.map(song => (
+                                    <tr>
+                                        <td>
+                                            <div className="single-playlist-title">
+                                                <img
+                                                    className="single-playlist-album-cover-image"
+                                                    src={song.album.cover_image}
+                                                    alt={`Album ${song.album.cover_image}'s cover image`} />
+                                                <div>
+                                                    <p>{song.name}</p>
+                                                    <p>{song.artist_name}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{song.album.name}</td>
+                                        <td><button onClick={() => handleAddSongClick(playlist.id, song.id)}>Add</button></td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     )

@@ -5,6 +5,7 @@ const DELETE_PLAYLIST = "playlist/delete"
 const CLEAR_SINGLE_PLAYLIST = "playlist/clear"
 const UPDATE_PLAYLIST = "playlist/updateDetails"
 const GET_ALL_PLAYLISTS = "playlist/getAll"
+const ADD_SONG_TO_PLAYLIST = "playlist/addSong"
 
 const getCurrentUserPlaylists = (playlists) => ({
     type: GET_CURRENT_USER_PLAYLISTS,
@@ -36,6 +37,11 @@ const allPlaylists = (playlists) => ({
     playlists
 })
 
+const addSong = (playlist, song) => ({
+    type: ADD_SONG_TO_PLAYLIST,
+    playlist,
+    song
+})
 
 export const clearPlaylist = () => ({
     type: CLEAR_SINGLE_PLAYLIST
@@ -125,10 +131,31 @@ export const getAllPlaylists = () => async (dispatch) => {
     }
 }
 
+export const addSongToPlaylist = (playlistId, songId) => async(dispatch) => {
+    let res = await fetch(`/api/playlists/${playlistId}/songs/${songId}`,{
+        method: "POST"
+    })
+
+    if (res.ok) {
+        let [playlist, song] = await res.json()
+        dispatch(addSong(playlist, song))
+        return playlist
+    } else {
+        let errors = await res.json()
+        return errors
+    }
+}
+
 let initialState = { allPlaylists: {}, singlePlaylist: {}, currentUserPlaylists: {} }
 
 export default function playlistReducer(state = initialState, action) {
     switch (action.type) {
+        case ADD_SONG_TO_PLAYLIST:
+            let state3 = {...state, allPlaylists: {...state.allPlaylists}, singlePlaylist:{...state.singlePlaylist}, currentUserPlaylists: {...state.currentUserPlaylists}}
+            state3.currentUserPlaylists[action.playlist.id] = action.playlist
+            state3.singlePlaylist[action.playlist.id] = action.playlist
+            state3.singlePlaylist[action.playlist.id].songs = {...state3.singlePlaylist[action.playlist.id].songs, ...action.song}
+            return state3
         case GET_ALL_PLAYLISTS:
             return {...state, allPlaylists: {...action.playlists}, singlePlaylist: {...state.singlePlaylist}, currentUserPlaylists: {...state.currentUserPlaylists}}
         case UPDATE_PLAYLIST:
