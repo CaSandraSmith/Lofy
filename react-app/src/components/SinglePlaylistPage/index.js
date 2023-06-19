@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom"
 import { useModal } from "../../context/Modal"
 import { gatherAllSongs } from "../../store/albums"
 import { getOnePlaylist, clearPlaylist, findCurrentUserPlaylists, addSongToPlaylist } from "../../store/playlists"
-import { getPlaylistReviews } from "../../store/reviews"
+import { getPlaylistReviews, deletePlaylistReview } from "../../store/reviews"
 import { useAudio } from "../../context/Audio"
 import SinglePlaylistSearch from "./SinglePlaylistSearch"
 import DeletePlaylistModal from "./EditPlaylistModals/DeletePlaylistModal"
@@ -120,6 +120,11 @@ export default function SinglePlaylistPage() {
             }
         }
         return false
+    }
+
+    let deleteReview = async(id) => {
+        let message = await dispatch(deletePlaylistReview(id))
+        console.log(id)
     }
 
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
@@ -249,7 +254,7 @@ export default function SinglePlaylistPage() {
                                     <p>{review.review}</p>
                                     {review.user.id === user.id ? <div>
                                         <button>Edit</button>
-                                        <button>Delete</button>
+                                        <button onClick={() => deleteReview(review.id)}>Delete</button>
                                     </div>
                                         : null
                                     }

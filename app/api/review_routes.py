@@ -4,7 +4,7 @@ from ..models import PlaylistReview, db
 
 review_routes = Blueprint('reviews', __name__)
 
-@review_routes.route("/playlist/<int:id>/reviews", methods=["DELETE"])
+@review_routes.route("/<int:id>", methods=["DELETE"])
 @login_required
 def get_reviews_of_playlist(id):
     review = PlaylistReview.query.get(id)
@@ -15,7 +15,7 @@ def get_reviews_of_playlist(id):
     if review.user.id != current_user.id:
         return {"errors": "You can't delete a review that doesn't belong to you"}
     
-    db.session.delete()
+    db.session.delete(review)
     db.session.commit()
     
     return {"confirmation" : "Review successfully deleted"}
