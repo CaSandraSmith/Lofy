@@ -10,6 +10,7 @@ import SinglePlaylistSearch from "./SinglePlaylistSearch"
 import DeletePlaylistModal from "./EditPlaylistModals/DeletePlaylistModal"
 import EditPlaylistModal from "./EditPlaylistModals/EditPlaylistModal"
 import CreatePlaylistReview from "./PlaylistReviews"
+import EditPlaylistReview from "./PlaylistReviews/EditPlaylistReview"
 import "./SinglePlaylistPage.css"
 
 export default function SinglePlaylistPage() {
@@ -27,6 +28,7 @@ export default function SinglePlaylistPage() {
     const [loading, setLoading] = useState(false)
     const [editPlaylistMenuOpen, setEditPlaylistMenuOpen] = useState(false)
     const [playlistEdits, setPlaylistEdits] = useState(false)
+    const [editReviewOpen, setEditReviewOpen] = useState(false)
     const { setAudio } = useAudio()
 
     useEffect(() => {
@@ -122,9 +124,8 @@ export default function SinglePlaylistPage() {
         return false
     }
 
-    let deleteReview = async(id) => {
+    let deleteReview = async (id) => {
         let message = await dispatch(deletePlaylistReview(id))
-        console.log(id)
     }
 
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
@@ -253,8 +254,12 @@ export default function SinglePlaylistPage() {
                                     <p>{review.stars}</p>
                                     <p>{review.review}</p>
                                     {review.user.id === user.id ? <div>
-                                        <button>Edit</button>
+                                        <button onClick={() => setEditReviewOpen(true)}>Edit</button>
                                         <button onClick={() => deleteReview(review.id)}>Delete</button>
+                                        {editReviewOpen ?
+                                            <EditPlaylistReview review={review} reviewMenuOpen={(e) => setEditReviewOpen(e)}/>
+                                            :
+                                            null}
                                     </div>
                                         : null
                                     }

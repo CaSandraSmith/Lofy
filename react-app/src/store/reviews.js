@@ -76,8 +76,13 @@ export const deletePlaylistReview = (reviewId) => async (dispatch) => {
 }
 
 export const editPlaylistReview = (reviewId, review, stars) => async (dispatch) => {
+    console.log("review", review)
+    console.log("stars", stars)
     const res = await fetch(`/api/reviews/${reviewId}`, {
         method: "PUT",
+        headers: {
+			"Content-Type": "application/json",
+		},
         body: JSON.stringify({
             review,
             stars

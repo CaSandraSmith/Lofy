@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, session, request
 from flask_login import current_user, login_user, logout_user, login_required
 from ..models import PlaylistReview, db
 from ..forms import ReviewForm
+from .auth_routes import validation_errors_to_error_messages
 
 review_routes = Blueprint('reviews', __name__)
 
@@ -32,6 +33,7 @@ def edit_playlist_review(id):
     form = ReviewForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
+    print("DATAAAAAAAAA", form.data)
     if form.validate_on_submit():
         data = form.data
 
