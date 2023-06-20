@@ -48,7 +48,7 @@ function App() {
               </Route>
             </Switch>
 
-            {location.pathname != "/" && location.pathname != "/login" && location.pathname != "/signup" & <div className="changing-content">
+            {location.pathname != "/" && location.pathname != "/login" && location.pathname != "/signup" && <div className="changing-content">
               <Switch>
                 <Route path="/album/:id">
                   <SingleAlbumPage />
