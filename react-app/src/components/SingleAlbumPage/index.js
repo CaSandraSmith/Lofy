@@ -3,6 +3,7 @@ import { gatherAllAlbums } from "../../store/albums"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { useAudio } from "../../context/Audio"
+import "./SingleAlbumPage.css"
 
 export default function SingleAlbumPage() {
     const { id } = useParams()
@@ -43,7 +44,7 @@ export default function SingleAlbumPage() {
     }
 
     return (
-        <div>
+        <div className="single-album-page">
             <div>
                 <div>
                     <img src={album.cover_image} alt={`${album.name} cover image`} />
