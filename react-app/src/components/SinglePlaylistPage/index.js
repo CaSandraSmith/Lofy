@@ -51,7 +51,7 @@ export default function SinglePlaylistPage() {
         return () => document.removeEventListener("click", closeMenu);
     }, [editPlaylistMenuOpen]);
     
-    if (!loading) return <h1>Loading</h1>
+    if (!loading || !playlist.owner) return <h1>Loading</h1>
     
     function filterAndShuffleSongs(songs) {
         let getSongIds = (songs) => {
@@ -149,7 +149,7 @@ export default function SinglePlaylistPage() {
                             }
                         </div>
                         <div>
-                            <p>{playlist.owner.username}</p>
+                            <p>{playlist.owner?.username}</p>
                         </div>
                         {songsArr.length ?
                             <div className="single-profile-with-songs">
