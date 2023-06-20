@@ -1,71 +1,60 @@
 import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useModal } from '../../../context/Modal';
-import ProfileButton from '../ProfileButton';
-import LoginFormModal from '../../LoginFormModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../../store/session';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
+	const history = useHistory()
+	const dispatch = useDispatch()
 	const sessionUser = useSelector(state => state.session.user);
 	const [menu, setMenu] = useState(false)
-	const history = useHistory()
-	const { setModalContent } = useModal()
-	// let splashMenuClassName = menu ? "splash-profile-icon-green" : "splash-profile-icon-white"
+	const [menuHover, setMenuHover] = useState(false)
+	let splashMenuClassName = menu || menuHover ? "splash-profile-icon-green" : "splash-profile-icon-white"
+
+	let handleLogout = async () => {
+		dispatch(logout())
+	}
+
 	return (
 		<div className='navbar-splash-full'>
 			<div className='splash-logo-and-name'>
-				<img className='spash-logo' src="https://res.cloudinary.com/djp7wsuit/image/upload/v1687234717/Removal-267_zrbqvv.png"/>
+				<img className='spash-logo' src="https://res.cloudinary.com/djp7wsuit/image/upload/v1687234717/Removal-267_zrbqvv.png" />
 				<NavLink exact to="/" className="navbar-splash-logo">Lofi</NavLink>
 			</div>
 			{isLoaded && (
 				<div>
-					{sessionUser && sessionUser.profile_image ?
-						<div className='navbar-splash-options'
-						// onFocus={() => setMenu(!menu)} onBlur={() => setMenu(!menu)} className={'navbar-splash-options ' + splashMenuClassName} onClick={() => setMenu(!menu)}
-						>
+					{sessionUser ?
+						<div
+							onMouseEnter={() => setMenuHover(true)}
+							onMouseLeave={() => setMenuHover(false)}
+							className={'navbar-splash-options ' + splashMenuClassName}
+							onClick={() => setMenu(!menu)}
+						>	{sessionUser.profile_image ?
 							<img className='splash-profile-image' src={sessionUser.profile_image} alt='your profile image' />
+							:
+							<i className="fa-regular fa-user"></i>
+							}
 							<p className='splash-profile-text'>Profile</p>
 							{menu ?
 								<div >
 									<i class="fa-solid fa-chevron-up"></i>
-									{/* <div className='navbar-splash-profile-options'>
-																<div>Account</div>
-																<div>Log out</div>
-															</div> */}
+									<div className='navbar-splash-profile-options'>
+										<div onClick={() => alert("Feature coming soon")}>Account</div>
+										<div onClick={handleLogout}>Log out</div>
+									</div>
 								</div>
-
 								:
 								<div>
 									<i className="fa-solid fa-chevron-down splash-profile-down-icon"></i>
 								</div>
 							}
 						</div>
-						: sessionUser ?
-							<div className='navbar-splash-options' onClick={() => setMenu(!menu)}>
-								<i className="fa-regular fa-user"></i>
-								<p className='splash-profile-text'>Profile</p>
-								{menu ?
-									<div >
-										<i class="fa-solid fa-chevron-up"></i>
-										{/* <div className='navbar-splash-profile-options'>
-											<div>Account</div>
-											<div>Log out</div>
-										</div> */}
-									</div>
-									:
-									<div>
-										<i className="fa-solid fa-chevron-down splash-profile-down-icon"></i>
-									</div>
-								}
-							</div>
-							:
-							<div className='navbar-splash-options'>
-								{/* <ProfileButton user={sessionUser} /> */}
-								<button>Check us out</button>
-								<button>Sign up</button>
-								<button onClick={() => history.push("/login")}>Log in</button>
-							</div>
+						:
+						<div className='navbar-splash-options-logged-out'>
+							<p onClick={() => history.push("/signup")}>Sign up</p>
+							<p onClick={() => history.push("/login")}>Log in</p>
+						</div>
 					}
 				</div>
 			)}

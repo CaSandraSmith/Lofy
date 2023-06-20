@@ -31,21 +31,37 @@
 .navbar-splash-options {
   display: flex;
   position: relative;
+  align-items: center;
+  column-gap: 5px;
 }
 
 .navbar-splash-profile-options {
   position: absolute;
-  top: 40px;
+  top: 50px;
   right: 0;
   background-color: white;
+  z-index: 10;
+  padding: 10px;
+  width: 150px;
 }
 
-/* .navbar-splash-profile-options:hover {
-  color: #1ed660;
-} */
+.navbar-splash-options-logged-out {
+  display: flex;
+  column-gap: 10px;
+  cursor: pointer;
+}
 
-.navbar-splash-profile-options > * {
+.navbar-splash-profile-options > div:nth-child(1) {
   color: black;
+  font-weight: 600;
+}
+
+.navbar-splash-profile-options > div:nth-child(2) {
+  color: black;
+}
+
+.navbar-splash-profile-options > div:hover {
+  color: #1ed660;
 }
 
 .splash-profile-text {

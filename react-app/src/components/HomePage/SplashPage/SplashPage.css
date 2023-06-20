@@ -64,12 +64,6 @@
     border-color: transparent;
 }
 
-/* .splash-footer {
-    border: 2px solid blue;
-    height: 90px;
-    background-color: black;
-} */
-
 .splash-footer  > * {
     color: white;
 }
