@@ -30,30 +30,29 @@ export default function SinglePlaylistPage() {
     const [playlistEdits, setPlaylistEdits] = useState(false)
     const [editReviewOpen, setEditReviewOpen] = useState(false)
     const { setAudio } = useAudio()
-
     useEffect(() => {
         dispatch(getOnePlaylist(id)).then(() => setLoading(true))
         dispatch(findCurrentUserPlaylists())
         dispatch(gatherAllSongs())
         dispatch(getPlaylistReviews(id))
     }, [dispatch, id, playlistEdits])
-
+    
     useEffect(() => {
         if (!editPlaylistMenuOpen) return;
-
+        
         const closeMenu = (e) => {
             if (!editPlaylistRef.current.contains(e.target)) {
                 setEditPlaylistMenuOpen(false);
             }
         };
-
+        
         document.addEventListener('click', closeMenu);
-
+        
         return () => document.removeEventListener("click", closeMenu);
     }, [editPlaylistMenuOpen]);
-
+    
     if (!loading) return <h1>Loading</h1>
-
+    
     function filterAndShuffleSongs(songs) {
         let getSongIds = (songs) => {
             let arr = []
@@ -62,10 +61,10 @@ export default function SinglePlaylistPage() {
             }
             return arr
         }
-
+        
         let playlistSongsIds = getSongIds(songs)
         let allSongsArr = Object.values(allSongs).filter(song => !playlistSongsIds.includes(song.id))
-
+        
         let songList = []
         let copy = [...allSongsArr]
         while (copy.length) {
@@ -75,14 +74,14 @@ export default function SinglePlaylistPage() {
         }
         return songList.slice(0, 5)
     }
-
+    
     let otherSongs
     let songsArr
     if (playlistSongs) {
         songsArr = Object.values(playlistSongs)
         otherSongs = filterAndShuffleSongs(songsArr)
     }
-
+    
     let convertLength = () => {
         let length = 0
         for (let song of songsArr) {
@@ -90,7 +89,7 @@ export default function SinglePlaylistPage() {
         }
         return `${Math.floor(length / 60)} min ${length % 60} sec`
     }
-
+    
     let convertLengthTable = (length) => {
         let minutes = Math.floor(length / 60)
         let seconds = length % 60
@@ -100,12 +99,12 @@ export default function SinglePlaylistPage() {
         }
         return `${minutes}:${sec}`
     }
-
+    
     function editPlaylistClick() {
         setModalContent(<EditPlaylistModal playlist={playlist} value={playlistEdits} setter={(x) => setPlaylistEdits(x)} />)
         setEditPlaylistMenuOpen(false)
     }
-
+    
     function deletePlaylistClick() {
         setModalContent(<DeletePlaylistModal playlist={playlist} />)
         setEditPlaylistMenuOpen(false)
@@ -114,7 +113,7 @@ export default function SinglePlaylistPage() {
     let handleAddSongClick = async (playlistId, songId) => {
         await dispatch(addSongToPlaylist(playlistId, songId))
     }
-
+    
     let checkUser = () => {
         for (let rev of reviewsArr) {
             if (rev.user.id === user.id) {
@@ -123,13 +122,13 @@ export default function SinglePlaylistPage() {
         }
         return false
     }
-
+    
     let deleteReview = async (id) => {
         let message = await dispatch(deletePlaylistReview(id))
     }
-
+    
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
-
+    
     return (
         <div className="single-playlist-page">
             <div className="single-playlist-header">
@@ -144,7 +143,7 @@ export default function SinglePlaylistPage() {
                     </div>
                     <div className="single-playlist-header-owner-text">
                         <div>
-                            {playlist.owner.profile_image ?
+                            {playlist.owner?.profile_image ?
                                 <img className="playlist-profile-image" src={playlist.owner.profile_image} alt={`user ${playlist.owner.username}'s profile imafe`} />
                                 : <i className="fa-regular fa-user single-playlist-no-image"></i>
                             }
