@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
@@ -14,6 +14,7 @@ import GeneralNav from "./components/NavigationBar/GeneralNav";
 import SingleAlbumPage from "./components/SingleAlbumPage";
 
 function App() {
+  const location = useLocation()
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const currentUser = useSelector(state => state.session.user)
@@ -26,6 +27,7 @@ function App() {
     <>
       {isLoaded && (
         <div className="entire-page">
+          
           <div className="home">
             <Switch>
               <Route exact path="/">
@@ -39,7 +41,7 @@ function App() {
               </Route>
             </Switch>
 
-            <div className="changing-content">
+           {location.pathname !="/" && <div className="changing-content">
               <Switch>
                 <Route path="/album/:id">
                   <SingleAlbumPage />
@@ -61,7 +63,7 @@ function App() {
                   <SignupFormPage />
                 </Route>
               </Switch>
-            </div>
+            </div>}
           </div>
 
           <Switch>
