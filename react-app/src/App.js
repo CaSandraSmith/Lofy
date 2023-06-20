@@ -12,6 +12,7 @@ import SinglePlaylistPage from "./components/SinglePlaylistPage";
 import AudioBar from "./components/ConstantUserNav/AudioBar";
 import GeneralNav from "./components/NavigationBar/GeneralNav";
 import SingleAlbumPage from "./components/SingleAlbumPage";
+import SplashFooter from "./components/HomePage/SplashPage/SplashFooter";
 
 function App() {
   const location = useLocation()
@@ -27,7 +28,7 @@ function App() {
     <>
       {isLoaded && (
         <div className="entire-page">
-          
+
           <div className="home">
             <Switch>
               <Route exact path="/">
@@ -41,7 +42,7 @@ function App() {
               </Route>
             </Switch>
 
-           {location.pathname !="/" && <div className="changing-content">
+            {location.pathname != "/" && <div className="changing-content">
               <Switch>
                 <Route path="/album/:id">
                   <SingleAlbumPage />
@@ -66,14 +67,14 @@ function App() {
             </div>}
           </div>
 
-          <Switch>
-            <Route exact path="/">
-              <h1>Info</h1>
-            </Route>
-            <Route path="/">
-              <AudioBar />
-            </Route>
-          </Switch>
+            <Switch>
+              <Route exact path="/">
+                <SplashFooter />
+              </Route>
+              <Route path="/">
+                <AudioBar />
+              </Route>
+            </Switch>
         </div>
       )}
     </>

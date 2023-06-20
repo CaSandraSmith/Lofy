@@ -14,7 +14,8 @@ function Navigation({ isLoaded }) {
 	// let splashMenuClassName = menu ? "splash-profile-icon-green" : "splash-profile-icon-white"
 	return (
 		<div className='navbar-splash-full'>
-			<div>
+			<div className='splash-logo-and-name'>
+				<img className='spash-logo' src="https://res.cloudinary.com/djp7wsuit/image/upload/v1687234717/Removal-267_zrbqvv.png"/>
 				<NavLink exact to="/" className="navbar-splash-logo">Lofi</NavLink>
 			</div>
 			{isLoaded && (

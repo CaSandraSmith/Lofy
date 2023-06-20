@@ -1,9 +1,9 @@
 .whole-splash-page {
     background: linear-gradient(315deg, #6c0ee0, #e333ac);
     width: 100%;
-    height: calc(100vh - 140px);
+    height: calc(100vh - 160px);
+    height: 100%;
     overflow: hidden;
-    z-index: -1;
     position: relative;
     /* top: 0px; */
 }
@@ -40,4 +40,36 @@
 
 .slash-page-text {
     position: absolute;
+    width: 100%;
+    z-index: 5;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.splash-slogan {
+    font-size: 50px;
+    font-weight: 800;
+    width: 700px;
+    color: white;
+}
+
+.slash-page-text>button {
+    width: 150px;
+    padding: 10px;
+    border-radius: 50px;
+    font-weight: 600;
+    border-color: transparent;
+}
+
+/* .splash-footer {
+    border: 2px solid blue;
+    height: 90px;
+    background-color: black;
+} */
+
+.splash-footer  > * {
+    color: white;
 }

@@ -6,6 +6,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Manrope', sans-serif;
+    
 }
 
 .home {
@@ -24,4 +25,10 @@
     padding: 15px;
     overflow: scroll;
     width: calc(100% - 400px);
+}
+
+.entire-page {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
 }
