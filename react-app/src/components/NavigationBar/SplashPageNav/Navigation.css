@@ -51,6 +51,10 @@
   cursor: pointer;
 }
 
+.navbar-splash-options-logged-out > h3:hover {
+  color: #1ed660;
+}
+
 .navbar-splash-profile-options > div:nth-child(1) {
   color: black;
   font-weight: 600;

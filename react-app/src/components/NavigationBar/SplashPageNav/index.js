@@ -52,8 +52,8 @@ function Navigation({ isLoaded }) {
 						</div>
 						:
 						<div className='navbar-splash-options-logged-out'>
-							<p onClick={() => history.push("/signup")}>Sign up</p>
-							<p onClick={() => history.push("/login")}>Log in</p>
+							<h3 onClick={() => history.push("/signup")}>Sign up</h3>
+							<h3 onClick={() => history.push("/login")}>Log in</h3>
 						</div>
 					}
 				</div>

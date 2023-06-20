@@ -37,12 +37,18 @@ function App() {
                   <SplashPage />
                 </div>
               </Route>
+              <Route path="/login" >
+                  <LoginFormPage />
+                </Route>
+                <Route path="/signup">
+                  <SignupFormPage />
+                </Route>
               <Route path="/">
                 <LibraryBar />
               </Route>
             </Switch>
 
-            {location.pathname != "/" && <div className="changing-content">
+            {location.pathname != "/" && location.pathname != "/login" && location.pathname != "/signup" & <div className="changing-content">
               <Switch>
                 <Route path="/album/:id">
                   <SingleAlbumPage />
@@ -55,26 +61,18 @@ function App() {
                   <GeneralNav />
                   <HomePage />
                 </Route>
-                <Route path="/login" >
-                  <GeneralNav />
-                  <LoginFormPage />
-                </Route>
-                <Route path="/signup">
-                  <GeneralNav />
-                  <SignupFormPage />
-                </Route>
               </Switch>
             </div>}
           </div>
 
-            <Switch>
+            {location.pathname != "/login" && location.pathname != "/signup" && <Switch>
               <Route exact path="/">
                 <SplashFooter />
               </Route>
               <Route path="/">
                 <AudioBar />
               </Route>
-            </Switch>
+            </Switch>}
         </div>
       )}
     </>
