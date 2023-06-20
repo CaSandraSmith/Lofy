@@ -20,7 +20,7 @@ function Navigation({ isLoaded }) {
 		<div className='navbar-splash-full'>
 			<div className='splash-logo-and-name'>
 				<img className='spash-logo' src="https://res.cloudinary.com/djp7wsuit/image/upload/v1687234717/Removal-267_zrbqvv.png" />
-				<NavLink exact to="/" className="navbar-splash-logo">Lofi</NavLink>
+				<NavLink exact to="/" className="navbar-splash-logo">Lofy</NavLink>
 			</div>
 			{isLoaded && (
 				<div>
