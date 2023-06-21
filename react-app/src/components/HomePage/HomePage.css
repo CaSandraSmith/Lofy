@@ -1,5 +1,11 @@
+.home-page-wrapper > * {
+    color: white;
+}
+
 .home-time-title {
     padding-top: 50px;
+    font-size: 30px;
+    font-weight: 700;
 }
 
 .home-page-user-playlists {
@@ -24,7 +30,7 @@
 
 .home-page-wrapper {
     width: 100%;
-    background-color: white;
+    background-color: #121212;
 }
 
 .home-all-albums-wrapper{

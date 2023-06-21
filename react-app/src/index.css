@@ -22,7 +22,7 @@
 }
 
 .changing-content {
-    padding: 15px;
+    padding: 5px;
     overflow: scroll;
     width: calc(100% - 400px);
 }

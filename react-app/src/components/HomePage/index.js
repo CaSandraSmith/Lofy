@@ -26,53 +26,68 @@ export default function HomePage() {
     let otherUserPlaylists = Object.values(allPlaylists).filter(playlist => playlist.owner.id != user.id).slice(0, 4)
     const { setModalContent } = useModal()
 
-    return (
-        <div className="home-page-wrapper">
-            <h1 className="home-time-title">Good "Insert Time Here"</h1>
-            <div className="home-page-user-playlists">
-                {userPlaylistArr.map(playlist => (
-                    <div
-                        className="home-page-user-playlists-wrapper"
-                        onClick={() => history.push(`/playlist/${playlist.id}`)}
-                    >
-                        <img className="home-page-user-playlists-cover-image" src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"} alt={`Playlist ${playlist.name} cover image`} />
-                        <p>{playlist.name}</p>
-                    </div>
-                ))}
-            </div>
-            <div>
-                <h2 className="home-section-headers">Checkout out these albums</h2>
-                <div className="home-all-albums-wrapper">
-                    {albumsArr.map(album => (
-                        <div 
-                        className="home-single-album-wrapper"
-                        onClick={() => history.push(`/album/${album.id}`)}
+    let checkTime = () => {
+        let date = new Date()
+        let hour = date.getHours()
+
+        if (hour <= 4) {
+            return "Good night"
+        } else if (hour > 4 && hour < 12) {
+            return "Good morning"
+        } else if (hour >= 12 && hour < 17) {
+            return "Good afternoon"
+        } else if (hour >= 17 && hour < 20) {
+            return "Good evening"
+        } else return "Good night"
+    }
+
+        return (
+            <div className="home-page-wrapper">
+                <h1 className="home-time-title">{checkTime()}</h1>
+                <div className="home-page-user-playlists">
+                    {userPlaylistArr.map(playlist => (
+                        <div
+                            className="home-page-user-playlists-wrapper"
+                            onClick={() => history.push(`/playlist/${playlist.id}`)}
                         >
-                            <img className="home-all-albums-cover-image" src={album.cover_image} alt={`${album.name} cover image`} />
-                            <p>{album.name}</p>
-                            <p className="home-playlist-description">{album.artist}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-            <div>
-                <h2 className="home-section-headers">More lofy collections</h2>
-                <div className="home-all-albums-wrapper">
-                    {otherUserPlaylists.map(playlist => (
-                        <div onClick={() => history.push(`/playlist/${playlist.id}`)} className="home-single-album-wrapper">
-                            <img 
-                            className="home-all-albums-cover-image"
-                            src={
-                                playlist.cover_image ? playlist.cover_image :
-                                "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"} 
-                                alt={`Playlist ${playlist.name} cover image`
-                            }/>
+                            <img className="home-page-user-playlists-cover-image" src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"} alt={`Playlist ${playlist.name} cover image`} />
                             <p>{playlist.name}</p>
-                            <p className="home-playlist-description">{playlist.description ? playlist.description : null}</p>
                         </div>
                     ))}
                 </div>
+                <div>
+                    <h2 className="home-section-headers">Checkout out these albums</h2>
+                    <div className="home-all-albums-wrapper">
+                        {albumsArr.map(album => (
+                            <div
+                                className="home-single-album-wrapper"
+                                onClick={() => history.push(`/album/${album.id}`)}
+                            >
+                                <img className="home-all-albums-cover-image" src={album.cover_image} alt={`${album.name} cover image`} />
+                                <p>{album.name}</p>
+                                <p className="home-playlist-description">{album.artist}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div>
+                    <h2 className="home-section-headers">More lofy collections</h2>
+                    <div className="home-all-albums-wrapper">
+                        {otherUserPlaylists.map(playlist => (
+                            <div onClick={() => history.push(`/playlist/${playlist.id}`)} className="home-single-album-wrapper">
+                                <img
+                                    className="home-all-albums-cover-image"
+                                    src={
+                                        playlist.cover_image ? playlist.cover_image :
+                                            "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"}
+                                    alt={`Playlist ${playlist.name} cover image`
+                                    } />
+                                <p>{playlist.name}</p>
+                                <p className="home-playlist-description">{playlist.description ? playlist.description : null}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
-        </div>
-    )
-}
+        )
+    }
