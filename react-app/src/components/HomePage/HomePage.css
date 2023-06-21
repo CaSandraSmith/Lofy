@@ -5,7 +5,7 @@
 .home-time-title {
     padding-top: 50px;
     font-size: 30px;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .home-page-user-playlists {
@@ -18,6 +18,7 @@
 .home-page-user-playlists-cover-image {
     width: 80px;
     height: 80px;
+    border-radius: 5px 0 0 5px;
 }
 
 .home-page-user-playlists-wrapper {
@@ -26,11 +27,18 @@
     align-items: center;
     cursor: pointer;
     column-gap: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.home-page-user-playlists-wrapper:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .home-page-wrapper {
     width: 100%;
     background-color: #121212;
+    padding: 20px;
 }
 
 .home-all-albums-wrapper{

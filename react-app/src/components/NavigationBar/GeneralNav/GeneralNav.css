@@ -1,6 +1,13 @@
 .general-nav {
     position: fixed;
-    right: 50px;
+    width: calc(100% - 400px);
+    height: 65px;
+    display: flex;
+    justify-content: flex-end;
+    top: 0;
+    align-items: center;
+    padding-right: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .general-nav-profile-no-image {
