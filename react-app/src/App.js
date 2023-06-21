@@ -38,43 +38,49 @@ function App() {
                 </div>
               </Route>
               <Route path="/login" >
-                  <LoginFormPage />
-                </Route>
-                <Route path="/signup">
-                  <SignupFormPage />
-                </Route>
+                <LoginFormPage />
+              </Route>
+              <Route path="/signup">
+                <SignupFormPage />
+              </Route>
               <Route path="/">
                 <LibraryBar />
               </Route>
             </Switch>
 
-            {location.pathname != "/" && location.pathname != "/login" && location.pathname != "/signup" && <div className="changing-content">
-              <Switch>
-                <Route path="/album/:id">
-                  <SingleAlbumPage />
-                </Route>
-                <Route path="/playlist/:id">
-                  <GeneralNav />
-                  <SinglePlaylistPage />
-                </Route>
-                <Route path="/home">
-                  <GeneralNav />
-                  <HomePage />
-                </Route>
-              </Switch>
-            </div>}
+            {location.pathname != "/" && location.pathname != "/login" && location.pathname != "/signup" &&
+              <div className="changing-content">
+                <Switch>
+                  <Route path="/album/:id">
+                    <SingleAlbumPage />
+                  </Route>
+                  <Route path="/playlist/:id">
+                    <GeneralNav />
+                    <SinglePlaylistPage />
+                  </Route>
+                  <Route path="/home">
+                    <GeneralNav />
+                    <HomePage />
+                  </Route>
+                </Switch>
+              </div>}
           </div>
 
-            {location.pathname != "/login" && location.pathname != "/signup" && <Switch>
-              <Route exact path="/">
-                <SplashFooter />
-              </Route>
-              <Route path="/">
-                <AudioBar />
-              </Route>
-            </Switch>}
-        </div>
-      )}
+          {location.pathname != "/login" && location.pathname != "/signup" &&
+            <div className="footer">
+              <Switch>
+                <Route exact path="/">
+                  <SplashFooter />
+                </Route>
+                <Route path="/">
+                  <AudioBar />
+                </Route>
+              </Switch>
+            </div>
+          }
+        </div >
+      )
+      }
     </>
   );
 }
