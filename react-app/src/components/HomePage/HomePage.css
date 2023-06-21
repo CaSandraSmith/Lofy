@@ -28,6 +28,7 @@
     cursor: pointer;
     column-gap: 15px;
     background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.5s;
     border-radius: 5px;
 }
 
@@ -53,6 +54,7 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
+    border-radius: 5px;
 }
 
 .home-single-album-wrapper {
@@ -62,6 +64,13 @@
     row-gap: 10px;
     flex-direction: column;
     justify-content: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    transition: background-color 0.5s;
+}
+
+.home-single-album-wrapper:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .home-playlist-description {

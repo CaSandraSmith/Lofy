@@ -52,7 +52,7 @@ function App() {
               <div className="changing-content">
                 <Switch>
                   <Route path="/album/:id">
-                  <GeneralNav />
+                    <GeneralNav />
                     <SingleAlbumPage />
                   </Route>
                   <Route path="/playlist/:id">
