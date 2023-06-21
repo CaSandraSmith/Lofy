@@ -4,9 +4,8 @@ import "./AudioBar.css"
 
 export default function AudioBar() {
     const audioBarRef = useRef()
-    let [currentTime, setCurrentTime] = useState(0)
     let [inputValue, setInputValue] = useState(0)
-    let { audio, playing, setPlaying, albumCover, songName, artist, duration } = useAudio()
+    let { playing, setPlaying, songName, queue, setSong, song } = useAudio()
 
     let handlePlayBottonClick = () => {
         if (playing) {
@@ -28,36 +27,71 @@ export default function AudioBar() {
         return `${minutes}:${sec}`
     }
 
+    let songFinished = () => {
+        let index = queue.indexOf(song)
+        let lastIndex = queue.length - 1
+        if (index === lastIndex) {
+            setSong(queue[0])
+        } else {
+            setSong(queue[index + 1])
+        }
+    }
+
+    let handlePrevCLick = () => {
+        console.log(audioBarRef.current.currentTime)
+        if (audioBarRef.current.currentTime > 3) {
+            return audioBarRef.current.currentTime = 0
+        }
+        let index = queue.indexOf(song)
+        let lastIndex = queue.length - 1
+        
+        if (index === 0) {
+            console.log("in first conditional")
+            setSong(queue[lastIndex])
+        } else {
+            console.log("in second conditional")
+            setSong(queue[index - 1])
+        }
+    }
+
+
     return (
         <div className="audio-bar">
             <audio
                 ref={audioBarRef}
-                src={audio}
-                // onTimeUpdate={() => setInputValue(Math.floor(audioBarRef.current.currentTime))}
+                src={song.audio}
+                onTimeUpdate={() => setInputValue(Math.floor(audioBarRef.current.currentTime))}
+                onEnded={songFinished}
                 autoPlay>
             </audio>
             <div className="visible-audio-bar">
                 {songName && <div>
-                    <img className="audio-bar-album-cover" src={albumCover} alt={`Album cover for ${songName}`} />
+                    <img className="audio-bar-album-cover" src={song.album.cover_image} alt={`Album cover for ${song.name}`} />
                     <div>
-                        <p>{songName}</p>
-                        <p>{artist}</p>
+                        <p>{song.name}</p>
+                        <p>{song.artist_name}</p>
                     </div>
                 </div>}
                 <div>
-                    <i className="fa-solid fa-backward-step"></i>
+                    <i
+                        className="fa-solid fa-backward-step"
+                        onClick={handlePrevCLick}
+                    ></i>
                     <i onClick={handlePlayBottonClick} className={playing ? "fa-solid fa-circle-pause" : "fa-solid fa-circle-play"}></i>
-                    <i className="fa-solid fa-forward-step"></i>
+                    <i
+                        className="fa-solid fa-forward-step"
+                        onClick={songFinished}
+                    ></i>
                 </div>
                 <div>
-                    <span>{convertLengthTable(audioBarRef.current ? Math.floor(audioBarRef.current.currentTime) : 0)}</span>
+                    <span>{song ? convertLengthTable(Math.floor(audioBarRef.current.currentTime)) : "--:--"}</span>
                     <input
                         value={audioBarRef.current ? audioBarRef.current.currentTime : 0}
                         type="range"
                         onChange={(e) => audioBarRef.current.currentTime = e.target.value}
-                        max={duration ? duration : 0}
+                        max={song.length ? song.length : 0}
                     />
-                    <span>{convertLengthTable(duration)}</span>
+                    <span>{song ? convertLengthTable(song.length) : "--:--"}</span>
                 </div>
             </div>
         </div>
