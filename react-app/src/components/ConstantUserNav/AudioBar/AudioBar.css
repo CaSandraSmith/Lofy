@@ -1,0 +1,12 @@
+.audio-bar > *{
+    color: white;
+}
+
+.audio-bar-album-cover {
+    width: 20px;
+    height: 20px;
+}
+
+.visible-audio-bar {
+    display: flex;
+}

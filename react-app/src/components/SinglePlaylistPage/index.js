@@ -29,7 +29,8 @@ export default function SinglePlaylistPage() {
     const [editPlaylistMenuOpen, setEditPlaylistMenuOpen] = useState(false)
     const [playlistEdits, setPlaylistEdits] = useState(false)
     const [editReviewOpen, setEditReviewOpen] = useState(false)
-    const { setAudio } = useAudio()
+    const { setAudio, setPlaying, setAlbumCover, setSongName, setArtist, setDuration } = useAudio()
+
     useEffect(() => {
         dispatch(getOnePlaylist(id)).then(() => setLoading(true))
         dispatch(findCurrentUserPlaylists())
@@ -95,7 +96,7 @@ export default function SinglePlaylistPage() {
         let seconds = length % 60
         let sec = seconds.toString()
         if (sec.length < 2) {
-            sec = sec + "0"
+            sec = "0" + sec
         }
         return `${minutes}:${sec}`
     }
@@ -125,6 +126,15 @@ export default function SinglePlaylistPage() {
     
     let deleteReview = async (id) => {
         let message = await dispatch(deletePlaylistReview(id))
+    }
+
+    let handleSongClick = (song) => {
+        setAudio(song.audio)
+        setPlaying(true)
+        setAlbumCover(song.album.cover_image)
+        setSongName(song.name)
+        setArtist(song.artist_name)
+        setDuration(song.length)
     }
     
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
@@ -190,7 +200,7 @@ export default function SinglePlaylistPage() {
                                 {songsArr.map((song, i) => (
                                     <tr
                                         // sSongHoverOff()}
-                                        onClick={() => setAudio(song.audio)}>
+                                        onClick={() => handleSongClick(song)}>
                                         <td>{i + 1}</td>
                                         <td>
                                             <div className="single-playlist-title">
