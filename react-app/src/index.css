@@ -23,7 +23,8 @@
 
 .changing-content {
     padding: 5px;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: auto;
     width: calc(100% - 400px);
 }
 

@@ -37,23 +37,23 @@ export default function SinglePlaylistPage() {
         dispatch(gatherAllSongs())
         dispatch(getPlaylistReviews(id))
     }, [dispatch, id, playlistEdits])
-    
+
     useEffect(() => {
         if (!editPlaylistMenuOpen) return;
-        
+
         const closeMenu = (e) => {
             if (!editPlaylistRef.current.contains(e.target)) {
                 setEditPlaylistMenuOpen(false);
             }
         };
-        
+
         document.addEventListener('click', closeMenu);
-        
+
         return () => document.removeEventListener("click", closeMenu);
     }, [editPlaylistMenuOpen]);
-    
+
     if (!loading || !playlist.owner) return <h1>Loading</h1>
-    
+
     function filterAndShuffleSongs(songs) {
         let getSongIds = (songs) => {
             let arr = []
@@ -62,10 +62,10 @@ export default function SinglePlaylistPage() {
             }
             return arr
         }
-        
+
         let playlistSongsIds = getSongIds(songs)
         let allSongsArr = Object.values(allSongs).filter(song => !playlistSongsIds.includes(song.id))
-        
+
         let songList = []
         let copy = [...allSongsArr]
         while (copy.length) {
@@ -75,14 +75,14 @@ export default function SinglePlaylistPage() {
         }
         return songList.slice(0, 5)
     }
-    
+
     let otherSongs
     let songsArr
     if (playlistSongs) {
         songsArr = Object.values(playlistSongs)
         otherSongs = filterAndShuffleSongs(songsArr)
     }
-    
+
     let convertLength = () => {
         let length = 0
         for (let song of songsArr) {
@@ -90,7 +90,7 @@ export default function SinglePlaylistPage() {
         }
         return `${Math.floor(length / 60)} min ${length % 60} sec`
     }
-    
+
     let convertLengthTable = (length) => {
         let minutes = Math.floor(length / 60)
         let seconds = length % 60
@@ -100,12 +100,12 @@ export default function SinglePlaylistPage() {
         }
         return `${minutes}:${sec}`
     }
-    
+
     function editPlaylistClick() {
         setModalContent(<EditPlaylistModal playlist={playlist} value={playlistEdits} setter={(x) => setPlaylistEdits(x)} />)
         setEditPlaylistMenuOpen(false)
     }
-    
+
     function deletePlaylistClick() {
         setModalContent(<DeletePlaylistModal playlist={playlist} />)
         setEditPlaylistMenuOpen(false)
@@ -114,7 +114,7 @@ export default function SinglePlaylistPage() {
     let handleAddSongClick = async (playlistId, songId) => {
         await dispatch(addSongToPlaylist(playlistId, songId))
     }
-    
+
     let checkUser = () => {
         for (let rev of reviewsArr) {
             if (rev.user.id === user.id) {
@@ -123,7 +123,7 @@ export default function SinglePlaylistPage() {
         }
         return false
     }
-    
+
     let deleteReview = async (id) => {
         let message = await dispatch(deletePlaylistReview(id))
     }
@@ -134,19 +134,23 @@ export default function SinglePlaylistPage() {
         let arr = [...songsArr.slice(i), ...songsArr.slice(0, i)]
         setQueue(arr)
     }
-    
+
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
-    
+
     return (
         <div className="single-playlist-page">
             <div className="single-playlist-header">
                 <div>
-                    <img className="single-playlist-cover-image" src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"} />
+                    <img className="single-playlist-cover-image"
+                        src={playlist.cover_image ?
+                            playlist.cover_image :
+                            "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"}
+                    />
                 </div>
                 <div className="single-playlist-header-text">
                     <div>
                         <p>Playlist</p>
-                        <h1>{playlist.name}</h1>
+                        <h1 className="single-playlist-name">{playlist.name}</h1>
                         <p>{playlist.description}</p>
                     </div>
                     <div className="single-playlist-header-owner-text">
@@ -176,8 +180,15 @@ export default function SinglePlaylistPage() {
             </div>
             <div>
                 <div className="single-playlist-options">
-                    {songsArr.length ? <i className="fa-solid fa-play"></i> : null}
-                    <i className="fa-solid fa-ellipsis" onClick={() => setEditPlaylistMenuOpen(!editPlaylistMenuOpen)}></i>
+                    <div className="single-playlist-buttons">
+                        {songsArr.length ? 
+                        <i 
+                        className="fa-solid fa-play play-playlist-button"
+                        onClick={() => handleSongClick(songsArr[0], 0)}
+                        >
+                        </i> : null}
+                        <i className="fa-solid fa-ellipsis playlist-ellipsis-options" onClick={() => setEditPlaylistMenuOpen(!editPlaylistMenuOpen)}></i>
+                    </div>
                     <div className={editMenuClassName} ref={editPlaylistRef}>
                         <p onClick={editPlaylistClick}>Edit Details</p>
                         <p onClick={deletePlaylistClick}>Delete</p>
@@ -264,7 +275,7 @@ export default function SinglePlaylistPage() {
                                         <button onClick={() => setEditReviewOpen(true)}>Edit</button>
                                         <button onClick={() => deleteReview(review.id)}>Delete</button>
                                         {editReviewOpen ?
-                                            <EditPlaylistReview review={review} reviewMenuOpen={(e) => setEditReviewOpen(e)}/>
+                                            <EditPlaylistReview review={review} reviewMenuOpen={(e) => setEditReviewOpen(e)} />
                                             :
                                             null}
                                     </div>

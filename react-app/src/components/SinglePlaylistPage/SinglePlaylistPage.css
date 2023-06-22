@@ -1,9 +1,40 @@
+.single-playlist-page > * {
+    color: white;
+}
+
 .single-playlist-page {
-    background-color: white;
+    width: 100%;
+    background-color: #121212;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.single-playlist-name {
+    font-size: 50px;
 }
 
 .single-playlist-options {
     position: relative;
+    padding-bottom: 20px;
+}
+
+.single-playlist-buttons {
+    display: flex;
+    align-items: center;
+    column-gap: 30px;
+}
+
+.play-playlist-button {
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 50%;
+    background-color: #1ed660;
+    font-size: 20px;
+    color: black;
+}
+
+.playlist-ellipsis-options {
+    font-size: 20px;
 }
 
 .edit-playlist-menu {
