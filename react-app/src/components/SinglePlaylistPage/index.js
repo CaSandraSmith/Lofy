@@ -29,6 +29,8 @@ export default function SinglePlaylistPage() {
     const [editPlaylistMenuOpen, setEditPlaylistMenuOpen] = useState(false)
     const [playlistEdits, setPlaylistEdits] = useState(false)
     const [editReviewOpen, setEditReviewOpen] = useState(false)
+    // const [shuffle, setShuffle] = useState(false)
+    // const [otherSongs, setOtherSongs] = useState([])
     const { setPlaying, setQueue, setSong } = useAudio()
 
     useEffect(() => {
@@ -52,9 +54,39 @@ export default function SinglePlaylistPage() {
         return () => document.removeEventListener("click", closeMenu);
     }, [editPlaylistMenuOpen]);
 
+    let songsArr = []
+
     if (!loading || !playlist.owner) return <h1>Loading</h1>
 
-    function filterAndShuffleSongs(songs) {
+    let otherSongs = []
+    if (playlistSongs) {
+        songsArr = Object.values(playlistSongs)
+        otherSongs = filterSongs(songsArr)
+    }
+
+    // function filterAndShuffleSongs(songs) {
+    //     let getSongIds = (songs) => {
+    //         let arr = []
+    //         for (let song of songs) {
+    //             arr.push(song.id)
+    //         }
+    //         return arr
+    //     }
+
+    //     let playlistSongsIds = getSongIds(songs)
+    //     let allSongsArr = Object.values(allSongs).filter(song => !playlistSongsIds.includes(song.id))
+
+    //     let songList = []
+    //     let copy = [...allSongsArr]
+    //     while (copy.length) {
+    //         let i = Math.floor(Math.random() * copy.length)
+    //         songList.push(copy[i])
+    //         copy.splice(i, 1)
+    //     }
+    //     return songList.slice(0, 5)
+    // }
+
+    function filterSongs(songs) {
         let getSongIds = (songs) => {
             let arr = []
             for (let song of songs) {
@@ -66,22 +98,19 @@ export default function SinglePlaylistPage() {
         let playlistSongsIds = getSongIds(songs)
         let allSongsArr = Object.values(allSongs).filter(song => !playlistSongsIds.includes(song.id))
 
-        let songList = []
-        let copy = [...allSongsArr]
-        while (copy.length) {
-            let i = Math.floor(Math.random() * copy.length)
-            songList.push(copy[i])
-            copy.splice(i, 1)
-        }
-        return songList.slice(0, 5)
+        return allSongsArr
     }
 
-    let otherSongs
-    let songsArr
-    if (playlistSongs) {
-        songsArr = Object.values(playlistSongs)
-        otherSongs = filterAndShuffleSongs(songsArr)
-    }
+    // function shuffleSongs(allSongsArr) {
+    //     let songList = []
+    //     let copy = [...allSongsArr]
+    //     while (copy.length) {
+    //         let i = Math.floor(Math.random() * copy.length)
+    //         songList.push(copy[i])
+    //         copy.splice(i, 1)
+    //     }
+    //     return songList.slice(0, 5)
+    // }
 
     let convertLength = () => {
         let length = 0
@@ -181,12 +210,12 @@ export default function SinglePlaylistPage() {
             <div>
                 <div className="single-playlist-options">
                     <div className="single-playlist-buttons">
-                        {songsArr.length ? 
-                        <i 
-                        className="fa-solid fa-play play-playlist-button"
-                        onClick={() => handleSongClick(songsArr[0], 0)}
-                        >
-                        </i> : null}
+                        {songsArr.length ?
+                            <i
+                                className="fa-solid fa-play play-playlist-button"
+                                onClick={() => handleSongClick(songsArr[0], 0)}
+                            >
+                            </i> : null}
                         <i className="fa-solid fa-ellipsis playlist-ellipsis-options" onClick={() => setEditPlaylistMenuOpen(!editPlaylistMenuOpen)}></i>
                     </div>
                     <div className={editMenuClassName} ref={editPlaylistRef}>
@@ -208,7 +237,6 @@ export default function SinglePlaylistPage() {
                             <tbody>
                                 {songsArr.map((song, i) => (
                                     <tr
-                                        // sSongHoverOff()}
                                         onClick={() => handleSongClick(song, i)}>
                                         <td>{i + 1}</td>
                                         <td>
@@ -237,10 +265,13 @@ export default function SinglePlaylistPage() {
                     <div>
                         <h3 className="playlist-reccommended-songs">Recommended</h3>
                         <div>
+                            {/* <i 
+                            onClick={() => setShuffle(true)}
+                            className="fa-solid fa-rotate-right"></i> */}
                             <table className="single-playlist-add-songs-table">
                                 <tbody className="single-playlist-add-songs-body">
                                     {otherSongs.map(song => (
-                                        <tr>
+                                        <tr className="single-playlist-add-songs-table-row">
                                             <td>
                                                 <div className="single-playlist-title">
                                                     <img
@@ -254,7 +285,11 @@ export default function SinglePlaylistPage() {
                                                 </div>
                                             </td>
                                             <td>{song.album.name}</td>
-                                            <td><button onClick={() => handleAddSongClick(playlist.id, song.id)}>Add</button></td>
+                                            <td>
+                                                <button 
+                                                className="playlist-recommended-songs-add-button"
+                                                onClick={() => handleAddSongClick(playlist.id, song.id)}>Add</button>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>

@@ -95,9 +95,9 @@
 }
 
 .single-playlist-album-cover-image {
-    width: 40px;
     height: 40px;
     object-fit: cover;
+    aspect-ratio: 1 /1;
 }
 
 .single-playlist-title {
@@ -106,12 +106,9 @@
 }
 
 .single-playlist-songs-table {
-    /* display: flex;
-    border: 2px solid red;
-    flex-direction: column;
-    align-items: flex-start; */
     table-layout: fixed;
     width: 100%;
+    border-spacing: 10px;
 }
 
 .single-playlist-table-headers > th {
@@ -145,6 +142,8 @@
 .single-playlist-add-songs-table {
     table-layout: fixed;
     width: 100%;
+    padding-top: 30px;
+    border-spacing: 0 10px;
 }
 
 .single-playlist-add-songs-body > tr > td:nth-child(1) {
@@ -161,4 +160,18 @@
 
 .playlist-reccommended-songs {
     padding-top: 50px;
+}
+
+.playlist-recommended-songs-add-button {
+    border: 1px solid white;
+    color: white;
+    background-color: transparent;
+    border-radius: 20px;
+    padding: 10px;
+    font-weight: 700;
+    width: 60px;
+}
+
+.single-playlist-add-songs-table-row {
+    height: 40px;
 }
