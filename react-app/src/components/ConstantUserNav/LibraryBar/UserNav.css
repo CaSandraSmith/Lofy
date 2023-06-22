@@ -3,6 +3,7 @@
     height: 100%;
     padding: 5px;
     display: grid;
+    row-gap: 5px;
     grid-template-rows: 20% 80%;
 }
 
@@ -26,6 +27,7 @@
     flex-direction: column;
     justify-content: center;
     padding-left: 10px;
+    height: 100%;
 }
 
 .library-general-button {
