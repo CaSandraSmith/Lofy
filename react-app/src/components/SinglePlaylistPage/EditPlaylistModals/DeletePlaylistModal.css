@@ -1,0 +1,48 @@
+.delete-playlist-modal {
+    width: 400px;
+    height: 200px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.delete-playlist-title {
+    font-size: 25px;
+    font-weight: 800;
+    padding-bottom: 15px;
+}
+
+.delete-playlist-caption {
+    font-size: 15px;
+    padding-bottom: 20px;
+}
+
+.delete-playlist-caption > span {
+    font-weight: 800;
+}
+
+.delete-playlist-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.delete-playlist-buttons > button{
+    height: 100%;
+    text-align: center;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100px;
+    border-radius: 30px;
+    font-size: 15px;
+}
+
+.delete-playlist-buttons > button:nth-child(1){
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.delete-playlist-buttons > button:nth-child(2){
+    background-color: #1ed660;
+}

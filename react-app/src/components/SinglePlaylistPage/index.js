@@ -219,8 +219,8 @@ export default function SinglePlaylistPage() {
                         <i className="fa-solid fa-ellipsis playlist-ellipsis-options" onClick={() => setEditPlaylistMenuOpen(!editPlaylistMenuOpen)}></i>
                     </div>
                     <div className={editMenuClassName} ref={editPlaylistRef}>
-                        <p onClick={editPlaylistClick}>Edit Details</p>
-                        <p onClick={deletePlaylistClick}>Delete</p>
+                        <div onClick={editPlaylistClick}>Edit Details</div>
+                        <div onClick={deletePlaylistClick}>Delete</div>
                     </div>
                 </div>
                 {songsArr.length ?
@@ -245,7 +245,7 @@ export default function SinglePlaylistPage() {
                                                     className="single-playlist-album-cover-image"
                                                     src={song.album.cover_image}
                                                     alt={`Album ${song.album.cover_image}'s cover image`} />
-                                                <div>
+                                                <div className="playlist-page-artit-cover-image-description">
                                                     <p>{song.name}</p>
                                                     <p>{song.artist_name}</p>
                                                 </div>
@@ -278,7 +278,7 @@ export default function SinglePlaylistPage() {
                                                         className="single-playlist-album-cover-image"
                                                         src={song.album.cover_image}
                                                         alt={`Album ${song.album.cover_image}'s cover image`} />
-                                                    <div>
+                                                    <div className="playlist-page-artit-cover-image-description">
                                                         <p>{song.name}</p>
                                                         <p>{song.artist_name}</p>
                                                     </div>
