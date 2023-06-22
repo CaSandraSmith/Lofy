@@ -62,9 +62,19 @@
     align-items: center;
 }
 
-.forward-backward-buttons {
+.audio-bar-song-buttons > button {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.forward-backward-buttons, .shuffle-white, .shuffle-loop-buttons-white{
     font-size: 20px;
     color: #b3b3b3;
+}
+
+.shuffle-loop-buttons-green {
+    font-size: 20px;
+    color: #1ed660;
 }
 
 .forward-backward-buttons:hover {
@@ -73,6 +83,7 @@
 
 .play-pause-button {
     font-size: 30px;
+    color: white;
 }
 
 .song-duration-input {
@@ -80,11 +91,3 @@
     display: flex;
     justify-content: center;
 }
-
-/* .sing-duration-slider {
-    width: 80%;
-    background-color: #4d4d4d;
-    border-radius: 10px;
-    appearance: none;
-    height: 5px;
-} */

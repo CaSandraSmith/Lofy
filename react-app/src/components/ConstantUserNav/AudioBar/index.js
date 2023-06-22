@@ -5,7 +5,11 @@ import "./AudioBar.css"
 export default function AudioBar() {
     const audioBarRef = useRef()
     let [inputValue, setInputValue] = useState(0)
-    let { playing, setPlaying, songName, queue, setSong, song } = useAudio()
+    let [shuffle, setShuffle] = useState(false)
+    let [loop, setLoop] = useState(false)
+    let [shuffleQueue, setShuffleQueue] = useState([])
+    let [nextSong, setNextSong] = useState([])
+    let { playing, setPlaying, songName, queue, setSong, song, setQueue } = useAudio()
 
     let handlePlayBottonClick = () => {
         if (playing) {
@@ -28,32 +32,78 @@ export default function AudioBar() {
     }
 
     let songFinished = () => {
-        let index = queue.indexOf(song)
-        let lastIndex = queue.length - 1
-        if (index === lastIndex) {
-            setSong(queue[0])
+        console.log("looping", loop)
+        let queueCopy = []
+        if (shuffleQueue.length) {
+            queueCopy = shuffleQueue
         } else {
-            setSong(queue[index + 1])
+            queueCopy = queue
+        }
+        let index = queueCopy.indexOf(song)
+        let lastIndex = queueCopy.length - 1
+        if (index === lastIndex && loop) {
+            setSong(queueCopy[0])
+        } else if (index === lastIndex && !loop) {
+            setSong(false)
+            setQueue(false)
+            setPlaying(false)
+        } else {
+            setSong(queueCopy[index + 1])
         }
         setPlaying(true)
     }
 
     let handlePrevCLick = () => {
-        console.log(audioBarRef.current.currentTime)
         if (audioBarRef.current.currentTime > 2) {
             return audioBarRef.current.currentTime = 0
         }
-        let index = queue.indexOf(song)
-        let lastIndex = queue.length - 1
+        let queueCopy = []
+        if (shuffleQueue.length) {
+            queueCopy = shuffleQueue
+        } else {
+            queueCopy = queue
+        }
+        let index = queueCopy.indexOf(song)
+        let lastIndex = queueCopy.length - 1
 
         if (index === 0) {
-            setSong(queue[lastIndex])
+            setSong(queueCopy[lastIndex])
         } else {
-            setSong(queue[index - 1])
+            setSong(queueCopy[index - 1])
         }
         setPlaying(true)
     }
 
+    let handleShuffleClick = () => {
+        let shuffleStatus = !shuffle
+        if (shuffleStatus) {
+            let newQueue = []
+            let copy = [...queue]
+            
+            while (copy.length) {
+                let i = Math.floor(Math.random() * copy.length)
+                newQueue.push(copy[i])
+                copy.splice(i, 1)
+            }
+            setShuffleQueue(newQueue)
+        } else {
+            setShuffleQueue([])
+        }
+        setShuffle(!shuffle)
+    }
+
+    let handleLoopClick = () => {
+        // let looping = !loop
+        // if (looping) {
+        //     setNextSong(song)
+        // } else {
+        //     setNextSong([])
+        // }
+        setLoop(!loop)
+    }
+
+    const shuffleClassName = shuffle ? "shuffle-loop-buttons-green" : "shuffle-loop-buttons-white"
+    const loopClassName = loop ? "shuffle-loop-buttons-green" : "shuffle-loop-buttons-white"
 
     return (
         <div className="audio-bar">
@@ -82,6 +132,14 @@ export default function AudioBar() {
                 }
                 <div className="audio-bar-song-controls">
                     <div className="audio-bar-song-buttons">
+                        <button 
+                        disabled={song ? false : true}
+                        onClick={handleShuffleClick}
+                        >
+                            <i
+                                className={"fa-solid fa-shuffle shuffle-button " + shuffleClassName}
+                            ></i>
+                        </button>
                         <button disabled={song ? false : true} onClick={handlePrevCLick}>
                             <i
                                 className="fa-solid fa-backward-step forward-backward-buttons"
@@ -94,7 +152,14 @@ export default function AudioBar() {
                             <i
                                 className="fa-solid fa-forward-step forward-backward-buttons"
                             ></i>
-                        </button >
+                        </button>
+                        <button 
+                        disabled={song ? false : true}
+                        onClick={handleLoopClick}
+                        >
+                            <i 
+                            class={"fa-solid fa-rotate-left " + loopClassName}></i>
+                        </button>
                     </div>
                     <div className="song-duration-input">
                         <span>{song ? convertLengthTable(Math.floor(audioBarRef.current.currentTime)) : "--:--"}</span>

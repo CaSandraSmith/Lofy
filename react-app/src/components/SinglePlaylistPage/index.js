@@ -160,8 +160,8 @@ export default function SinglePlaylistPage() {
     let handleSongClick = (song, i) => {
         setPlaying(true)
         setSong(song)
-        let arr = [...songsArr.slice(i), ...songsArr.slice(0, i)]
-        setQueue(arr)
+        // let arr = [...songsArr.slice(i), ...songsArr.slice(0, i)]
+        setQueue(songsArr)
     }
 
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
