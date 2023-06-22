@@ -12,10 +12,10 @@ export default function GeneralNav() {
     const profileRef = useRef()
 
     useEffect(() => {
-        if (!menu) return;
+        if (!menu || !user) return;
 
         const closeMenu = (e) => {
-            if (!profileRef.current.contains(e.target)) {
+            if (!profileRef.current?.contains(e.target)) {
                 setMenu(false);
             }
         };
@@ -26,6 +26,7 @@ export default function GeneralNav() {
     }, [menu]);
 
     let handleLogout = async () => {
+        setMenu(false)
         history.push("/")
         dispatch(logout())
     }

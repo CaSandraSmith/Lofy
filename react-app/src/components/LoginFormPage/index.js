@@ -29,6 +29,8 @@ function LoginFormPage() {
     }
   }
 
+  console.log("errors", errors)
+
   return (
     <div className="login-all-content">
       <div className="log-in-header">
@@ -41,7 +43,7 @@ function LoginFormPage() {
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <li className="login-form-errors" key={idx}>{error}</li>
           ))}
         </ul>
         <label className="login-input-wrapper">
