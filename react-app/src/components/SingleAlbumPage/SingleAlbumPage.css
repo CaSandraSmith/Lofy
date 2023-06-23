@@ -1,3 +1,40 @@
 .single-album-page {
-    background-color: white;
+    background-color: #121212;
+}
+
+.single-album-page > *  {
+    color: white;
+}
+
+.single-album-artist-info > i{
+    font-size: 3px;
+}
+
+.single-album-artist-info {
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+}
+
+.single-album-table-headers > th {
+    padding-right: 10px;
+}
+.single-album-table-headers > th:nth-child(1) {
+    width: 5%;
+    text-align: left;
+}
+
+.single-album-table-headers > th:nth-child(2) {
+    width: 60%;
+    text-align: left;
+}
+
+.single-album-table-headers > th:nth-child(3) {
+    text-align: right;
+    width: 20%;
+}
+
+.artist-albums-cover-image {
+    width: 200px;
+    height: 200px;
 }

@@ -9,19 +9,19 @@ export default function SingleAlbumPage() {
     const { id } = useParams()
     const dispatch = useDispatch()
     const history = useHistory()
-    const { setAudio } = useAudio()
+    const { setPlaying, setQueue, setSong } = useAudio()
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         dispatch(gatherAllAlbums()).then(() => setLoading(true))
     }, [dispatch])
 
-    
+
     let albums = useSelector(state => state.albums.albums)
     let album = useSelector(state => state.albums.albums[id])
 
     if (!loading) return <h1>Loading</h1>
-    
+
     let artistAlbums = Object.values(albums).filter(singleAlbum => singleAlbum.artist === album.artist).slice(0, 4)
     let songsArr = Object.values(album.songs)
 
@@ -43,27 +43,39 @@ export default function SingleAlbumPage() {
         return `${minutes}:${sec}`
     }
 
+    let handleSongClick = (song, i) => {
+        setPlaying(true)
+        setSong(song)
+        // let arr = [...songsArr.slice(i), ...songsArr.slice(0, i)]
+        setQueue(songsArr)
+    }
+
     return (
-        <div className="single-album-page">
-            <div>
+        <div className="single-playlist-page">
+            <div className="single-playlist-header">
                 <div>
-                    <img src={album.cover_image} alt={`${album.name} cover image`} />
+                    <img
+                        className="single-playlist-cover-image"
+                        src={album.cover_image}
+                        alt={`${album.name} cover image`} />
                 </div>
-                <div>
-                    <p>Album</p>
-                    <h1>{album.name}</h1>
-                </div>
-                <div>
+                <div className="single-playlist-header-text">
                     <div>
-                        <p>{album.artist}</p>
+                        <p>Album</p>
+                        <h1 className="single-playlist-name">{album.name}</h1>
                     </div>
-                    <div>
-                        <i class="fa-solid fa-circle"></i>
+                    <div className="single-album-artist-info">
                         <div>
-                            <p>{`${songsArr.length} songs,`}</p>
+                            <p>{album.artist}</p>
                         </div>
-                        <div>
-                            {convertLength()}
+                        <div className="single-profile-with-songs">
+                            <i class="fa-solid fa-circle"></i>
+                            <div>
+                                <p>{`${songsArr.length} songs,`}</p>
+                            </div>
+                            <div>
+                                {convertLength()}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,9 +83,16 @@ export default function SingleAlbumPage() {
             <div>
                 <div className="single-playlist-options">
                     <div>
-                        <table>
+                        <i
+                            className="fa-solid fa-play play-playlist-button"
+                            onClick={() => handleSongClick(songsArr[0], 0)}
+                        >
+                        </i>
+                    </div>
+                    <div>
+                        <table className="single-playlist-songs-table">
                             <thead>
-                                <tr>
+                                <tr className="single-album-table-headers">
                                     <th>#</th>
                                     <th>Title</th>
                                     <th><i className="fa-regular fa-clock"></i></th>
@@ -81,10 +100,10 @@ export default function SingleAlbumPage() {
                             </thead>
                             <tbody>
                                 {songsArr.map((song, i) => (
-                                    <tr onClick={() => setAudio(song.audio)}>
+                                    <tr onClick={() => handleSongClick(song, i)}>
                                         <td>{i + 1}</td>
                                         <td>{song.name}</td>
-                                        <td>{convertLengthTable(song.length)}</td>
+                                        <td className="single-playlist-song-length">{convertLengthTable(song.length)}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -97,11 +116,13 @@ export default function SingleAlbumPage() {
                 <div>
                     {artistAlbums.map(album => (
                         <div
+                        className="artist-albums-wrapper"
                             onClick={() => history.push(`/album/${album.id}`)}
                         >
-                            <img src={album.cover_image} alt={`${album.name} cover image`} />
+                            <img 
+                            className="artist-albums-cover-image"
+                            src={album.cover_image} alt={`${album.name} cover image`} />
                             <p>{album.name}</p>
-                            <p>{album.artist}</p>
                         </div>
                     ))}
                 </div>

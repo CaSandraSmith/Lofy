@@ -174,6 +174,7 @@ export default function SinglePlaylistPage() {
                         src={playlist.cover_image ?
                             playlist.cover_image :
                             "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"}
+                        alt={`Playlist ${playlist.name} cover image`}
                     />
                 </div>
                 <div className="single-playlist-header-text">

@@ -6,7 +6,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Manrope', sans-serif;
-    
+
 }
 
 .home {
@@ -27,8 +27,8 @@
     overflow-x: auto;
     width: calc(100% - 400px);
     border-radius: 5px;
+    scrollbar-width: none;
 }
-
 .entire-page {
     width: 100vw;
     height: 100vh;
