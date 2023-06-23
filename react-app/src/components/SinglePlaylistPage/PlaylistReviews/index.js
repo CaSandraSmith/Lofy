@@ -69,11 +69,11 @@ export default function CreatePlaylistReview({ playlist, reviews }) {
                         <div>
                             <h4 className="create-review-input-caption">Overall Rating</h4>
                             <div className="create-review-stars" onMouseLeave={() => setHoverStars(0)}>
-                                <i className={`${stars >= 1 || hoverStars >= 1 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(1)} onMouseEnter={() => setHoverStars(1)}></i>
-                                <i className={`${stars >= 2 || hoverStars >= 2 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(2)} onMouseEnter={() => setHoverStars(2)}></i>
-                                <i className={`${stars >= 3 || hoverStars >= 3 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(3)} onMouseEnter={() => setHoverStars(3)}></i>
-                                <i className={`${stars >= 4 || hoverStars >= 4 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(4)} onMouseEnter={() => setHoverStars(4)}></i>
-                                <i className={`${stars === 5 || hoverStars === 5 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(5)} onMouseEnter={() => setHoverStars(5)}></i>
+                                <i className={`${stars >= 1 || hoverStars >= 1 ? "review-smiles-green" : ""} fa-regular fa-face-smile`} onClick={() => setStars(1)} onMouseEnter={() => setHoverStars(1)}></i>
+                                <i className={`${stars >= 2 || hoverStars >= 2 ? "review-smiles-green" : ""} fa-regular fa-face-smile`} onClick={() => setStars(2)} onMouseEnter={() => setHoverStars(2)}></i>
+                                <i className={`${stars >= 3 || hoverStars >= 3 ? "review-smiles-green" : ""} fa-regular fa-face-smile`} onClick={() => setStars(3)} onMouseEnter={() => setHoverStars(3)}></i>
+                                <i className={`${stars >= 4 || hoverStars >= 4 ? "review-smiles-green" : ""} fa-regular fa-face-smile`} onClick={() => setStars(4)} onMouseEnter={() => setHoverStars(4)}></i>
+                                <i className={`${stars === 5 || hoverStars === 5 ? "review-smiles-green" : ""} fa-regular fa-face-smile`} onClick={() => setStars(5)} onMouseEnter={() => setHoverStars(5)}></i>
                             </div>
                             {errors.stars ? <p>{errors.stars}</p> : null}
                         </div>

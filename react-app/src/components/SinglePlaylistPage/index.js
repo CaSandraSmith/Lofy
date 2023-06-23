@@ -316,11 +316,11 @@ export default function SinglePlaylistPage() {
                                         <p>{review.user.username}</p>
                                     </div>
                                     <div className="review-star-rating">
-                                        <i className={`${review.stars >= 1 ? "fa-solid" : "fa-regular"} fa-face-smile`}></i>
-                                        <i className={`${review.stars >= 2 ? "fa-solid" : "fa-regular"} fa-face-smile`}></i>
-                                        <i className={`${review.stars >= 3 ? "fa-solid" : "fa-regular"} fa-face-smile`}></i>
-                                        <i className={`${review.stars >= 4 ? "fa-solid" : "fa-regular"} fa-face-smile`}></i>
-                                        <i className={`${review.stars === 5 ? "fa-solid" : "fa-regular"} fa-face-smile`}></i>
+                                        <i className={`${review.stars >= 1 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
+                                        <i className={`${review.stars >= 2 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
+                                        <i className={`${review.stars >= 3 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
+                                        <i className={`${review.stars >= 4 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
+                                        <i className={`${review.stars === 5 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
                                     </div>
                                     <p className="actual-playlist-review">{review.review}</p>
                                     {review.user.id === user.id ?
