@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { useAudio } from "../../../context/Audio"
 import "./AudioBar.css"
 
@@ -8,8 +8,15 @@ export default function AudioBar() {
     let [shuffle, setShuffle] = useState(false)
     let [loop, setLoop] = useState(false)
     let [shuffleQueue, setShuffleQueue] = useState([])
-    let [nextSong, setNextSong] = useState([])
-    let { playing, setPlaying, songName, queue, setSong, song, setQueue } = useAudio()
+    let [volume, setVolume] = useState(50)
+    let { playing, setPlaying, queue, setSong, song, setQueue } = useAudio()
+
+    useEffect(() => {
+        if (!audioBarRef) return
+        else {
+            audioBarRef.current.volume = volume / 100
+        }
+    }, [volume])
 
     let handlePlayBottonClick = () => {
         if (playing) {
@@ -79,7 +86,7 @@ export default function AudioBar() {
         if (shuffleStatus) {
             let newQueue = []
             let copy = [...queue]
-            
+
             while (copy.length) {
                 let i = Math.floor(Math.random() * copy.length)
                 newQueue.push(copy[i])
@@ -132,49 +139,49 @@ export default function AudioBar() {
                 }
                 <div className="audio-bar-song-controls">
                     <div className="audio-bar-song-buttons">
-                        <button 
-                        className="audio-button"
-                        disabled={song ? false : true}
-                        onClick={handleShuffleClick}
-                        data-button-type={shuffle ? "Disable shuffle" : "Enable shuffle"}
+                        <button
+                            className="audio-button"
+                            disabled={song ? false : true}
+                            onClick={handleShuffleClick}
+                            data-button-type={shuffle ? "Disable shuffle" : "Enable shuffle"}
                         >
                             <i
                                 className={"fa-solid fa-shuffle shuffle-button " + shuffleClassName}
                             ></i>
                         </button>
-                        <button 
-                        className="audio-button"
-                        data-button-type="Previous"
-                        disabled={song ? false : true} 
-                        onClick={handlePrevCLick}>
+                        <button
+                            className="audio-button"
+                            data-button-type="Previous"
+                            disabled={song ? false : true}
+                            onClick={handlePrevCLick}>
                             <i
                                 className="fa-solid fa-backward-step forward-backward-buttons"
                             ></i>
                         </button>
-                        <button 
-                        className="audio-button"
-                        data-button-type={playing ? "Pause" : "Play"}
-                        disabled={song ? false : true} 
-                        onClick={handlePlayBottonClick}>
+                        <button
+                            className="audio-button"
+                            data-button-type={playing ? "Pause" : "Play"}
+                            disabled={song ? false : true}
+                            onClick={handlePlayBottonClick}>
                             <i className={playing ? "fa-solid fa-circle-pause play-pause-button" : "fa-solid fa-circle-play play-pause-button"}></i>
                         </button>
-                        <button 
-                        className="audio-button"
-                        data-button-type="Next"
-                        disabled={song ? false : true} 
-                        onClick={songFinished}>
+                        <button
+                            className="audio-button"
+                            data-button-type="Next"
+                            disabled={song ? false : true}
+                            onClick={songFinished}>
                             <i
                                 className="fa-solid fa-forward-step forward-backward-buttons"
                             ></i>
                         </button>
-                        <button 
-                        className="audio-button"
-                        data-button-type={loop ? "Disable repeat" : "Enable playlist Repeat"}
-                        disabled={song ? false : true}
-                        onClick={handleLoopClick}
+                        <button
+                            className="audio-button"
+                            data-button-type={loop ? "Disable repeat" : "Enable playlist Repeat"}
+                            disabled={song ? false : true}
+                            onClick={handleLoopClick}
                         >
-                            <i 
-                            class={"fa-solid fa-rotate-left " + loopClassName}></i>
+                            <i
+                                class={"fa-solid fa-rotate-left " + loopClassName}></i>
                         </button>
                     </div>
                     <div className="song-duration-input">
@@ -191,7 +198,12 @@ export default function AudioBar() {
                 </div>
                 <div>
                     <input
+                        value={volume}
                         type="range"
+                        onChange={e => setVolume(e.target.value)}
+                        min={0}
+                        max={100}
+                        disabled={song ? false : true}
                     />
                 </div>
             </div>
