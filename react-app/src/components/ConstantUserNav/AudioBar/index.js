@@ -39,7 +39,7 @@ export default function AudioBar() {
     }
 
     let songFinished = () => {
-        console.log("looping", loop)
+        console.log("shuffle", shuffleQueue)
         let queueCopy = []
         if (shuffleQueue.length) {
             queueCopy = shuffleQueue
@@ -51,6 +51,7 @@ export default function AudioBar() {
         if (index === lastIndex && loop) {
             setSong(queueCopy[0])
         } else if (index === lastIndex && !loop) {
+            audioBarRef.current.src = ""
             setSong(false)
             setQueue(false)
             setPlaying(false)
@@ -73,8 +74,13 @@ export default function AudioBar() {
         let index = queueCopy.indexOf(song)
         let lastIndex = queueCopy.length - 1
 
-        if (index === 0) {
+        if (index === 0 && loop) {
             setSong(queueCopy[lastIndex])
+        } else if (index === 0 && !loop) {
+            audioBarRef.current.src = ""
+            setSong(false)
+            setQueue(false)
+            setPlaying(false)
         } else {
             setSong(queueCopy[index - 1])
         }
@@ -85,13 +91,18 @@ export default function AudioBar() {
         let shuffleStatus = !shuffle
         if (shuffleStatus) {
             let newQueue = []
+            let index = queue.indexOf(song)
+
             let copy = [...queue]
+            copy.splice(index, 1)
 
             while (copy.length) {
                 let i = Math.floor(Math.random() * copy.length)
                 newQueue.push(copy[i])
                 copy.splice(i, 1)
             }
+
+            newQueue.unshift(song)
             setShuffleQueue(newQueue)
         } else {
             setShuffleQueue([])
