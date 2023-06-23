@@ -133,27 +133,43 @@ export default function AudioBar() {
                 <div className="audio-bar-song-controls">
                     <div className="audio-bar-song-buttons">
                         <button 
+                        className="audio-button"
                         disabled={song ? false : true}
                         onClick={handleShuffleClick}
+                        data-button-type={shuffle ? "Disable shuffle" : "Enable shuffle"}
                         >
                             <i
                                 className={"fa-solid fa-shuffle shuffle-button " + shuffleClassName}
                             ></i>
                         </button>
-                        <button disabled={song ? false : true} onClick={handlePrevCLick}>
+                        <button 
+                        className="audio-button"
+                        data-button-type="Previous"
+                        disabled={song ? false : true} 
+                        onClick={handlePrevCLick}>
                             <i
                                 className="fa-solid fa-backward-step forward-backward-buttons"
                             ></i>
                         </button>
-                        <button disabled={song ? false : true} onClick={handlePlayBottonClick}>
+                        <button 
+                        className="audio-button"
+                        data-button-type={playing ? "Pause" : "Play"}
+                        disabled={song ? false : true} 
+                        onClick={handlePlayBottonClick}>
                             <i className={playing ? "fa-solid fa-circle-pause play-pause-button" : "fa-solid fa-circle-play play-pause-button"}></i>
                         </button>
-                        <button disabled={song ? false : true} onClick={songFinished}>
+                        <button 
+                        className="audio-button"
+                        data-button-type="Next"
+                        disabled={song ? false : true} 
+                        onClick={songFinished}>
                             <i
                                 className="fa-solid fa-forward-step forward-backward-buttons"
                             ></i>
                         </button>
                         <button 
+                        className="audio-button"
+                        data-button-type={loop ? "Disable repeat" : "Enable playlist Repeat"}
                         disabled={song ? false : true}
                         onClick={handleLoopClick}
                         >

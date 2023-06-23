@@ -96,3 +96,11 @@
     overflow: scroll;
     height: calc(100% - 40px);
 } */
+
+.library-bar-no-playlists {
+    text-align: center;
+}
+
+.library-bar-no-playlists > p {
+    color: white;
+}

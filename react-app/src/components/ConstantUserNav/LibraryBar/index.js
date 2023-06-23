@@ -10,7 +10,7 @@ export default function LibraryBar() {
     const playlists = useSelector(state => state.playlists.currentUserPlaylists)
     const playlistArr = Object.values(playlists)
     let playlistsLength = playlistArr.length
-    console.log("playlists", playlists)
+
     useEffect(() => {
         dispatch(findCurrentUserPlaylists())
     }, [dispatch])
@@ -53,7 +53,7 @@ export default function LibraryBar() {
                                 </div>
                             ))}
                         </div>
-                        : <div>
+                        : <div className="library-bar-no-playlists">
                             <p>Create your first playlist</p>
                             <p>It's easy, we'll help you</p>
                         </div>
