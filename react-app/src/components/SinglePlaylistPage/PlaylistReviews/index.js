@@ -77,6 +77,7 @@ export default function CreatePlaylistReview({ playlist, reviews }) {
                             placeholder="Leave your review here"
                             maxLength={255}
                         />
+                        <p>{review.length} / 255</p>
                         {errors.review ? <p>{errors.review}</p> : null}
                     </label>
                     <button disabled={!stars || !review || review.length < 10}>Submit</button>

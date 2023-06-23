@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { editPlaylistReview } from "../../../store/reviews" 
+import { editPlaylistReview } from "../../../store/reviews"
 import { useDispatch } from "react-redux"
 
 export default function EditPlaylistReview({ review, reviewMenuOpen }) {
@@ -9,7 +9,7 @@ export default function EditPlaylistReview({ review, reviewMenuOpen }) {
     const [hoverStars, setHoverStars] = useState(0)
     const [errors, setErrors] = useState({})
 
-    let handleEditSubmit = async(e) => {
+    let handleEditSubmit = async (e) => {
         e.preventDefault()
         setErrors({})
 
@@ -63,6 +63,7 @@ export default function EditPlaylistReview({ review, reviewMenuOpen }) {
                         placeholder="Leave your review here"
                         maxLength={255}
                     />
+                    <p>{reviewInput.length} / 255</p>
                     {errors.review ? <p>{errors.review}</p> : null}
                 </label>
                 <button disabled={!stars || !reviewInput || reviewInput.length < 10}>Save edits</button>
