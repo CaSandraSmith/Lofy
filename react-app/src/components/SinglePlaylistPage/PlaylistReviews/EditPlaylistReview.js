@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { editPlaylistReview } from "../../../store/reviews"
 import { useDispatch } from "react-redux"
+import "./PlaylistReviews.css"
 
 export default function EditPlaylistReview({ review, reviewMenuOpen }) {
     const dispatch = useDispatch()
@@ -42,32 +43,47 @@ export default function EditPlaylistReview({ review, reviewMenuOpen }) {
     }
 
     return (
-        <div>
-            <form onSubmit={handleEditSubmit}>
-                <h4>Edit your review</h4>
-                <h5>Overall Rating</h5>
-                <div onMouseLeave={() => setHoverStars(0)}>
-                    <i className={`${stars >= 1 || hoverStars >= 1 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(1)} onMouseEnter={() => setHoverStars(1)}></i>
-                    <i className={`${stars >= 2 || hoverStars >= 2 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(2)} onMouseEnter={() => setHoverStars(2)}></i>
-                    <i className={`${stars >= 3 || hoverStars >= 3 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(3)} onMouseEnter={() => setHoverStars(3)}></i>
-                    <i className={`${stars >= 4 || hoverStars >= 4 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(4)} onMouseEnter={() => setHoverStars(4)}></i>
-                    <i className={`${stars === 5 || hoverStars === 5 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(5)} onMouseEnter={() => setHoverStars(5)}></i>
+        <div className="edit-review-form-wrapper">
+            <form
+                className="create-a-review-form"
+                onSubmit={handleEditSubmit}>
+                <h3 className="edit-review-title">Edit your review</h3>
+                <div>
+                    <h4 className="create-review-input-caption">Overall Rating</h4>
+                    <div className="create-review-stars"
+                        onMouseLeave={() => setHoverStars(0)}>
+                        <i className={`${stars >= 1 || hoverStars >= 1 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(1)} onMouseEnter={() => setHoverStars(1)}></i>
+                        <i className={`${stars >= 2 || hoverStars >= 2 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(2)} onMouseEnter={() => setHoverStars(2)}></i>
+                        <i className={`${stars >= 3 || hoverStars >= 3 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(3)} onMouseEnter={() => setHoverStars(3)}></i>
+                        <i className={`${stars >= 4 || hoverStars >= 4 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(4)} onMouseEnter={() => setHoverStars(4)}></i>
+                        <i className={`${stars === 5 || hoverStars === 5 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(5)} onMouseEnter={() => setHoverStars(5)}></i>
+                    </div>
+                    {errors.stars ? <p>{errors.stars}</p> : null}
                 </div>
-                {errors.stars ? <p>{errors.stars}</p> : null}
-                <h4>Tell us the vibes</h4>
-                <h5>Let everyone know what you thought of this playlist</h5>
-                <label>
-                    <textarea
-                        value={reviewInput}
-                        onChange={(e) => setReviewInput(e.target.value)}
-                        placeholder="Leave your review here"
-                        maxLength={255}
-                    />
-                    <p>{reviewInput.length} / 255</p>
-                    {errors.review ? <p>{errors.review}</p> : null}
-                </label>
-                <button disabled={!stars || !reviewInput || reviewInput.length < 10}>Save edits</button>
-                <button type="button" onClick={() => reviewMenuOpen(false)}>Cancel</button>
+                <div>
+                    <h4 className="create-review-input-caption">Tell us the vibes</h4>
+                    <h5>Let everyone know what you thought of this playlist</h5>
+                    <div className="review-input-wrapper">
+
+                        <label>
+                            <textarea
+                                className="review-input-box"
+                                value={reviewInput}
+                                onChange={(e) => setReviewInput(e.target.value)}
+                                placeholder="Leave your review here"
+                                maxLength={255}
+                            />
+                            <p className="review-length">{reviewInput.length} / 255</p>
+                            {errors.review ? <p>{errors.review}</p> : null}
+                        </label>
+
+                    </div>
+
+                </div>
+                <div className="edit-review-buttons-wrapper">
+                    <button disabled={!stars || !reviewInput || reviewInput.length < 10}>Save edits</button>
+                    <button type="button" onClick={() => reviewMenuOpen(false)}>Cancel</button>
+                </div>
             </form>
         </div>
     )

@@ -27,7 +27,8 @@ class PlaylistReview(db.Model):
             "stars": self.stars,
             "user": {
                 "id": self.user.id,
-                "username": self.user.username
+                "username": self.user.username,
+                "profile_image": self.user.profile_image
             }
         }
 

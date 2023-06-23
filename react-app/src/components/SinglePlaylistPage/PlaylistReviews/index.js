@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { createNewReview } from "../../../store/reviews"
-
+import "./PlaylistReviews.css"
 
 export default function CreatePlaylistReview({ playlist, reviews }) {
     const dispatch = useDispatch()
@@ -47,42 +47,58 @@ export default function CreatePlaylistReview({ playlist, reviews }) {
 
     return (
         <div>
-            {
-                createReviewMenu ?
-                    <button onClick={cancelReview}>
-                        Cancel review
-                    </button> :
-                    <button onClick={() => setCreateReviewMenu(true)}>
-                        Create a review
-                    </button>
-            }
-            {createReviewMenu && <div>
-                <form onSubmit={handleNewReview}>
-                    <h3>Create Review</h3>
-                    <h4>Overall Rating</h4>
-                    <div onMouseLeave={() => setHoverStars(0)}>
-                        <i className={`${stars >= 1 || hoverStars >= 1 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(1)} onMouseEnter={() => setHoverStars(1)}></i>
-                        <i className={`${stars >= 2 || hoverStars >= 2 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(2)} onMouseEnter={() => setHoverStars(2)}></i>
-                        <i className={`${stars >= 3 || hoverStars >= 3 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(3)} onMouseEnter={() => setHoverStars(3)}></i>
-                        <i className={`${stars >= 4 || hoverStars >= 4 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(4)} onMouseEnter={() => setHoverStars(4)}></i>
-                        <i className={`${stars === 5 || hoverStars === 5 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(5)} onMouseEnter={() => setHoverStars(5)}></i>
-                    </div>
-                    {errors.stars ? <p>{errors.stars}</p> : null}
-                    <h4>Tell us the vibes</h4>
-                    <h5>Let everyone know what you thought of this playlist</h5>
-                    <label>
-                        <textarea
-                            value={review}
-                            onChange={(e) => setReview(e.target.value)}
-                            placeholder="Leave your review here"
-                            maxLength={255}
-                        />
-                        <p>{review.length} / 255</p>
-                        {errors.review ? <p>{errors.review}</p> : null}
-                    </label>
-                    <button disabled={!stars || !review || review.length < 10}>Submit</button>
-                </form>
-            </div>}
+            <div className="review-general-button-wrapper">
+                {
+                    createReviewMenu ?
+                        <button
+                            className="cancel-review-button"
+                            onClick={cancelReview}>
+                            Cancel review
+                        </button> :
+                        <button
+                            className="create-review-button"
+                            onClick={() => setCreateReviewMenu(true)}>
+                            Create a review
+                        </button>
+                }
+            </div>
+            {createReviewMenu &&
+                <div className="create-review-form-wrapper">
+                    <form className="create-a-review-form" onSubmit={handleNewReview}>
+                        <h3 className="create-review-title">Create Review</h3>
+                        <div>
+                            <h4 className="create-review-input-caption">Overall Rating</h4>
+                            <div className="create-review-stars" onMouseLeave={() => setHoverStars(0)}>
+                                <i className={`${stars >= 1 || hoverStars >= 1 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(1)} onMouseEnter={() => setHoverStars(1)}></i>
+                                <i className={`${stars >= 2 || hoverStars >= 2 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(2)} onMouseEnter={() => setHoverStars(2)}></i>
+                                <i className={`${stars >= 3 || hoverStars >= 3 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(3)} onMouseEnter={() => setHoverStars(3)}></i>
+                                <i className={`${stars >= 4 || hoverStars >= 4 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(4)} onMouseEnter={() => setHoverStars(4)}></i>
+                                <i className={`${stars === 5 || hoverStars === 5 ? "fa-solid" : "fa-regular"} fa-face-smile`} onClick={() => setStars(5)} onMouseEnter={() => setHoverStars(5)}></i>
+                            </div>
+                            {errors.stars ? <p>{errors.stars}</p> : null}
+                        </div>
+                        <div>
+                            <h4 className="create-review-input-caption">Tell us the vibes</h4>
+                            <h5>Let everyone know what you thought of this playlist</h5>
+                            <div className="review-input-wrapper">
+                                <label>
+                                    <textarea
+                                        className="review-input-box"
+                                        value={review}
+                                        onChange={(e) => setReview(e.target.value)}
+                                        placeholder="Leave your review here"
+                                        maxLength={255}
+                                    />
+                                    <p className="review-length">{review.length} / 255</p>
+                                    {errors.review ? <p>{errors.review}</p> : null}
+                                </label>
+                            </div>
+                        </div>
+                        <div className="leave-review-button-wrapper">
+                            <button disabled={!stars || !review || review.length < 10}>Submit</button>
+                        </div>
+                    </form>
+                </div>}
         </div>
     )
 }

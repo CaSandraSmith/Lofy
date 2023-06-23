@@ -287,9 +287,9 @@ export default function SinglePlaylistPage() {
                                             </td>
                                             <td>{song.album.name}</td>
                                             <td>
-                                                <button 
-                                                className="playlist-recommended-songs-add-button"
-                                                onClick={() => handleAddSongClick(playlist.id, song.id)}>Add</button>
+                                                <button
+                                                    className="playlist-recommended-songs-add-button"
+                                                    onClick={() => handleAddSongClick(playlist.id, song.id)}>Add</button>
                                             </td>
                                         </tr>
                                     ))}
@@ -298,23 +298,40 @@ export default function SinglePlaylistPage() {
                         </div>
                     </div>
                     : null}
+                <h3 className="playlist-reccommended-songs">Reviews</h3>
                 {reviewsArr.length ?
                     <div>
-                        <h3 className="playlist-reccommended-songs">Reviews</h3>
-                        <div>
+                        <div className="playlist-all-reviews-wrapper">
                             {reviewsArr.map(review => (
-                                <div>
-                                    <p>{review.user.username}</p>
-                                    <p>{review.stars}</p>
-                                    <p>{review.review}</p>
-                                    {review.user.id === user.id ? <div>
-                                        <button onClick={() => setEditReviewOpen(true)}>Edit</button>
-                                        <button onClick={() => deleteReview(review.id)}>Delete</button>
-                                        {editReviewOpen ?
-                                            <EditPlaylistReview review={review} reviewMenuOpen={(e) => setEditReviewOpen(e)} />
-                                            :
-                                            null}
+                                <div className="playlist-review-wrapper">
+                                    <div className="review-owner-info">
+                                        {review.user.profile_image ?
+                                            <img
+                                                className="playlist-review-profile-image"
+                                                src={review.user.profile_image}
+                                                alt={`User ${review.user.username} profile image`}
+                                            /> :
+                                            <i className="fa-regular fa-user playlist-review-profile-no-image"></i>
+                                        }
+                                        <p>{review.user.username}</p>
                                     </div>
+                                    <div className="review-star-rating">
+                                        <i className={`${review.stars >= 1 ? "fa-solid" : "fa-regular"} fa-face-smile`}></i>
+                                        <i className={`${review.stars >= 2 ? "fa-solid" : "fa-regular"} fa-face-smile`}></i>
+                                        <i className={`${review.stars >= 3 ? "fa-solid" : "fa-regular"} fa-face-smile`}></i>
+                                        <i className={`${review.stars >= 4 ? "fa-solid" : "fa-regular"} fa-face-smile`}></i>
+                                        <i className={`${review.stars === 5 ? "fa-solid" : "fa-regular"} fa-face-smile`}></i>
+                                    </div>
+                                    <p className="actual-playlist-review">{review.review}</p>
+                                    {review.user.id === user.id ?
+                                        <div className="completed-review-buttons">
+                                            <button onClick={() => setEditReviewOpen(true)}>Edit</button>
+                                            <button onClick={() => deleteReview(review.id)}>Delete</button>
+                                            {editReviewOpen ?
+                                                <EditPlaylistReview review={review} reviewMenuOpen={(e) => setEditReviewOpen(e)} />
+                                                :
+                                                null}
+                                        </div>
                                         : null
                                     }
                                 </div>

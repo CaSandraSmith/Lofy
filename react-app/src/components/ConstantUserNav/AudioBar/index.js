@@ -111,12 +111,6 @@ export default function AudioBar() {
     }
 
     let handleLoopClick = () => {
-        // let looping = !loop
-        // if (looping) {
-        //     setNextSong(song)
-        // } else {
-        //     setNextSong([])
-        // }
         setLoop(!loop)
     }
 

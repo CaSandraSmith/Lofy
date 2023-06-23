@@ -173,6 +173,7 @@
 
 .playlist-reccommended-songs {
     padding-top: 50px;
+    padding-bottom: 20px;
 }
 
 .playlist-recommended-songs-add-button {
@@ -206,4 +207,74 @@
 .playlist-page-artit-cover-image-description > p:nth-child(1) {
     /* font-weight: 300; */
     font-size: 14px;
+}
+
+.playlist-all-reviews-wrapper {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.playlist-review-wrapper {
+    width: 100%;
+    border: 1px solid white;
+    padding: 10px;
+    height: 300px;
+    display: grid;
+    /* row-gap: 10px; */
+    grid-template-rows: 60px 30px 1fr;
+    align-items: start;
+    position: relative;
+}
+
+.playlist-review-profile-image {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.playlist-review-profile-no-image {
+    font-size: 25px;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
+.review-owner-info {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.review-star-rating {
+    display: flex;
+    column-gap: 2px;
+}
+
+.completed-review-buttons {
+    justify-self: end;
+    display: flex;
+    column-gap: 5px;
+}
+
+.completed-review-buttons  > button {
+    border-radius: 20px;
+    padding: 8px;
+    cursor: pointer;
+    border-color: transparent;
+}
+
+.completed-review-buttons > button:nth-child(1) {
+    color: white;
+    background-color: transparent;
+}
+
+.completed-review-buttons > button:nth-child(2) {
+    background-color: #1ed660;
+    color: black;
+    font-weight: 500;
+}
+
+.actual-playlist-review {
+    font-size: 12px;
 }
