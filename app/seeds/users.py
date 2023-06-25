@@ -12,6 +12,7 @@ def seed_users():
     )
     marnie = User(
         username='marnie',
+        profile_image="https://lofy.s3.us-east-2.amazonaws.com/profile_images/6TBx37.webp",
         email='marnie@aa.io',
         password='password'
     )
@@ -20,17 +21,10 @@ def seed_users():
         email='bobbie@aa.io',
         password='password'
     )
-    casandra = User(
-        username='casandra',
-        email='casandra@smith.io',
-        profile_image="https://lofy.s3.us-east-2.amazonaws.com/profile_images/6TBx37.webp",
-        password='password'
-    )
 
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
-    db.session.add(casandra)
     db.session.commit()
 
 
