@@ -113,7 +113,7 @@ export default function SingleAlbumPage() {
             </div>
             <div>
                 <h2>More by {album.artist}</h2>
-                <div>
+                <div className="artist-other-albums-wrapper">
                     {artistAlbums.map(album => (
                         <div
                         className="artist-albums-wrapper"

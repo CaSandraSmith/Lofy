@@ -98,7 +98,7 @@ export default function SinglePlaylistPage() {
         let playlistSongsIds = getSongIds(songs)
         let allSongsArr = Object.values(allSongs).filter(song => !playlistSongsIds.includes(song.id))
 
-        return allSongsArr
+        return allSongsArr.slice(0, 8)
     }
 
     // function shuffleSongs(allSongsArr) {

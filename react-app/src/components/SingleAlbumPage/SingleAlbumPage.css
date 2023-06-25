@@ -38,3 +38,9 @@
     width: 200px;
     height: 200px;
 }
+
+.artist-other-albums-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 20px 0;
+}
