@@ -212,6 +212,49 @@ def seed_songs():
         audio="https://lofy.s3.us-east-2.amazonaws.com/audio/19.+Harris+Heller+-+Humble.wav",
         length=123
     )
+    song31 = Song (
+        name="Singularity",
+        artist_id=2,
+        album_id=4,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/19.+Harris+Heller+-+Singularity.wav",
+        length=125
+    )
+    song32 = Song (
+        name="Aurora Sonata",
+        artist_id=2,
+        album_id=4,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/2.+Harris+Heller+-+Aurora+Sonata.wav",
+        length=113
+    )
+    song33 = Song (
+        name="Business As Usual",
+        artist_id=2,
+        album_id=4,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/2.+Harris+Heller+-+Business+As+Usual.wav",
+        length=115
+    )
+    song34 = Song (
+        name="Radiant Vibes",
+        artist_id=2,
+        album_id=4,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/2.+Harris+Heller+-+Radiant+Vibes.wav",
+        length=120
+    )
+    song35 = Song (
+        name="Euphoria",
+        artist_id=2,
+        album_id=4,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/20.+Harris+Heller+-+Euphoria.wav",
+        length=125
+    )
+    song36 = Song (
+        name="Moons of Neptune",
+        artist_id=2,
+        album_id=4,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/20.+Harris+Heller+-+Moons+of+Neptune.wav",
+        length=107
+    )
+
 
 
     db.session.add(song1)
@@ -232,6 +275,18 @@ def seed_songs():
     db.session.add(song16)
     db.session.add(song17)
     db.session.add(song18)
+    db.session.add(song19)
+    db.session.add(song20)
+    db.session.add(song21)
+    db.session.add(song22)
+    db.session.add(song23)
+    db.session.add(song24)
+    db.session.add(song25)
+    db.session.add(song26)
+    db.session.add(song27)
+    db.session.add(song28)
+    db.session.add(song29)
+    db.session.add(song30)
     db.session.commit()
 
 
