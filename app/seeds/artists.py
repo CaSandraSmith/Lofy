@@ -6,13 +6,13 @@ def seed_artists():
     artist2 = Artist(name="Echo Harmony")
     artist3 = Artist(name="Whispering Willow")
     artist4 = Artist(name="Lunar Lullabies")
-    artist5 = Artist(name="SoundScape")
+    # artist5 = Artist(name="SoundScape")
 
     db.session.add(artist1)
     db.session.add(artist2)
     db.session.add(artist3)
     db.session.add(artist4)
-    db.session.add(artist5)
+    # db.session.add(artist5)
     db.session.commit()
 
 

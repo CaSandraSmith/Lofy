@@ -28,8 +28,8 @@ def seed_albums():
         artist_id=2
     )
     album6 = Album (
-        name="Laid-back Grooves",
-        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Laid-back+Grooves.png",
+        name="Mellow Vibes",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Mellow+Vibes.png",
         artist_id=3
     )
     album7 = Album (
@@ -42,16 +42,16 @@ def seed_albums():
         cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Lo-fi+Journeys.png",
         artist_id=4
     )
-    album9 = Album (
-        name="Mellow Vibes",
-        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Mellow+Vibes.png",
-        artist_id=4
-    )
-    album10 = Album (
-        name="Lazy Sunday Beats",
-        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Lazy+Sunday+Beats.png",
-        artist_id=5
-    )
+    # album9 = Album (
+    #     name="Mellow Vibes",
+    #     cover_image="",
+    #     artist_id=4
+    # )
+    # album10 = Album (
+    #     name="Lazy Sunday Beats",
+    #     cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Lazy+Sunday+Beats.png",
+    #     artist_id=5
+    # )
     db.session.add(album1)
     db.session.add(album2)
     db.session.add(album3)
@@ -60,8 +60,8 @@ def seed_albums():
     db.session.add(album6)
     db.session.add(album7)
     db.session.add(album8)
-    db.session.add(album9)
-    db.session.add(album10)
+    # db.session.add(album9)
+    # db.session.add(album10)
     db.session.commit()
 
 
