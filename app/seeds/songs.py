@@ -254,6 +254,49 @@ def seed_songs():
         audio="https://lofy.s3.us-east-2.amazonaws.com/audio/20.+Harris+Heller+-+Moons+of+Neptune.wav",
         length=107
     )
+    song37 = Song (
+        name="Up in Love",
+        artist_id=2,
+        album_id=5,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/20.+Harris+Heller+-+Up+in+Love.wav",
+        length=121
+    )
+    song38 = Song (
+        name="Beach walk",
+        artist_id=2,
+        album_id=5,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/21.+Harris+Heller+-+Beach+walk.wav",
+        length=110
+    )
+    song39 = Song (
+        name="Bleeding Road",
+        artist_id=2,
+        album_id=5,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/21.+Harris+Heller+-+Bleeding+Road.wav",
+        length=120
+    )
+    song40 = Song (
+        name="Lunar Dust",
+        artist_id=2,
+        album_id=5,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/21.+Harris+Heller+-+Lunar+Dust.wav",
+        length=112
+    )
+    song41 = Song (
+        name="Child's Play",
+        artist_id=2,
+        album_id=5,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/22.+Harris+Heller+-+Child_s+Play.wav",
+        length=115
+    )
+    song42 = Song (
+        name="Mysteryland",
+        artist_id=2,
+        album_id=5,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/22.+Harris+Heller+-+Mysteryland.wav",
+        length=111
+    )
+    
 
 
 
@@ -287,6 +330,18 @@ def seed_songs():
     db.session.add(song28)
     db.session.add(song29)
     db.session.add(song30)
+    db.session.add(song31)
+    db.session.add(song32)
+    db.session.add(song33)
+    db.session.add(song34)
+    db.session.add(song35)
+    db.session.add(song36)
+    db.session.add(song37)
+    db.session.add(song38)
+    db.session.add(song39)
+    db.session.add(song40)
+    db.session.add(song41)
+    db.session.add(song42)
     db.session.commit()
 
 
