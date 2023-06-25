@@ -72,6 +72,147 @@ def seed_songs():
         audio="https://lofy.s3.us-east-2.amazonaws.com/audio/12.+Harris+Heller+-+Iridescent.wav",
         length= 109
     )
+    song11 = Song (
+        name="Of Course I Still Love You",
+        artist_id=1,
+        album_id=2,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/12.+Harris+Heller+-+Of+Course+I+Still+Love+You.wav",
+        length=118
+    )
+    song12 = Song (
+        name="Deafening Silence",
+        artist_id=1,
+        album_id=2,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/13.+Harris+Heller+-+Deafening+Silence.wav",
+        length=156
+    )
+    song13 = Song (
+        name="Enjoy the Little Things",
+        artist_id=1,
+        album_id=2,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/13.+Harris+Heller+-+Enjoy+the+Little+Things.wav",
+        length=113
+    )
+    song14 = Song (
+        name="The Lights In The Sky Are Our Guides",
+        artist_id=1,
+        album_id=2,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/13.+Harris+Heller+-+The+Lights+In+The+Sky+Are+Our+Guides.wav",
+        length=117
+    )
+    song15 = Song (
+        name="The Color of Happiness",
+        artist_id=1,
+        album_id=2,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/14.+Harris+Heller+-+The+Color+of+Happiness.wav",
+        length=120
+    )
+    song16 = Song (
+        name="Trapped in Memories",
+        artist_id=1,
+        album_id=2,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/14.+Harris+Heller+-+Trapped+in+Memories.wav",
+        length=117
+    )
+    song17 = Song (
+        name="Vertigo",
+        artist_id=1,
+        album_id=2,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/14.+Harris+Heller+-+Vertigo.wav",
+        length=125
+    )
+    song18 = Song (
+        name="Deja Vu",
+        artist_id=1,
+        album_id=2,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/15.+Harris+Heller+-+Deja+Vu.wav",
+        length=121
+    )
+    song19 = Song (
+        name="Is Anybody Out There",
+        artist_id=1,
+        album_id=3,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/15.+Harris+Heller+-+Is+Anybody+Out+There.wav",
+        length=129
+    )
+    song20 = Song (
+        name="Stargaze",
+        artist_id=1,
+        album_id=3,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/15.+Harris+Heller+-+Stargaze.wav",
+        length=138
+    )
+    song21 = Song (
+        name="Another World",
+        artist_id=1,
+        album_id=3,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/16.+Harris+Heller+-+Another+World.wav",
+        length=109
+    )
+    song22 = Song (
+        name="Arriving at Nowhere",
+        artist_id=1,
+        album_id=3,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/16.+Harris+Heller+-+Arriving+at+Nowhere.wav",
+        length=120
+    )
+    song23 = Song (
+        name="The Phantom Follows",
+        artist_id=1,
+        album_id=3,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/16.+Harris+Heller+-+The+Phantom+Follows.wav",
+        length=123
+    )
+    song24 = Song (
+        name="Huntress",
+        artist_id=1,
+        album_id=3,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/17.+Harris+Heller+-+Huntress.wav",
+        length=123
+    )
+    song25 = Song (
+        name="The Depths Are Calling Me",
+        artist_id=1,
+        album_id=3,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/17.+Harris+Heller+-+The+Depths+Are+Calling+Me.wav",
+        length=144
+    )
+    song26 = Song (
+        name="Tranquility",
+        artist_id=1,
+        album_id=3,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/17.+Harris+Heller+-+Tranquility.wav",
+        length=116
+    )
+    song27 = Song (
+        name="Backtracking",
+        artist_id=1,
+        album_id=3,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/18.+Harris+Heller+-+Backtracking.wav",
+        length=111
+    )
+    song28 = Song (
+        name="Lean of Phobia",
+        artist_id=1,
+        album_id=3,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/18.+Harris+Heller+-+Lean+of+Phobia.wav",
+        length=103
+    )
+    song29 = Song (
+        name="Carousel",
+        artist_id=1,
+        album_id=3,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/19.+Harris+Heller+-+Carousel.wav",
+        length=120
+    )
+    song30 = Song (
+        name="Humble",
+        artist_id=1,
+        album_id=3,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/19.+Harris+Heller+-+Humble.wav",
+        length=123
+    )
+
 
     db.session.add(song1)
     db.session.add(song2)
@@ -83,6 +224,14 @@ def seed_songs():
     db.session.add(song8)
     db.session.add(song9)
     db.session.add(song10)
+    db.session.add(song11)
+    db.session.add(song12)
+    db.session.add(song13)
+    db.session.add(song14)
+    db.session.add(song15)
+    db.session.add(song16)
+    db.session.add(song17)
+    db.session.add(song18)
     db.session.commit()
 
 
