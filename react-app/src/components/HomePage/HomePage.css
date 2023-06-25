@@ -49,6 +49,7 @@
     column-gap: 15px;
     grid-template-rows: 300px;
     cursor: pointer;
+    width: 100%;
 }
 
 .home-all-albums-cover-image {
@@ -68,6 +69,7 @@
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 5px;
     transition: background-color 0.5s;
+    overflow: hidden;
 }
 
 .home-single-album-wrapper:hover {

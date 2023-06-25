@@ -76,7 +76,7 @@ function LoginFormPage() {
         </div>
         <div className="sign-up-link-on-login">
           <p>Don't have an account</p>
-          <a href="/signup">Sign up for Spotify</a>
+          <a href="/signup">Sign up for Lofy</a>
         </div>
       </form>
     </div>
