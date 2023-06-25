@@ -394,6 +394,77 @@ def seed_songs():
         audio="https://lofy.s3.us-east-2.amazonaws.com/audio/27.+Harris+Heller+-+Plaid.wav",
         length=109
     )
+    song57 = Song (
+        name="Stirling Keys",
+        artist_id=4,
+        album_id=8,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/27.+Harris+Heller+-+Stirling+Keys.wav",
+        length=109
+    )
+    song58 = Song (
+        name="Partial Moonlight",
+        artist_id=4,
+        album_id=8,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/28.+Harris+Heller+-+Partial+Moonlight.wav",
+        length=134
+    )
+    song59 = Song (
+        name="Sky and Why",
+        artist_id=4,
+        album_id=8,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/28.+Harris+Heller+-+Sky+and+Why.wav",
+        length=119
+    )
+    song60 = Song (
+        name="When I Was Younger",
+        artist_id=4,
+        album_id=8,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/28.+Harris+Heller+-+When+I+Was+Younger.wav",
+        length=108
+    )
+    song61 = Song (
+        name="Aurora",
+        artist_id=4,
+        album_id=8,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/29.+Harris+Heller+-+Aurora.wav",
+        length=109
+    )
+    song62 = Song (
+        name="Smooth River",
+        artist_id=4,
+        album_id=8,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/29.+Harris+Heller+-+Smooth+River.wav",
+        length=123
+    )
+    song63 = Song (
+        name="White Noise",
+        artist_id=4,
+        album_id=8,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/29.+Harris+Heller+-+White+Noise.wav",
+        length=112
+    )
+    song64 = Song (
+        name="Distant Rendering",
+        artist_id=4,
+        album_id=8,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/3.+Harris+Heller+-+Distant+Rendering.wav",
+        length=120
+    )
+    song65 = Song (
+        name="Star Searcher",
+        artist_id=4,
+        album_id=8,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/3.+Harris+Heller+-+Star+Searcher.wav",
+        length=140
+    )
+    song66 = Song (
+        name="",
+        artist_id=4,
+        album_id=8,
+        audio="",
+        length=
+    )
+    
     
     songs = [song1, song2, song3, song4, song5, song6, song7, song8,
              song9, song10, song11, song12, song13, song14, song15,
@@ -402,7 +473,7 @@ def seed_songs():
              song30, song31, song32, song33, song34, song35, song36,
              song37, song38, song39, song40, song41, song42, song43,
              song44, song45, song46, song47, song48, song49, song50,
-             song51, song52, song53, song54, song55, song56
+             song51, song52, song53, song54, song55, song56, song57, song58, song59, song60, song61, song62, song63, song64, song65
              ]
 
 
