@@ -3,28 +3,53 @@ from sqlalchemy.sql import text
 
 def seed_albums():
     album1 = Album (
-        name="album1",
-        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/modern-pop-lofi-music-cover-art-design-template-f6db8ab55ee30bac80c523b3129a268d_screen.jpg",
+        name="Nostalgic Reverie",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Nostalgic+Reverie.png",
         artist_id=1
     )
     album2 = Album (
-        name="album2",
-        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/tumblr_p7b18oVqP01ravz9xo1_1280.png",
-        artist_id=2
+        name="Chillwaves and Coffee",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Chillwaves+and+Coffee.png",
+        artist_id=1
     )
     album3 = Album (
-        name="album3",
-        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/modern-pop-lofi-music-cover-art-design-template-f6db8ab55ee30bac80c523b3129a268d_screen.jpg",
-        artist_id=3
+        name="Sunset Serenade",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Sunset+Serenade.png",
+        artist_id=1
     )
     album4 = Album (
-        name="album4",
-        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/tumblr_p7b18oVqP01ravz9xo1_1280.png",
-        artist_id=4
+        name="Dreamy Haze",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Dreamy+Haze.png",
+        artist_id=2
     )
     album5 = Album (
-        name="album5",
-        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/tumblr_p7b18oVqP01ravz9xo1_1280.png",
+        name="Melancholic Mornings",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Melancholic+Mornings.png",
+        artist_id=2
+    )
+    album6 = Album (
+        name="Laid-back Grooves",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Laid-back+Grooves.png",
+        artist_id=3
+    )
+    album7 = Album (
+        name="Rainy Day Melodies",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Rainy+Day+Melodies.png",
+        artist_id=3
+    )
+    album8 = Album (
+        name="Lo-fi Journeys",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Lo-fi+Journeys.png",
+        artist_id=4
+    )
+    album9 = Album (
+        name="Mellow Vibes",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Mellow+Vibes.png",
+        artist_id=4
+    )
+    album10 = Album (
+        name="Lazy Sunday Beats",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Lazy+Sunday+Beats.png",
         artist_id=5
     )
     db.session.add(album1)
@@ -32,6 +57,11 @@ def seed_albums():
     db.session.add(album3)
     db.session.add(album4)
     db.session.add(album5)
+    db.session.add(album6)
+    db.session.add(album7)
+    db.session.add(album8)
+    db.session.add(album9)
+    db.session.add(album10)
     db.session.commit()
 
 
