@@ -296,8 +296,71 @@ def seed_songs():
         audio="https://lofy.s3.us-east-2.amazonaws.com/audio/22.+Harris+Heller+-+Mysteryland.wav",
         length=111
     )
+    song43 = Song (
+        name="Warp 9",
+        artist_id=3,
+        album_id=6,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/22.+Harris+Heller+-+Warp+9.wav",
+        length=133
+    )
+    song44 = Song (
+        name="Ain't No Rest For The Stars",
+        artist_id=3,
+        album_id=6,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/23.+Harris+Heller+-+Ain_t+No+Rest+For+The+Stars.wav",
+        length=104
+    )
+    song45 = Song (
+        name="Dissonant Whispers",
+        artist_id=3,
+        album_id=6,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/23.+Harris+Heller+-+Dissonant+Whispers.wav",
+        length=114
+    )
+    song46 = Song (
+        name="Plethora",
+        artist_id=3,
+        album_id=6,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/23.+Harris+Heller+-+Plethora.wav",
+        length=114
+    )
+    song47 = Song (
+        name="Andromeda Skies",
+        artist_id=3,
+        album_id=6,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/24.+Harris+Heller+-+Andromeda+Skies.wav",
+        length=125
+    )
+    song48 = Song (
+        name="Heading Out Nowhere",
+        artist_id=3,
+        album_id=6,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/24.+Harris+Heller+-+Heading+Out+Nowhere.wav",
+        length=113
+    )
+    song49 = Song (
+        name="Soul and Luna",
+        artist_id=3,
+        album_id=6,
+        audio="https://lofy.s3.us-east-2.amazonaws.com/audio/24.+Harris+Heller+-+Soul+and+Luna.wav",
+        length=121
+    )
+    # song50 = Song (
+    #     name="",
+    #     artist_id=3,
+    #     album_id=6,
+    #     audio="",
+    #     length=
+    # )
     
-
+    songs = [song1, song2, song3, song4, song5, song6, song7, song8,
+             song9, song10, song11, song12, song13, song14, song15,
+             song16, song17, song18, song19, song20, song21, song22,
+             song23, song24, song25, song26, song27, song28, song29,
+             song30, song31, song32, song33, song34, song35, song36,
+             song37, song38, song39, song40, song41, song42, song43,
+             song44, song45, song46, song47, song48, song49, 
+             ]
 
 
     db.session.add(song1)
