@@ -2,11 +2,11 @@ from app.models import Artist, db, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_artists():
-    artist1 = Artist(name="Artist1")
-    artist2 = Artist(name="Artist2")
-    artist3 = Artist(name="Artist3")
-    artist4 = Artist(name="Artist4")
-    artist5 = Artist(name="Artist5")
+    artist1 = Artist(name="AVBE")
+    artist2 = Artist(name="Adi Goldstein")
+    artist3 = Artist(name="Yokonap")
+    artist4 = Artist(name="FE77A")
+    artist5 = Artist(name="Wisanga")
 
     db.session.add(artist1)
     db.session.add(artist2)
