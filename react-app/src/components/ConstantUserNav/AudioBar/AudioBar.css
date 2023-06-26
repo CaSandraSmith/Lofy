@@ -107,6 +107,10 @@
     border-radius: 5px;
   }
 
-  .audio-button:hover::before {
+.audio-button:hover::before {
     display:block;
-  }
+}
+
+.sing-duration-slider {
+    width: 80%;
+}

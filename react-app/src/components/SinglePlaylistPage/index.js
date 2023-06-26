@@ -217,12 +217,13 @@ export default function SinglePlaylistPage() {
                                 onClick={() => handleSongClick(songsArr[0], 0)}
                             >
                             </i> : null}
-                        <i className="fa-solid fa-ellipsis playlist-ellipsis-options" onClick={() => setEditPlaylistMenuOpen(!editPlaylistMenuOpen)}></i>
+                        {playlist.owner.id === user.id ? <i className="fa-solid fa-ellipsis playlist-ellipsis-options" onClick={() => setEditPlaylistMenuOpen(!editPlaylistMenuOpen)}></i> : null}
                     </div>
-                    <div className={editMenuClassName} ref={editPlaylistRef}>
-                        <div onClick={editPlaylistClick}>Edit Details</div>
-                        <div onClick={deletePlaylistClick}>Delete</div>
-                    </div>
+                    {playlist.owner?.id === user.id ?
+                        <div className={editMenuClassName} ref={editPlaylistRef}>
+                            <div onClick={editPlaylistClick}>Edit Details</div>
+                            <div onClick={deletePlaylistClick}>Delete</div>
+                        </div> : null}
                 </div>
                 {songsArr.length ?
                     <div>
