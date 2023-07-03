@@ -1,6 +1,8 @@
-# Flask React Project
+# Lofy
 
-This is the starter for the Flask React project.
+Lofy is a clone of Spotify. My favorite genre to listen to while coding is lo-fi music and this site serves that purpose! Lofy provides its users with a network of solely lo-fi music to provide mellow background sounds to increase productivity, guide users to sleep, or conserve whatever vibes the user is trying to maintain.
+
+Checkout [Lofy](https://lofy.onrender.com/)!
 
 ## Getting started
 1. Clone this repository (only this branch)
