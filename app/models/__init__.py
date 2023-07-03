@@ -6,4 +6,4 @@ from .albums import Album
 from .playlist_reviews import PlaylistReview
 from .playlists import Playlist
 from .songs import Song
-from .tables import playlist_songs
+from .tables import playlist_songs, user_saved_songs
