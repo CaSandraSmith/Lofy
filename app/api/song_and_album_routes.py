@@ -1,9 +1,10 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import current_user, login_user, logout_user, login_required
-from ..models import Song, Album, User
+from ..models import Song, Album, User, db
 
 song_and_album_routes = Blueprint('song_and_album', __name__)
 
+# get all albums
 @song_and_album_routes.route("/")
 def all_songs_and_albums():
     albums = Album.query.all()
@@ -14,6 +15,31 @@ def all_songs_and_albums():
     
     return all_albums
 
+# delete a users saved song
+@song_and_album_routes.route("/songs/current_user/<ind:id>", methods=["DELETE"])
+@login_required
+def remove_saved_song(id):
+    user = User.query.get(current_user.id)
+    song = Song.query.get(id)
+
+    if not song:
+        return {"errors": "You can't remove a song from your saved songs that doesn't exist"}
+    
+    if song not in User.saved_songs:
+        return {"errors": "You can't remove a song that you haven't saved"}
+    
+    user.saved_songs.remove(song)
+    db.session.commit()
+
+    all_songs = {}
+    for song in user.saved_songs:
+        all_songs[song.id] = song.to_dict()
+
+    return all_songs
+
+
+
+# get all saved songs of current user
 @song_and_album_routes.route("/songs/current_user")
 @login_required
 def user_saved_songs():
@@ -25,6 +51,7 @@ def user_saved_songs():
 
     return all_songs
 
+# get all songs
 @song_and_album_routes.route("/songs")
 def all_songs():
     songs = Song.query.all()
