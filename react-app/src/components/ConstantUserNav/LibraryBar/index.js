@@ -2,22 +2,31 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { useHistory, Link } from "react-router-dom"
 import { findCurrentUserPlaylists, createNewPlaylist } from "../../../store/playlists"
+import { getAllUserSavedSongs } from "../../../store/albums"
 import "./UserNav.css"
 
 export default function LibraryBar() {
     const dispatch = useDispatch()
     const history = useHistory()
+    
+    useEffect(() => {
+        dispatch(getAllUserSavedSongs())
+        dispatch(findCurrentUserPlaylists())
+    }, [dispatch])
+    
     const playlists = useSelector(state => state.playlists.currentUserPlaylists)
     const playlistArr = Object.values(playlists)
     let playlistsLength = playlistArr.length
-
-    useEffect(() => {
-        dispatch(findCurrentUserPlaylists())
-    }, [dispatch])
+    const savedSongs = useSelector(state => state.albums.savedSongs)
+    const savedSongsArr = Object.values(savedSongs)
 
     let handleNewPlaylistClick = async () => {
         let playlist = await dispatch(createNewPlaylist())
         history.push(`/playlist/${playlist.id}`)
+    }
+    let formatLikedSongs = (songs) => {
+        if (songs.length === 1) return "1 song"
+        else return `${songs.length} songs`
     }
 
     return (
@@ -44,6 +53,13 @@ export default function LibraryBar() {
                 </div>
                     {playlistArr.length ?
                         <div className="current-user-playlists-wrapper">
+                            <div className="user-playlists-info">
+                                <img 
+                                className="user-playlists-cover-image"
+                                src="https://res.cloudinary.com/djp7wsuit/image/upload/v1688505274/Untitled_design_12_gksdh3.png" 
+                                alt="white heart with blue gradient background" />
+                                <p className="library-playlist-name">{formatLikedSongs(savedSongsArr)}</p>
+                            </div>
                             {playlistArr.map(playlist => (
                                 <div className="user-playlists-info" onClick={() => history.push(`/playlist/${playlist.id}`)}>
                                     <img className="user-playlists-cover-image" 

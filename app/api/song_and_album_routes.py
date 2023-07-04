@@ -16,7 +16,7 @@ def all_songs_and_albums():
 
 @song_and_album_routes.route("/songs/current_user")
 @login_required
-def all_songs():
+def user_saved_songs():
     user = User.query.get(current_user.id)
 
     all_songs = {}
