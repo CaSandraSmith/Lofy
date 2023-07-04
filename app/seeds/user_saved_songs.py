@@ -80,10 +80,26 @@ def seed_user_saved_songs():
     song64 = Song.query.get(64)
     song65 = Song.query.get(65)
 
+    user1.saved_songs.extend([song26, song36, song48, song45, song15, 
+                              song64, song12, song8, song23, song43,
+                              song55, song24, song17, song6, song60,
+                              song9, song49, song32, song50, song35])
+    
+    user2.saved_songs.extend([song34, song46, song62, song30, song29,
+                              song18, song19, song38, song1, song37,
+                              song8, song52])
+
+    user3.saved_songs.extend([song63, song2, song65, song39, song52, song40,
+                              song32, song30, song8, song37, song10, song62, 
+                              song61, song64, song57, song35, song33, 
+                              song15, song25, song16, song7, song4, song9, 
+                              song56, song42, song60, song31, song53, song20, 
+                              song12, song54, song26, song55])
+
     db.session.commit()
 
 
-# Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
+# Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesnt
 # have a built in function to do this. With postgres in production TRUNCATE
 # removes all the data from the table, and RESET IDENTITY resets the auto
 # incrementing primary key, CASCADE deletes any dependent entities.  With
@@ -96,3 +112,15 @@ def undo_user_saved_songs():
         db.session.execute(text("DELETE FROM users"))
         
     db.session.commit()
+
+# from random import randint
+
+# def findSongs(n): 
+#     saved_songs = []
+#     visted = []
+#     while len(saved_songs) < n:
+#         num = randint(1, 65)
+#         if not num in visted:
+#             visted.append(num)
+#             saved_songs.append(f"song{num}")
+#     return saved_songs
