@@ -1,6 +1,6 @@
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getAllUserSavedSongs } from "../../../store/albums"
+import { getAllUserSavedSongs, removeSavedSong } from "../../../store/albums"
 import { useAudio } from "../../../context/Audio"
 import SinglePlaylistSearch from "../SinglePlaylistSearch"
 import './LikedSongsPlaylist.css'
@@ -8,6 +8,7 @@ import './LikedSongsPlaylist.css'
 export default function LikedSongsPlaylist() {
     const dispatch = useDispatch()
     const { setPlaying, setQueue, setSong } = useAudio()
+    const heartRef = useRef()
 
     useEffect(() => {
         dispatch(getAllUserSavedSongs())
@@ -35,11 +36,15 @@ export default function LikedSongsPlaylist() {
         return `${minutes}:${sec}`
     }
 
-    let handleSongClick = (song, i) => {
+    let handleSongClick = (song, e) => {
         setPlaying(true)
         setSong(song)
         // let arr = [...songsArr.slice(i), ...songsArr.slice(0, i)]
         setQueue(savedSongsArr)
+    }
+
+    let removeSongFromLiked = async (songId) => {
+        dispatch(removeSavedSong(songId))
     }
 
     return (
@@ -108,7 +113,7 @@ export default function LikedSongsPlaylist() {
                                 {savedSongsArr.map((song, i) => (
                                     <tr
                                         className="playlist-song-row"
-                                        onClick={() => handleSongClick(song, i)}>
+                                        onClick={(e) => handleSongClick(song, e)}>
                                         <td>{i + 1}</td>
                                         <td>
                                             <div className="single-playlist-title">
@@ -123,7 +128,13 @@ export default function LikedSongsPlaylist() {
                                             </div>
                                         </td>
                                         <td>{song.album.name}</td>
-                                        <td><i className="fa-solid fa-heart"></i></td>
+                                        <td>
+                                            <i
+                                                className="fa-solid fa-heart"
+                                                ref={heartRef}
+                                                onClick={() => removeSongFromLiked(song.id)}
+                                            ></i>
+                                        </td>
                                         <td className="single-playlist-song-length">{convertLengthTable(song.length)}</td>
                                     </tr>
                                 ))}

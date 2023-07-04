@@ -41,4 +41,7 @@
 
 .fa-solid.fa-heart {
     color: #1ed660;
+    /* position: absolute;
+    z-index: 2;
+    transform: translateX(-50%); */
 }

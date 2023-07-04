@@ -16,7 +16,7 @@ def all_songs_and_albums():
     return all_albums
 
 # delete a users saved song
-@song_and_album_routes.route("/songs/current_user/<ind:id>", methods=["DELETE"])
+@song_and_album_routes.route("/songs/current_user/<int:id>", methods=["DELETE"])
 @login_required
 def remove_saved_song(id):
     user = User.query.get(current_user.id)
@@ -25,7 +25,7 @@ def remove_saved_song(id):
     if not song:
         return {"errors": "You can't remove a song from your saved songs that doesn't exist"}
     
-    if song not in User.saved_songs:
+    if song not in user.saved_songs:
         return {"errors": "You can't remove a song that you haven't saved"}
     
     user.saved_songs.remove(song)

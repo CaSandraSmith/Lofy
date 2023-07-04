@@ -283,7 +283,8 @@
     color: #1ed660;
 }
 
-/* .playlist-song-row:hover {
+.playlist-song-row {
     background-color: #2a2a2a;
-    z-index: 200;
-} */
+    /* z-index: 200; */
+    position: relative;
+}
