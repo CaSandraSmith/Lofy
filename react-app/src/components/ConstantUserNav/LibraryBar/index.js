@@ -8,12 +8,12 @@ import "./UserNav.css"
 export default function LibraryBar() {
     const dispatch = useDispatch()
     const history = useHistory()
-    
+
     useEffect(() => {
         dispatch(getAllUserSavedSongs())
         dispatch(findCurrentUserPlaylists())
     }, [dispatch])
-    
+
     const playlists = useSelector(state => state.playlists.currentUserPlaylists)
     const playlistArr = Object.values(playlists)
     let playlistsLength = playlistArr.length
@@ -51,29 +51,27 @@ export default function LibraryBar() {
                         <i className="fa-solid fa-plus" onClick={handleNewPlaylistClick}></i>
                     </div>
                 </div>
+                <div className="current-user-playlists-wrapper">
+                    <div className="user-playlists-info" onClick={() => history.push("/collection/tracks")}>
+                        <img
+                            className="user-playlists-cover-image"
+                            src="https://res.cloudinary.com/djp7wsuit/image/upload/v1688505274/Untitled_design_12_gksdh3.png"
+                            alt="white heart with blue gradient background" />
+                            <p className="library-playlist-name">Liked Songs</p>
+                        {/* <p className="library-playlist-name">{formatLikedSongs(savedSongsArr)}</p> */}
+                    </div>
                     {playlistArr.length ?
-                        <div className="current-user-playlists-wrapper">
-                            <div className="user-playlists-info">
-                                <img 
-                                className="user-playlists-cover-image"
-                                src="https://res.cloudinary.com/djp7wsuit/image/upload/v1688505274/Untitled_design_12_gksdh3.png" 
-                                alt="white heart with blue gradient background" />
-                                <p className="library-playlist-name">{formatLikedSongs(savedSongsArr)}</p>
+                        playlistArr.map(playlist => (
+                            <div className="user-playlists-info" onClick={() => history.push(`/playlist/${playlist.id}`)}>
+                                <img className="user-playlists-cover-image"
+                                    src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"}
+                                    alt={`Playlist ${playlist.name} cover image`} />
+                                <p className="library-playlist-name">{playlist.name}</p>
                             </div>
-                            {playlistArr.map(playlist => (
-                                <div className="user-playlists-info" onClick={() => history.push(`/playlist/${playlist.id}`)}>
-                                    <img className="user-playlists-cover-image" 
-                                    src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"} 
-                                    alt={`Playlist ${playlist.name} cover image`}/>
-                                    <p className="library-playlist-name">{playlist.name}</p>
-                                </div>
-                            ))}
-                        </div>
-                        : <div className="library-bar-no-playlists">
-                            <p>Create your first playlist</p>
-                            <p>It's easy, we'll help you</p>
-                        </div>
+                        ))
+                        : null
                     }
+                </div>
             </div>
         </div>
     )

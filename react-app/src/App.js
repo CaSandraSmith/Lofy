@@ -13,6 +13,7 @@ import AudioBar from "./components/ConstantUserNav/AudioBar";
 import GeneralNav from "./components/NavigationBar/GeneralNav";
 import SingleAlbumPage from "./components/SingleAlbumPage";
 import SplashFooter from "./components/HomePage/SplashPage/SplashFooter";
+import LikedSongsPlaylist from "./components/SinglePlaylistPage/LikedSongsPlaylist";
 
 function App() {
   const location = useLocation()
@@ -51,6 +52,10 @@ function App() {
             {location.pathname != "/" && location.pathname != "/login" && location.pathname != "/signup" &&
               <div className="changing-content">
                 <Switch>
+                  <Route path="/collection/tracks">
+                    <GeneralNav />
+                    <LikedSongsPlaylist />
+                  </Route>
                   <Route path="/album/:id">
                     <GeneralNav />
                     <SingleAlbumPage />

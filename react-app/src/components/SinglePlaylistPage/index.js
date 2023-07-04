@@ -239,6 +239,7 @@ export default function SinglePlaylistPage() {
                             <tbody>
                                 {songsArr.map((song, i) => (
                                     <tr
+                                        className="playlist-song-row"
                                         onClick={() => handleSongClick(song, i)}>
                                         <td>{i + 1}</td>
                                         <td>
