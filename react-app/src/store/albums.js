@@ -103,7 +103,7 @@ export const createSavedSong = (songId) => async (dispatch) => {
 }
 
 export const getAllUsersSavedAlbums = () => async (dispatch) => {
-    let res = await fetch("/api/misc")
+    let res = await fetch("/api/misc/albums/current_user")
 
     if (res.ok) {
         let albums = await res.json()
