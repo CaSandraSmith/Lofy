@@ -1,5 +1,5 @@
 import { useParams, useHistory } from "react-router-dom"
-import { gatherAllAlbums } from "../../store/albums"
+import { gatherAllAlbums, getAllUserSavedSongs, removeSavedSong, createSavedSong } from "../../store/albums"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { useAudio } from "../../context/Audio"
@@ -14,16 +14,19 @@ export default function SingleAlbumPage() {
 
     useEffect(() => {
         dispatch(gatherAllAlbums()).then(() => setLoading(true))
+        dispatch(getAllUserSavedSongs())
     }, [dispatch])
 
 
     let albums = useSelector(state => state.albums.albums)
     let album = useSelector(state => state.albums.albums[id])
-
-    if (!loading) return <h1>Loading</h1>
-
     let artistAlbums = Object.values(albums).filter(singleAlbum => singleAlbum.artist === album.artist).slice(0, 4)
     let songsArr = Object.values(album.songs)
+    const savedSongs = useSelector(state => state.albums.savedSongs)
+    let savedSongsIds = Object.keys(savedSongs)
+
+    
+    if (!loading) return <h1>Loading</h1>
 
     let convertLength = () => {
         let length = 0
@@ -48,6 +51,14 @@ export default function SingleAlbumPage() {
         setSong(song)
         // let arr = [...songsArr.slice(i), ...songsArr.slice(0, i)]
         setQueue(songsArr)
+    }
+
+    let handleSaveSongClick = async (songId) => {
+        dispatch(createSavedSong(songId))
+    }
+
+    let handleUnsaveSongClick = async (songId) => {
+        dispatch(removeSavedSong(songId))
     }
 
     return (
@@ -95,6 +106,7 @@ export default function SingleAlbumPage() {
                                 <tr className="single-album-table-headers">
                                     <th>#</th>
                                     <th>Title</th>
+                                    <th></th>
                                     <th><i className="fa-regular fa-clock"></i></th>
                                 </tr>
                             </thead>
@@ -103,6 +115,15 @@ export default function SingleAlbumPage() {
                                     <tr onClick={() => handleSongClick(song, i)}>
                                         <td>{i + 1}</td>
                                         <td>{song.name}</td>
+                                        <td>{savedSongsIds.includes(song.id.toString()) ?
+                                            <i
+                                                onClick={() => handleUnsaveSongClick(song.id)}
+                                                className="fa-solid fa-heart"></i>
+                                            :
+                                            <i
+                                                onClick={() => handleSaveSongClick(song.id)}
+                                                className="fa-regular fa-heart"></i>
+                                        }</td>
                                         <td className="single-playlist-song-length">{convertLengthTable(song.length)}</td>
                                     </tr>
                                 ))}
@@ -116,12 +137,12 @@ export default function SingleAlbumPage() {
                 <div className="artist-other-albums-wrapper">
                     {artistAlbums.map(album => (
                         <div
-                        className="artist-albums-wrapper"
+                            className="artist-albums-wrapper"
                             onClick={() => history.push(`/album/${album.id}`)}
                         >
-                            <img 
-                            className="artist-albums-cover-image"
-                            src={album.cover_image} alt={`${album.name} cover image`} />
+                            <img
+                                className="artist-albums-cover-image"
+                                src={album.cover_image} alt={`${album.name} cover image`} />
                             <p>{album.name}</p>
                         </div>
                     ))}
