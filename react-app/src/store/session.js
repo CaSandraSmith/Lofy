@@ -109,22 +109,6 @@ export const signUp = (username, email, password) => async (dispatch) => {
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
-		case SAVE_SONG:
-			let newState1 = {...state, user: {...state.user, saved_songs: [...state.user.saved_songs]}}
-			let index = newState.user.saved_songs.indexOf(action.songId)
-			if (index != -1) {
-				return newState
-			}
-			newState1.user.saved_songs.push(action.songId)
-			return newState1
-		case DELETE_SAVED_SONG:
-			let newState = {...state, user: {...state.user, saved_songs: [...state.user.saved_songs]}}
-			let i = newState.user.saved_songs.indexOf(action.songId)
-			if (i === -1) {
-				return newState
-			}
-			newState.user.saved_songs.splice(i, 1)
-			return newState
 		case SET_USER:
 			return { user: action.payload };
 		case REMOVE_USER:

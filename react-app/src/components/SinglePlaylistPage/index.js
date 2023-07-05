@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
 import { useModal } from "../../context/Modal"
-import { gatherAllSongs } from "../../store/albums"
+import { gatherAllSongs, getAllUserSavedSongs, removeSavedSong, createSavedSong } from "../../store/albums"
 import { getOnePlaylist, clearPlaylist, findCurrentUserPlaylists, addSongToPlaylist } from "../../store/playlists"
 import { getPlaylistReviews, deletePlaylistReview } from "../../store/reviews"
 import { useAudio } from "../../context/Audio"
@@ -23,6 +23,8 @@ export default function SinglePlaylistPage() {
     let playlistSongs = useSelector(state => state.playlists.singlePlaylist.songs)
     let reviews = useSelector(state => state.reviews.currentPlaylistReviews)
     let user = useSelector(state => state.session.user)
+    const savedSongs = useSelector(state => state.albums.savedSongs)
+    let savedSongsIds = Object.keys(savedSongs)
     let reviewsArr = Object.values(reviews)
     let allSongs = useSelector(state => state.albums.songs)
     const [loading, setLoading] = useState(false)
@@ -38,6 +40,7 @@ export default function SinglePlaylistPage() {
         dispatch(findCurrentUserPlaylists())
         dispatch(gatherAllSongs())
         dispatch(getPlaylistReviews(id))
+        dispatch(getAllUserSavedSongs())
     }, [dispatch, id, playlistEdits])
 
     useEffect(() => {
@@ -164,6 +167,14 @@ export default function SinglePlaylistPage() {
         setQueue(songsArr)
     }
 
+    let handleSaveSongClick = async (songId) => {
+        dispatch(createSavedSong(songId))
+    }
+
+    let handleUnsaveSongClick = async (songId) => {
+        dispatch(removeSavedSong(songId))
+    }
+
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
 
     return (
@@ -233,6 +244,7 @@ export default function SinglePlaylistPage() {
                                     <th>#</th>
                                     <th>Title</th>
                                     <th>Album</th>
+                                    <th></th>
                                     <th><i className="fa-regular fa-clock"></i></th>
                                 </tr>
                             </thead>
@@ -255,6 +267,15 @@ export default function SinglePlaylistPage() {
                                             </div>
                                         </td>
                                         <td>{song.album.name}</td>
+                                        <td>{savedSongsIds.includes(song.id.toString()) ?
+                                            <i
+                                                onClick={() => handleUnsaveSongClick(song.id)}
+                                                className="fa-solid fa-heart"></i> 
+                                                :
+                                            <i
+                                                onClick={() => handleSaveSongClick(song.id)}
+                                                className="fa-regular fa-heart"></i>
+                                        }</td>
                                         <td className="single-playlist-song-length">{convertLengthTable(song.length)}</td>
                                     </tr>
                                 ))}
