@@ -1,5 +1,5 @@
 import { useParams, useHistory } from "react-router-dom"
-import { gatherAllAlbums, getAllUserSavedSongs, removeSavedSong, createSavedSong } from "../../store/albums"
+import { gatherAllAlbums, getAllUserSavedSongs, removeSavedSong, createSavedSong, getAllUsersSavedAlbums } from "../../store/albums"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { useAudio } from "../../context/Audio"
@@ -11,21 +11,24 @@ export default function SingleAlbumPage() {
     const history = useHistory()
     const { setPlaying, setQueue, setSong } = useAudio()
     const [loading, setLoading] = useState(false)
-
+    
     useEffect(() => {
         dispatch(gatherAllAlbums()).then(() => setLoading(true))
         dispatch(getAllUserSavedSongs())
+        dispatch(getAllUsersSavedAlbums())
     }, [dispatch])
-
-
+    
+    
     let albums = useSelector(state => state.albums.albums)
     let album = useSelector(state => state.albums.albums[id])
     let artistAlbums = Object.values(albums).filter(singleAlbum => singleAlbum.artist === album.artist).slice(0, 4)
     let songsArr = Object.values(album.songs)
     const savedSongs = useSelector(state => state.albums.savedSongs)
     let savedSongsIds = Object.keys(savedSongs)
+    const savedAlbums = useSelector(state => state.albums.savedAlbums)
+    let savedAlbumsIds = Object.keys(savedAlbums)
 
-    
+
     if (!loading) return <h1>Loading</h1>
 
     let convertLength = () => {
@@ -99,6 +102,13 @@ export default function SingleAlbumPage() {
                             onClick={() => handleSongClick(songsArr[0], 0)}
                         >
                         </i>
+                        {savedAlbumsIds.includes(album.id.toString()) ?
+                            <i
+                                className="fa-solid fa-heart"></i>
+                            :
+                            <i
+                                className="fa-regular fa-heart"></i>
+                        }
                     </div>
                     <div>
                         <table className="single-playlist-songs-table">
