@@ -53,11 +53,7 @@ def add_saved_song(id):
     user.saved_songs.append(song)
     db.session.commit()
 
-    all_songs = {}
-    for song in user.saved_songs:
-        all_songs[song.id] = song.to_dict()
-
-    return all_songs
+    return song.to_dict()
 
 # get all saved songs of current user
 @song_and_album_routes.route("/songs/current_user")

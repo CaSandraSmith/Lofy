@@ -1,9 +1,10 @@
-import { removeUserSavedSong } from "./session"
+import { removeUserSavedSong, saveNewSong } from "./session"
 
 const GET_ALL_ALBUMS = "get/allAlbums"
 const GET_ALL_SONGS = "get/allSongs"
 const GET_USER_SAVED_SONGS = "get/savedSongs"
 const DELETE_SAVED_SONG = "delete/savedSongs"
+const SAVE_SONG = "post/savedSongs"
 
 const getAllAlbums = (albums) => ({
     type: GET_ALL_ALBUMS,
@@ -25,7 +26,12 @@ const deleteSavedSong = (songId) => ({
     songId
 })
 
-export const gatherAllAlbums = () => async(dispatch) => {
+const saveSong = (song) => ({
+    type: SAVE_SONG,
+    song
+})
+
+export const gatherAllAlbums = () => async (dispatch) => {
     let res = await fetch("/api/misc")
     if (res.ok) {
         let allAlbums = await res.json()
@@ -37,7 +43,7 @@ export const gatherAllAlbums = () => async(dispatch) => {
     }
 }
 
-export const gatherAllSongs = () => async(dispatch) => {
+export const gatherAllSongs = () => async (dispatch) => {
     let res = await fetch("/api/misc/songs")
     if (res.ok) {
         let allSongs = await res.json()
@@ -49,7 +55,7 @@ export const gatherAllSongs = () => async(dispatch) => {
     }
 }
 
-export const getAllUserSavedSongs = () => async(dispatch) => {
+export const getAllUserSavedSongs = () => async (dispatch) => {
     let res = await fetch("/api/misc/songs/current_user")
 
     if (res.ok) {
@@ -62,7 +68,7 @@ export const getAllUserSavedSongs = () => async(dispatch) => {
     }
 }
 
-export const removeSavedSong = (songId) => async(dispatch) => {
+export const removeSavedSong = (songId) => async (dispatch) => {
     let res = await fetch(`/api/misc/songs/current_user/${songId}`, {
         method: "DELETE"
     })
@@ -78,20 +84,64 @@ export const removeSavedSong = (songId) => async(dispatch) => {
     }
 }
 
-let initialState = {albums: {}, songs:{}, savedSongs : {}}
+export const createSavedSong = (songId) => async (dispatch) => {
+    let res = await fetch(`/api/misc/songs/current_user/${songId}`, {
+        method: "POST"
+    })
+
+    if (res.ok) {
+        let song = await res.json()
+        dispatch(saveSong(song))
+        dispatch(saveNewSong(songId))
+        return song
+    } else {
+        let errors = await res.json()
+        return errors
+    }
+}
+
+let initialState = { albums: {}, songs: {}, savedSongs: {} }
 
 export default function miscReducer(state = initialState, action) {
     switch (action.type) {
+        case SAVE_SONG:
+            return {
+                songs: { ...state.songs },
+                albums: { ...state.albums },
+                savedSongs: { ...state.savedSongs, 
+                [action.song.id] : action.song
+                }
+            }
         case DELETE_SAVED_SONG:
-            let newState = {...state, songs:{...state.songs}, albums: {...state.albums}, savedSongs: {...state.savedSongs}}
+            let newState = {
+                ...state,
+                songs: { ...state.songs },
+                albums: { ...state.albums },
+                savedSongs: { ...state.savedSongs }
+            }
             delete newState.savedSongs[action.songId]
             return newState
         case GET_USER_SAVED_SONGS:
-            return {...state, songs:{...state.songs}, albums: {...state.albums}, savedSongs: action.songs}
+            return {
+                ...state,
+                songs: { ...state.songs },
+                albums: { ...state.albums },
+                savedSongs: action.songs
+            }
         case GET_ALL_SONGS:
-            return {...state, songs:{...action.songs}, albums: {...state.albums}, savedSongs: {...state.savedSongs}}
+            return {
+                ...state,
+                songs: { ...action.songs },
+                albums: { ...state.albums },
+                savedSongs: { ...state.savedSongs }
+            }
         case GET_ALL_ALBUMS:
-            return {...state, songs:{...state.songs}, albums: {...action.albums}, savedSongs: {...state.savedSongs}, savedSongs: {...state.savedSongs}}
+            return {
+                ...state,
+                songs: { ...state.songs },
+                albums: { ...action.albums },
+                savedSongs: { ...state.savedSongs }
+            }
         default:
             return state
     }

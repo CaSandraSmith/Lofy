@@ -2,6 +2,7 @@
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const DELETE_SAVED_SONG = "delete/savedSongs"
+const SAVE_SONG = "post/savedSongs"
 
 
 const setUser = (user) => ({
@@ -15,6 +16,11 @@ const removeUser = () => ({
 
 export const removeUserSavedSong = (songId) => ({
 	type: DELETE_SAVED_SONG,
+	songId
+})
+
+export const saveNewSong = (songId) => ({
+	type: SAVE_SONG,
 	songId
 })
 
@@ -103,6 +109,14 @@ export const signUp = (username, email, password) => async (dispatch) => {
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
+		case SAVE_SONG:
+			let newState1 = {...state, user: {...state.user, saved_songs: [...state.user.saved_songs]}}
+			let index = newState.user.saved_songs.indexOf(action.songId)
+			if (index != -1) {
+				return newState
+			}
+			newState1.user.saved_songs.push(action.songId)
+			return newState1
 		case DELETE_SAVED_SONG:
 			let newState = {...state, user: {...state.user, saved_songs: [...state.user.saved_songs]}}
 			let i = newState.user.saved_songs.indexOf(action.songId)
