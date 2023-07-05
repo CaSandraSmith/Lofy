@@ -109,7 +109,7 @@ def undo_user_saved_songs():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.user_saved_songs RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM users"))
+        db.session.execute(text("DELETE FROM user_saved_songs"))
         
     db.session.commit()
 
