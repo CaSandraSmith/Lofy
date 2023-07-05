@@ -104,7 +104,7 @@ export const signUp = (username, email, password) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case DELETE_SAVED_SONG:
-			let newState = {...state, user: {...state.user}}
+			let newState = {...state, user: {...state.user, saved_songs: [...state.user.saved_songs]}}
 			let i = newState.user.saved_songs.indexOf(action.songId)
 			if (i === -1) {
 				return newState
