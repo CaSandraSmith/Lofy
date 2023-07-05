@@ -67,6 +67,18 @@ def user_saved_songs():
 
     return all_songs
 
+# get all saved songs of current user
+@song_and_album_routes.route("/albums/current_user")
+@login_required
+def user_saved_albums():
+    user = User.query.get(current_user.id)
+
+    all_albums = {}
+    for album in user.saved_albums:
+        all_albums[album.id] = album.to_dict()
+
+    return all_albums
+
 # get all songs
 @song_and_album_routes.route("/songs")
 def all_songs():
