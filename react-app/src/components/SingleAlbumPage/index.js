@@ -96,7 +96,7 @@ export default function SingleAlbumPage() {
             </div>
             <div>
                 <div className="single-playlist-options">
-                    <div>
+                    <div className="single-album-options">
                         <i
                             className="fa-solid fa-play play-playlist-button"
                             onClick={() => handleSongClick(songsArr[0], 0)}

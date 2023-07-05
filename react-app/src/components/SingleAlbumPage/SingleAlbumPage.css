@@ -44,3 +44,13 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     padding: 20px 0;
 }
+
+.single-album-options {
+    display: flex;
+    column-gap: 20px;
+    align-items: center;
+}
+
+.single-album-options  > i {
+    font-size: 25px;
+}
