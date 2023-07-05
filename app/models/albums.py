@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
+from .tables import user_saved_albums
 
 class Album(db.Model):
     __tablename__ = 'albums'
@@ -18,6 +19,10 @@ class Album(db.Model):
     songs = db.relationship('Song',
                              back_populates='album',
                              cascade="all, delete-orphan")
+    users_saved = db.relationship('User', 
+                                  back_populates='saved_albums',
+                                  secondary=user_saved_albums
+                                  )
     
     def to_dict(self):
         return {
