@@ -1,3 +1,5 @@
+import { removeUserSavedSong } from "./session"
+
 const GET_ALL_ALBUMS = "get/allAlbums"
 const GET_ALL_SONGS = "get/allSongs"
 const GET_USER_SAVED_SONGS = "get/savedSongs"
@@ -68,6 +70,7 @@ export const removeSavedSong = (songId) => async(dispatch) => {
     if (res.ok) {
         let songs = await res.json()
         dispatch(deleteSavedSong(songId))
+        dispatch(removeUserSavedSong(songId))
         return songs
     } else {
         let errors = await res.json()

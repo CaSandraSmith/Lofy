@@ -47,6 +47,8 @@ export default function LikedSongsPlaylist() {
         dispatch(removeSavedSong(songId))
     }
 
+    console.log("user songs", currentUser.saved_songs)
+
     return (
         <div className="single-playlist-page">
             <div className="single-playlist-header">
