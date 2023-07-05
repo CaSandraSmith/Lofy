@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { useHistory, Link } from "react-router-dom"
 import { findCurrentUserPlaylists, createNewPlaylist } from "../../../store/playlists"
-import { getAllUserSavedSongs } from "../../../store/albums"
+import { getAllUserSavedSongs, getAllUsersSavedAlbums } from "../../../store/albums"
 import "./UserNav.css"
 
 export default function LibraryBar() {
@@ -12,6 +12,7 @@ export default function LibraryBar() {
     useEffect(() => {
         dispatch(getAllUserSavedSongs())
         dispatch(findCurrentUserPlaylists())
+        dispatch(getAllUsersSavedAlbums())
     }, [dispatch])
 
     const playlists = useSelector(state => state.playlists.currentUserPlaylists)
@@ -19,6 +20,8 @@ export default function LibraryBar() {
     let playlistsLength = playlistArr.length
     const savedSongs = useSelector(state => state.albums.savedSongs)
     const savedSongsArr = Object.values(savedSongs)
+    const savedAlbums = useSelector(state => state.albums.savedAlbums)
+    const savedAlbumsArr = Object.values(savedAlbums)
 
     let handleNewPlaylistClick = async () => {
         let playlist = await dispatch(createNewPlaylist())
@@ -67,6 +70,18 @@ export default function LibraryBar() {
                                     src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"}
                                     alt={`Playlist ${playlist.name} cover image`} />
                                 <p className="library-playlist-name">{playlist.name}</p>
+                            </div>
+                        ))
+                        : null
+                    }
+                    {savedAlbumsArr.length ?
+                        savedAlbumsArr.map(album => (
+                            <div className="user-playlists-info" onClick={() => history.push(`/album/${album.id}`)}>
+                                <img className="user-playlists-cover-image"
+                                    src={album.cover_image}
+                                    alt={`Album ${album.name} cover image`} 
+                                />
+                                <p className="library-playlist-name">{album.name}</p>
                             </div>
                         ))
                         : null
