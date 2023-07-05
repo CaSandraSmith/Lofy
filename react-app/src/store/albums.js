@@ -3,6 +3,7 @@ const GET_ALL_SONGS = "get/allSongs"
 const GET_USER_SAVED_SONGS = "get/savedSongs"
 const DELETE_SAVED_SONG = "delete/savedSongs"
 const SAVE_SONG = "post/savedSongs"
+const GET_ALL_SAVED_ALBUMS = "get/allSavedAlbums"
 
 const getAllAlbums = (albums) => ({
     type: GET_ALL_ALBUMS,
@@ -27,6 +28,11 @@ const deleteSavedSong = (songId) => ({
 const saveSong = (song) => ({
     type: SAVE_SONG,
     song
+})
+
+const getSavedAlbums = (albums) => ({
+    type: GET_ALL_SAVED_ALBUMS,
+    albums
 })
 
 export const gatherAllAlbums = () => async (dispatch) => {
@@ -96,24 +102,48 @@ export const createSavedSong = (songId) => async (dispatch) => {
     }
 }
 
-let initialState = { albums: {}, songs: {}, savedSongs: {} }
+export const getAllUsersSavedAlbums = () => async (dispatch) => {
+    let res = await fetch("/api/misc")
+
+    if (res.ok) {
+        let albums = await res.json()
+        dispatch(getSavedAlbums(albums))
+        return albums
+    } else {
+        let errors = await res.json()
+        return errors
+    }
+}
+
+let initialState = { albums: {}, songs: {}, savedSongs: {}, savedAlbums : {} }
 
 export default function miscReducer(state = initialState, action) {
     switch (action.type) {
+        case GET_ALL_SAVED_ALBUMS:
+            return {
+                ...state,
+                songs: { ...state.songs },
+                albums: { ...state.albums },
+                savedSongs: { ...state.savedSongs },
+                savedAlbums : action.albums
+            }
         case SAVE_SONG:
             return {
+                ...state,
                 songs: { ...state.songs },
                 albums: { ...state.albums },
                 savedSongs: { ...state.savedSongs, 
                 [action.song.id] : action.song
-                }
+                }, 
+                savedAlbums : {...state.savedAlbums}
             }
         case DELETE_SAVED_SONG:
             let newState = {
                 ...state,
                 songs: { ...state.songs },
                 albums: { ...state.albums },
-                savedSongs: { ...state.savedSongs }
+                savedSongs: { ...state.savedSongs },
+                savedAlbums : {...state.savedAlbums}
             }
             delete newState.savedSongs[action.songId]
             return newState
@@ -122,21 +152,24 @@ export default function miscReducer(state = initialState, action) {
                 ...state,
                 songs: { ...state.songs },
                 albums: { ...state.albums },
-                savedSongs: action.songs
+                savedSongs: action.songs,
+                savedAlbums : {...state.savedAlbums}
             }
         case GET_ALL_SONGS:
             return {
                 ...state,
                 songs: { ...action.songs },
                 albums: { ...state.albums },
-                savedSongs: { ...state.savedSongs }
+                savedSongs: { ...state.savedSongs },
+                savedAlbums : {...state.savedAlbums}
             }
         case GET_ALL_ALBUMS:
             return {
                 ...state,
                 songs: { ...state.songs },
                 albums: { ...action.albums },
-                savedSongs: { ...state.savedSongs }
+                savedSongs: { ...state.savedSongs },
+                savedAlbums : {...state.savedAlbums}
             }
         default:
             return state
