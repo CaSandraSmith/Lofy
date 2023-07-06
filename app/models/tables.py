@@ -60,3 +60,23 @@ user_saved_albums = db.Table(
 
 if environment == "production":
     user_saved_albums.schema = SCHEMA
+
+
+user_saved_playlists = db.Table(
+    "user_saved_playlists",
+    db.Column(
+        'user_id',
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('users.id')),
+        primary_key=True
+    ),
+    db.Column(
+        'playlist_id',
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('playlists.id')),
+        primary_key=True
+    )
+)
+
+if environment == "production":
+    user_saved_playlists.schema = SCHEMA
