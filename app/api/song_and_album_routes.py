@@ -31,11 +31,7 @@ def remove_saved_song(id):
     user.saved_songs.remove(song)
     db.session.commit()
 
-    all_songs = {}
-    for song in user.saved_songs:
-        all_songs[song.id] = song.to_dict()
-
-    return all_songs
+    return {"message": "Successfully removed from saved songs"}
 
 # add a song to a users saved song
 @song_and_album_routes.route("/songs/current_user/<int:id>", methods=["POST"])
@@ -67,7 +63,25 @@ def user_saved_songs():
 
     return all_songs
 
-# get all saved songs of current user
+# delete a users saved album
+@song_and_album_routes.route("/albums/current_user/<int:id>", methods=["DELETE"])
+@login_required
+def remove_saved_album(id):
+    user = User.query.get(current_user.id)
+    album = Album.query.get(id)
+
+    if not album:
+        return {"errors": "You can't remove a album from your saved albums that doesn't exist"}
+    
+    if album not in user.saved_albums:
+        return {"errors": "You can't remove a album that you haven't saved"}
+    
+    user.saved_albums.remove(album)
+    db.session.commit()
+
+    return {"message": "Successfully removed from saved albums"}
+
+# get all saved albums of current user
 @song_and_album_routes.route("/albums/current_user")
 @login_required
 def user_saved_albums():
