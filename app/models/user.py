@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
-from .tables import user_saved_songs, user_saved_albums
+from .tables import user_saved_songs, user_saved_albums, user_saved_playlists
 
 
 class User(db.Model, UserMixin):
@@ -35,6 +35,10 @@ class User(db.Model, UserMixin):
                                    back_populates='users_saved',
                                    secondary=user_saved_albums
                                    )
+    saved_playlists = db.relationship('Playlist',
+                                      back_populates="users_saved",
+                                      secondary=user_saved_playlists
+                                      )
     
     
     @property
