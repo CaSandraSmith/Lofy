@@ -6,6 +6,7 @@ const CLEAR_SINGLE_PLAYLIST = "playlist/clear"
 const UPDATE_PLAYLIST = "playlist/updateDetails"
 const GET_ALL_PLAYLISTS = "playlist/getAll"
 const ADD_SONG_TO_PLAYLIST = "playlist/addSong"
+const GET_USER_SAVED_PLAYLISTS = "playlists/getSaved"
 
 const getCurrentUserPlaylists = (playlists) => ({
     type: GET_CURRENT_USER_PLAYLISTS,
@@ -46,6 +47,24 @@ const addSong = (playlist, song) => ({
 export const clearPlaylist = () => ({
     type: CLEAR_SINGLE_PLAYLIST
 })
+
+const getUserSavedPlaylists = (playlists) => ({
+    type: GET_USER_SAVED_PLAYLISTS,
+    playlists
+})
+
+export const getSavedPlaylistsOfCurrentUser = () => async(dispatch) => {
+    let res = await fetch("")
+
+    if (res.ok) {
+        let playlists = await res.json()
+        dispatch(getCurrentUserPlaylists)
+        return playlists
+    } else {
+        let errors = await res.json()
+        return errors
+    }
+}
 
 export const findCurrentUserPlaylists = () => async (dispatch) => {
     let res = await fetch("/api/playlists/current")
@@ -146,40 +165,82 @@ export const addSongToPlaylist = (playlistId, songId) => async(dispatch) => {
     }
 }
 
-let initialState = { allPlaylists: {}, singlePlaylist: {}, currentUserPlaylists: {} }
+let initialState = { allPlaylists: {}, singlePlaylist: {}, currentUserPlaylists: {}, currentUserSavedPlaylists : {} }
 
 export default function playlistReducer(state = initialState, action) {
     switch (action.type) {
+        case GET_USER_SAVED_PLAYLISTS:
+            return {...state, 
+                allPlaylists: {...state.allPlaylists}, 
+                singlePlaylist:{...state.singlePlaylist}, 
+                currentUserPlaylists: {...state.currentUserPlaylists},
+                currentUserSavedPlaylists: {...action.playlists}
+            }
         case ADD_SONG_TO_PLAYLIST:
             let state3 = {...state, 
                 allPlaylists: {...state.allPlaylists}, 
                 singlePlaylist:{...state.singlePlaylist}, 
-                currentUserPlaylists: {...state.currentUserPlaylists}}
-
+                currentUserPlaylists: {...state.currentUserPlaylists},
+                currentUserSavedPlaylists: {...state.currentUserSavedPlaylists}
+            }
             state3.currentUserPlaylists[action.playlist.id] = action.playlist
             state3.singlePlaylist.songs = {...state3.singlePlaylist.songs, [action.song.id]: action.song}
             return state3
         case GET_ALL_PLAYLISTS:
-            return {...state, allPlaylists: {...action.playlists}, singlePlaylist: {...state.singlePlaylist}, currentUserPlaylists: {...state.currentUserPlaylists}}
+            return {...state, 
+                allPlaylists: {...action.playlists}, 
+                singlePlaylist: {...state.singlePlaylist}, 
+                currentUserPlaylists: {...state.currentUserPlaylists},
+                currentUserSavedPlaylists: {...state.currentUserSavedPlaylists}
+            }
         case UPDATE_PLAYLIST:
-            let state2 = {...state, allPlaylists: {...state.allPlaylists}, singlePlaylist:{...state.singlePlaylist}, currentUserPlaylists: {...state.currentUserPlaylists}}
-
+            let state2 = {...state, 
+                allPlaylists: {...state.allPlaylists}, 
+                singlePlaylist:{...state.singlePlaylist}, 
+                currentUserPlaylists: {...state.currentUserPlaylists},
+                currentUserSavedPlaylists: {...state.currentUserSavedPlaylists}
+            }
             state2.allPlaylists[action.playlist.id] = action.playlist
             state2.singlePlaylist = action.playlist
             state2.currentUserPlaylists[action.playlist.id] = action.playlist
             return state2
         case CLEAR_SINGLE_PLAYLIST:
-            return { ...state, allPlaylists: { ...state.allPlaylists }, singlePlaylist: {}, currentUserPlaylists: { ...state.currentUserPlaylists } }
+            return { ...state, 
+                allPlaylists: { ...state.allPlaylists }, 
+                singlePlaylist: {}, 
+                currentUserPlaylists: { ...state.currentUserPlaylists },
+                currentUserSavedPlaylists: {...state.currentUserSavedPlaylists}
+            }
         case DELETE_PLAYLIST:
-            let state1 = { ...state, allPlaylists: { ...state.allPlaylists }, singlePlaylist: { ...state.singlePlaylist }, currentUserPlaylists: { ...state.currentUserPlaylists } }
+            let state1 = { ...state, 
+                allPlaylists: { ...state.allPlaylists }, 
+                singlePlaylist: { ...state.singlePlaylist }, 
+                currentUserPlaylists: { ...state.currentUserPlaylists },
+                currentUserSavedPlaylists: {...state.currentUserSavedPlaylists}
+            }
             delete state1.currentUserPlaylists[action.playlistId]
             return state1
         case GET_SINGLE_PLAYLIST:
-            return { ...state, singlePlaylist: { ...action.playlist } }
+            return { ...state, 
+                allPlaylists: { ...state.allPlaylists }, 
+                singlePlaylist: { ...action.playlist }, 
+                currentUserPlaylists: { ...state.currentUserPlaylists },
+                currentUserSavedPlaylists: {...state.currentUserSavedPlaylists}
+            }
         case CREATE_PLAYLIST:
-            return { ...state, allPlaylists: { ...state.allPlaylists }, singlePlaylist: { ...state.singlePlaylist }, currentUserPlaylists: { ...state.currentUserPlaylists, [action.playlist.id]: action.playlist } }
+            return { ...state, 
+                allPlaylists: { ...state.allPlaylists }, 
+                singlePlaylist: { ...state.singlePlaylist }, 
+                currentUserPlaylists: { ...state.currentUserPlaylists, [action.playlist.id]: action.playlist },
+                currentUserSavedPlaylists: {...state.currentUserSavedPlaylists}
+            }
         case GET_CURRENT_USER_PLAYLISTS:
-            return { ...state, currentUserPlaylists: { ...action.playlists } }
+            return { ...state, 
+                allPlaylists: { ...state.allPlaylists }, 
+                singlePlaylist: { ...state.singlePlaylist }, 
+                currentUserPlaylists: { ...action.playlists },
+                currentUserSavedPlaylists: {...state.currentUserSavedPlaylists}
+            }
         default:
             return state
     }
