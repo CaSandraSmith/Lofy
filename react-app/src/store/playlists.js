@@ -58,7 +58,7 @@ export const getSavedPlaylistsOfCurrentUser = () => async(dispatch) => {
 
     if (res.ok) {
         let playlists = await res.json()
-        dispatch(getCurrentUserPlaylists)
+        dispatch(getUserSavedPlaylists(playlists))
         return playlists
     } else {
         let errors = await res.json()
