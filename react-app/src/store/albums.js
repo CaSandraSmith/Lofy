@@ -4,6 +4,7 @@ const GET_USER_SAVED_SONGS = "get/savedSongs"
 const DELETE_SAVED_SONG = "delete/savedSongs"
 const SAVE_SONG = "post/savedSongs"
 const GET_ALL_SAVED_ALBUMS = "get/allSavedAlbums"
+const DELETE_SAVED_ALBUM = "delete/savedAlbums"
 
 const getAllAlbums = (albums) => ({
     type: GET_ALL_ALBUMS,
@@ -33,6 +34,11 @@ const saveSong = (song) => ({
 const getSavedAlbums = (albums) => ({
     type: GET_ALL_SAVED_ALBUMS,
     albums
+})
+
+const deleteSavedAlbum = (albumId) => ({
+    type: DELETE_SAVED_ALBUM,
+    albumId
 })
 
 export const gatherAllAlbums = () => async (dispatch) => {
@@ -115,10 +121,36 @@ export const getAllUsersSavedAlbums = () => async (dispatch) => {
     }
 }
 
+export const removeSavedAlbum = (albumId) => async (dispatch) => {
+    let res = await fetch(`/api/misc/albums/current_user/${albumId}`, {
+        method: "DELETE"
+    })
+
+    if (res.ok) {
+        let message = await res.json()
+        dispatch(deleteSavedAlbum(albumId))
+        return message
+    } else {
+        let errors = await res.json()
+        return errors
+    }
+}
+
+
 let initialState = { albums: {}, songs: {}, savedSongs: {}, savedAlbums : {} }
 
 export default function miscReducer(state = initialState, action) {
     switch (action.type) {
+        case DELETE_SAVED_ALBUM:
+            let newState2 = {
+                ...state,
+                songs: { ...state.songs },
+                albums: { ...state.albums },
+                savedSongs: { ...state.savedSongs },
+                savedAlbums : {...state.savedAlbums}
+            }
+            delete newState2.savedAlbums[action.albumId]
+            return newState2
         case GET_ALL_SAVED_ALBUMS:
             return {
                 ...state,
