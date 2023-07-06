@@ -95,7 +95,7 @@ export default function SingleAlbumPage() {
                             <p>{album.artist}</p>
                         </div>
                         <div className="single-profile-with-songs">
-                            <i class="fa-solid fa-circle"></i>
+                            <i class="fa-solid fa-circle single-album-clock"></i>
                             <div>
                                 <p>{`${songsArr.length} songs,`}</p>
                             </div>
@@ -136,7 +136,7 @@ export default function SingleAlbumPage() {
                             </thead>
                             <tbody>
                                 {songsArr.map((song, i) => (
-                                    <tr onClick={() => handleSongClick(song, i)}>
+                                    <tr className="playlist-song-row album-song-row" onClick={() => handleSongClick(song, i)}>
                                         <td>{i + 1}</td>
                                         <td>{song.name}</td>
                                         <td className="album-song-heart-icon">{savedSongsIds.includes(song.id.toString()) ?

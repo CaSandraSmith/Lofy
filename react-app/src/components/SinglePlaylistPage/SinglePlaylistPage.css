@@ -121,7 +121,8 @@
 .single-playlist-songs-table {
     table-layout: fixed;
     width: 100%;
-    border-spacing: 10px;
+    border-collapse: collapse;
+    /* padding: 10px; */
 }
 
 .single-playlist-table-headers > th {
@@ -283,8 +284,10 @@
     color: #1ed660;
 }
 
+.playlist-song-row {
+    border: 10px solid transparent;
+}
+
 .playlist-song-row:hover {
-    /* background-color: #2a2a2a; */
-    /* z-index: 200; */
-    position: relative;
+    background-color: #2a2a2a;
 }

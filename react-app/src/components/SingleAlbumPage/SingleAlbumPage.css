@@ -29,7 +29,7 @@
     text-align: left;
 }
 
-.single-album-table-headers > th:nth-child(3) {
+.single-album-table-headers > th:nth-child(4) {
     text-align: right;
     width: 20%;
 }
@@ -58,3 +58,7 @@
 .album-song-heart-icon {
     text-align: right;
 }
+
+/* .album-song-row {
+    border: 20px solid transparent;
+} */
