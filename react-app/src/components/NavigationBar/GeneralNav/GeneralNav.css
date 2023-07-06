@@ -31,6 +31,13 @@
     border-radius: 5px;
 }
 
-.navbar-general-profile-options > div:hover {
+.navbar-general-profile-options>div:hover {
     color: #1ed660;
-  }
+}
+
+
+@media screen and (max-width: 1200px) {
+    .general-nav {
+        width: calc(100% - 245px);
+    }
+}

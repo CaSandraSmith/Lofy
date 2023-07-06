@@ -55,7 +55,7 @@
     /* height: 100%; */
 }
 
-.library-playlist-header > * {
+.library-playlist-header>* {
     color: #b3b3b3;
 
 }
@@ -70,7 +70,7 @@
     display: flex;
 }
 
-.library-playlist-header-title > * {
+.library-playlist-header-title>* {
     padding: 10px;
 }
 
@@ -97,7 +97,7 @@
     overflow: hidden;
     height: 100%;
     scrollbar-gutter: stable;
-} 
+}
 
 .current-user-playlists-wrapper:hover {
     overflow-y: auto;
@@ -108,7 +108,7 @@
     text-align: center;
 }
 
-.library-bar-no-playlists > p {
+.library-bar-no-playlists>p {
     color: white;
 }
 
@@ -149,4 +149,15 @@
 .library-playlist-info-desc {
     color: #919191;
     font-size: 12px;
+}
+
+@media screen and (max-width: 1200px) {
+    .full-user-nav {
+        width: 300px;
+        border: 2px solid green;
+    }
+
+    .library-playlist-info-title {
+        width: 210px;
+    }
 }
