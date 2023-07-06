@@ -12,7 +12,6 @@
 .home {
     display: flex;
     height: 85vh;
-    /* border: 2px solid red; */
 }
 
 .splash-page-display {
@@ -23,12 +22,17 @@
 
 .changing-content {
     padding: 5px;
-    overflow-y: scroll;
-    overflow-x: auto;
+    overflow: hidden;
     width: calc(100% - 400px);
     border-radius: 5px;
-    scrollbar-width: none;
+    scrollbar-gutter: stable;
 }
+
+.changing-content:hover {
+    overflow-y: scroll;
+    overflow-x: auto;
+}
+
 .entire-page {
     width: 100vw;
     height: 100vh;
@@ -41,7 +45,20 @@
 
 .fa-solid.fa-heart {
     color: #1ed660;
-    /* position: absolute;
-    z-index: 2;
-    transform: translateX(-50%); */
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, .2);
+}
+
+::-moz-scrollbar {
+    width: 10px;
+}
+
+::-moz-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, .2);
 }

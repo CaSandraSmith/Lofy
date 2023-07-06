@@ -94,9 +94,15 @@
 }
 
 .current-user-playlists-wrapper {
-    overflow-y: auto;
+    overflow: hidden;
     height: 100%;
+    scrollbar-gutter: stable;
 } 
+
+.current-user-playlists-wrapper:hover {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
 .library-bar-no-playlists {
     text-align: center;
