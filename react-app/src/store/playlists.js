@@ -54,7 +54,7 @@ const getUserSavedPlaylists = (playlists) => ({
 })
 
 export const getSavedPlaylistsOfCurrentUser = () => async(dispatch) => {
-    let res = await fetch("")
+    let res = await fetch("/api/playlists/current/saved")
 
     if (res.ok) {
         let playlists = await res.json()
