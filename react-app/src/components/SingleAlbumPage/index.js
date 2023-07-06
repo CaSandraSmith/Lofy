@@ -1,5 +1,5 @@
 import { useParams, useHistory } from "react-router-dom"
-import { gatherAllAlbums, getAllUserSavedSongs, removeSavedSong, createSavedSong, getAllUsersSavedAlbums, removeSavedAlbum } from "../../store/albums"
+import { gatherAllAlbums, getAllUserSavedSongs, removeSavedSong, createSavedSong, getAllUsersSavedAlbums, removeSavedAlbum, createSavedAlbum } from "../../store/albums"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { useAudio } from "../../context/Audio"
@@ -27,9 +27,9 @@ export default function SingleAlbumPage() {
     let savedSongsIds = Object.keys(savedSongs)
     const savedAlbums = useSelector(state => state.albums.savedAlbums)
     let savedAlbumsIds = Object.keys(savedAlbums)
-
-
+    
     if (!loading) return <h1>Loading</h1>
+
 
     let convertLength = () => {
         let length = 0
@@ -66,6 +66,10 @@ export default function SingleAlbumPage() {
 
     let handleUnsaveAlbumClick = async (albumId) => {
         dispatch(removeSavedAlbum(albumId))
+    }
+
+    let handleSaveAlbumClick = async (albumId) => {
+        dispatch(createSavedAlbum(albumId))
     }
 
     return (
@@ -112,6 +116,7 @@ export default function SingleAlbumPage() {
                                 className="fa-solid fa-heart"></i>
                             :
                             <i
+                                onClick={() => handleSaveAlbumClick(album.id)}
                                 className="fa-regular fa-heart"></i>
                         }
                     </div>
