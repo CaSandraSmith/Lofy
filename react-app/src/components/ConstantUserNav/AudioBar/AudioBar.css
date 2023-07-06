@@ -118,7 +118,6 @@
 
 .sing-duration-slider {
     width: 80%;
-    height: 5px;
     display: grid;
     align-self: center;
     accent-color: #ffffff;
@@ -126,8 +125,9 @@
 
 input[type="range"] {
     accent-color: #ffffff;
+    height: 5px;
 }
 
-input[type="range"]:hover {
+input[type="range"]:hover:not(:disabled){
     accent-color: #1ed660;
 }

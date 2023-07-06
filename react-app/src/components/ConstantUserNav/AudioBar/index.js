@@ -9,7 +9,6 @@ export default function AudioBar() {
     let [loop, setLoop] = useState(false)
     let [shuffleQueue, setShuffleQueue] = useState([])
     let [volume, setVolume] = useState(50)
-    let [songSliderHover, setSongSliderHover] = useState(false)
     let { playing, setPlaying, queue, setSong, song, setQueue } = useAudio()
 
     useEffect(() => {
@@ -193,14 +192,12 @@ export default function AudioBar() {
                     <div className="song-duration-input">
                         <span>{song ? convertLengthTable(Math.floor(audioBarRef.current.currentTime)) : "--:--"}</span>
                         <input
-                            // style={{accentColor: songSliderHover ? "#1ed660" : "#ffffff"}}
-                            onMouseEnter={() => setSongSliderHover(true)}
-							onMouseLeave={() => setSongSliderHover(false)}
                             className="sing-duration-slider"
                             value={audioBarRef.current ? audioBarRef.current.currentTime : 0}
                             type="range"
                             onChange={(e) => audioBarRef.current.currentTime = e.target.value}
                             max={song.length ? song.length : 0}
+                            disabled={song ? false : true}
                         />
                         <span>{song ? convertLengthTable(song.length) : "--:--"}</span>
                     </div>
