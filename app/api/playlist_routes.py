@@ -8,6 +8,18 @@ from ..aws_helpers.aws import get_unique_filename, upload_file_to_s3, remove_fil
 
 playlist_routes = Blueprint('playlist', __name__)
 
+@playlist_routes.route("/current/saved")
+@login_required
+def get_user_saved_playlists():
+    user = User.query.get(current_user.id)
+
+    playlists = {}
+
+    for playlist in user.saved_playlists:
+        playlists[playlist.id] = playlist.general_to_dict()
+
+    return playlists
+
 @playlist_routes.route("/<int:id>/reviews")
 def get_reviews_of_playlist(id):
     playlist = Playlist.query.get(id)
