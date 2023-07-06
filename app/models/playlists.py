@@ -1,6 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
-from .tables import playlist_songs
+from .tables import playlist_songs, user_saved_playlists
 
 
 class Playlist(db.Model):
@@ -24,7 +24,10 @@ class Playlist(db.Model):
                               back_populates='playlist',
                               cascade="all, delete-orphan")
     user = db.relationship('User', back_populates="playlists")
-    
+    users_saved = db.relationship("User",
+                                  back_populates='saved_playlists',
+                                  secondary=user_saved_playlists
+                                  )
     
     def general_to_dict(self):
         return {
