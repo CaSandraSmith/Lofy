@@ -125,7 +125,7 @@ export default function SingleAlbumPage() {
                                     <tr onClick={() => handleSongClick(song, i)}>
                                         <td>{i + 1}</td>
                                         <td>{song.name}</td>
-                                        <td>{savedSongsIds.includes(song.id.toString()) ?
+                                        <td className="album-song-heart-icon">{savedSongsIds.includes(song.id.toString()) ?
                                             <i
                                                 onClick={() => handleUnsaveSongClick(song.id)}
                                                 className="fa-solid fa-heart"></i>

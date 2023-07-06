@@ -54,3 +54,7 @@
 .single-album-options  > i {
     font-size: 25px;
 }
+
+.album-song-heart-icon {
+    text-align: right;
+}
