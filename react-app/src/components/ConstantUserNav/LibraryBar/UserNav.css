@@ -62,7 +62,8 @@
 
 .library-all-user-playlists {
     height: 100%;
-    border: 10px solid green;
+    display: grid;
+    grid-template-rows: 10% 90%;
 }
 
 .library-playlist-header-title {
@@ -91,11 +92,13 @@
     width: 50px;
     object-fit: cover;
 }
-/* 
+
 .current-user-playlists-wrapper {
-    overflow: scroll;
-    height: calc(100% - 40px);
-} */
+    /* overflow: scroll;
+    height: calc(100% - 40px); */
+    height: 100%;
+    border: 2px solid red;
+} 
 
 .library-bar-no-playlists {
     text-align: center;
