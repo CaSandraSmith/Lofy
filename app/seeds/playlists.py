@@ -17,14 +17,16 @@ def seed_playlists():
         name="Soothing Study Sounds",
         owner_id=2,
         description="soothing sounds guide your mind while studying",
-        cover_image="https://lofy.s3.us-east-2.amazonaws.com/2.png",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/4.png",
     )
     playlist4 = Playlist(
         name="Dreamy Downtempo",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/5.png",
         owner_id=2,
     )
     playlist5 = Playlist(
         name="Laid-back Vibes",
+        cover_image="https://lofy.s3.us-east-2.amazonaws.com/6.png",
         owner_id=3,
         description="Whether you're unwinding after a long day or seeking a calming backdrop for your daily routine, this playlist is the perfect companion for those seeking laid-back and soothing vibes."
     )
