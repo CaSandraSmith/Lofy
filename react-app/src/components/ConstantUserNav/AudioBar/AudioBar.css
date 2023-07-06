@@ -90,6 +90,11 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    column-gap: 5px;
+}
+
+.song-duration-input > span {
+    font-size: 12px;
 }
 
 .audio-button::before {
@@ -113,4 +118,16 @@
 
 .sing-duration-slider {
     width: 80%;
+    height: 5px;
+    display: grid;
+    align-self: center;
+    accent-color: #ffffff;
+}
+
+input[type="range"] {
+    accent-color: #ffffff;
+}
+
+input[type="range"]:hover {
+    accent-color: #1ed660;
 }
