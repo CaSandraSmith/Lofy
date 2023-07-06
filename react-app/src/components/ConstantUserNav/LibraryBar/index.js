@@ -60,8 +60,15 @@ export default function LibraryBar() {
                             className="user-playlists-cover-image"
                             src="https://res.cloudinary.com/djp7wsuit/image/upload/v1688505274/Untitled_design_12_gksdh3.png"
                             alt="white heart with blue gradient background" />
-                            <p className="library-playlist-name">Liked Songs</p>
-                        {/* <p className="library-playlist-name">{formatLikedSongs(savedSongsArr)}</p> */}
+                        <div className="library-playlist-info">
+                            <p className="library-playlist-info-title">Liked Songs</p>
+                            <div className="library-playlist-info-wrapper">
+                                <i className="fa-solid fa-thumbtack"></i>
+                                <p className="library-playlist-info-desc">Playlist</p>
+                                <i className="fa-solid fa-circle library-playlist-info-dot"></i>
+                                <p className="library-playlist-info-desc">{formatLikedSongs(savedSongsArr)}</p>
+                            </div>
+                        </div>
                     </div>
                     {playlistArr.length ?
                         playlistArr.map(playlist => (
@@ -69,7 +76,14 @@ export default function LibraryBar() {
                                 <img className="user-playlists-cover-image"
                                     src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"}
                                     alt={`Playlist ${playlist.name} cover image`} />
-                                <p className="library-playlist-name">{playlist.name}</p>
+                                <div className="library-playlist-info">
+                                    <p className="library-playlist-info-title">{playlist.name}</p>
+                                    <div className="library-playlist-info-wrapper">
+                                        <p className="library-playlist-info-desc">Playlist</p>
+                                        <i className="fa-solid fa-circle library-playlist-info-dot"></i>
+                                        <p className="library-playlist-info-desc">{playlist.owner.username}</p>
+                                    </div>
+                                </div>
                             </div>
                         ))
                         : null
@@ -79,9 +93,16 @@ export default function LibraryBar() {
                             <div className="user-playlists-info" onClick={() => history.push(`/album/${album.id}`)}>
                                 <img className="user-playlists-cover-image"
                                     src={album.cover_image}
-                                    alt={`Album ${album.name} cover image`} 
+                                    alt={`Album ${album.name} cover image`}
                                 />
-                                <p className="library-playlist-name">{album.name}</p>
+                                <div className="library-playlist-info">
+                                    <p className="library-playlist-info-title">{album.name}</p>
+                                    <div className="library-playlist-info-wrapper">
+                                        <p className="library-playlist-info-desc">Album</p>
+                                        <i className="fa-solid fa-circle library-playlist-info-dot"></i>
+                                        <p className="library-playlist-info-desc">{album.artist}</p>
+                                    </div>
+                                </div>
                             </div>
                         ))
                         : null

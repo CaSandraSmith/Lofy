@@ -22,13 +22,17 @@ export default function SingleAlbumPage() {
     let albums = useSelector(state => state.albums.albums)
     let album = useSelector(state => state.albums.albums[id])
     let artistAlbums = Object.values(albums).filter(singleAlbum => singleAlbum.artist === album.artist).slice(0, 4)
-    let songsArr = Object.values(album.songs)
+    let songsArr
     const savedSongs = useSelector(state => state.albums.savedSongs)
     let savedSongsIds = Object.keys(savedSongs)
     const savedAlbums = useSelector(state => state.albums.savedAlbums)
     let savedAlbumsIds = Object.keys(savedAlbums)
     
-    if (!loading) return <h1>Loading</h1>
+    if (!loading ) return <h1>Loading</h1>
+
+    if (album.songs) {
+        songsArr = Object.values(album.songs)
+    }
 
 
     let convertLength = () => {
