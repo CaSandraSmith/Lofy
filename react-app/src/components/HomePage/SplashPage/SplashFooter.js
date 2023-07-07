@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 export default function SplashFooter() {
     return (
         <div className="splash-footer">
-            <h1>Meet the dev</h1>
+            <h1>Ca'Sandra Smith</h1>
             <div className="about-links">
                 <div>
                     <a target="_blank" href="https://www.linkedin.com/in/casandra-smith/">
