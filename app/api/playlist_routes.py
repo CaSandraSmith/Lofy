@@ -22,7 +22,7 @@ def get_user_saved_playlists():
 
 @playlist_routes.route("/current/saved/<int:id>", methods=["POST"])
 @login_required
-def create_a_saved_playlists(id):
+def create_saved_playlists(id):
     user = User.query.get(current_user.id)
     playlist = Playlist.query.get(id)
 
@@ -36,6 +36,23 @@ def create_a_saved_playlists(id):
     db.session.commit()
 
     return playlist
+
+@playlist_routes.route("/current/saved/<int:id>", methods=["DELETE"])
+@login_required
+def delete_saved_playlists(id):
+    user = User.query.get(current_user.id)
+    playlist = Playlist.query.get(id)
+
+    if not playlist:
+        return {"errors" : "You can't unlike a playlist that doesn't exist"}
+
+    if playlist not in user.saved_playlists:
+        return {"errors" : "You can't unlike a playlist that you don't already like"}
+    
+    user.saved_playlists.remove(playlist)
+    db.session.commit()
+
+    return {"message" : "You have successfully unliked this playlist"}
 
 @playlist_routes.route("/<int:id>/reviews")
 def get_reviews_of_playlist(id):
