@@ -7,6 +7,9 @@ const UPDATE_PLAYLIST = "playlist/updateDetails"
 const GET_ALL_PLAYLISTS = "playlist/getAll"
 const ADD_SONG_TO_PLAYLIST = "playlist/addSong"
 const GET_USER_SAVED_PLAYLISTS = "playlists/getSaved"
+const SAVE_PLAYLIST = "playlists/save"
+const UNSAVE_PLAYLIST = "playlists/deleteSaved"
+
 
 const getCurrentUserPlaylists = (playlists) => ({
     type: GET_CURRENT_USER_PLAYLISTS,
@@ -52,6 +55,46 @@ const getUserSavedPlaylists = (playlists) => ({
     type: GET_USER_SAVED_PLAYLISTS,
     playlists
 })
+
+const savePlaylist = (playlist) => ({
+    type: SAVE_PLAYLIST,
+    playlist
+})
+
+const unsavePlaylist = (playlistId) => ({
+    type: UNSAVE_PLAYLIST,
+    playlistId
+})
+
+export const likePlaylist = (playlistId) => async(dispatch) => {
+    let res = await fetch(`/api/playlists/current/saved/${playlistId}`, {
+        method: "POST"
+    })
+
+    if (res.ok) {
+        let playlist = await res.json()
+        dispatch(savePlaylist(playlist))
+        return playlist
+    } else {
+        let errors = await res.json()
+        return errors
+    }
+}
+
+export const unlikePlaylist = (playlistId) => async(dispatch) => {
+    let res = await fetch(`/api/playlists/current/saved/${playlistId}`, {
+        method: "DELETE"
+    })
+
+    if (res.ok) {
+        let message = await res.json()
+        dispatch(savePlaylist(playlistId))
+        return message
+    } else {
+        let errors = await res.json()
+        return errors
+    }
+}
 
 export const getSavedPlaylistsOfCurrentUser = () => async(dispatch) => {
     let res = await fetch("/api/playlists/current/saved")
@@ -169,6 +212,21 @@ let initialState = { allPlaylists: {}, singlePlaylist: {}, currentUserPlaylists:
 
 export default function playlistReducer(state = initialState, action) {
     switch (action.type) {
+        case SAVE_PLAYLIST:
+            return {...state, 
+                allPlaylists: {...state.allPlaylists}, 
+                singlePlaylist:{...state.singlePlaylist}, 
+                currentUserPlaylists: {...state.currentUserPlaylists},
+                currentUserSavedPlaylists: {...state.currentUserSavedPlaylists, [action.playlist.id]: action.playlist}
+            }
+        case UNSAVE_PLAYLIST:
+            let newState = {...state, 
+                allPlaylists: {...state.allPlaylists}, 
+                singlePlaylist:{...state.singlePlaylist}, 
+                currentUserPlaylists: {...state.currentUserPlaylists},
+                currentUserSavedPlaylists: {...state.currentUserSavedPlaylists}
+            }
+            delete newState.currentUserSavedPlaylists[action.playlistId]
         case GET_USER_SAVED_PLAYLISTS:
             return {...state, 
                 allPlaylists: {...state.allPlaylists}, 
