@@ -1,148 +1,63 @@
-# Flask React Project
+# Lofy
 
-This is the starter for the Flask React project.
+Lofy is a clone of Spotify. My favorite genre to listen to while coding is lo-fi music and this site serves that purpose! Lofy provides its users with a network of solely lo-fi music to provide mellow background sounds to increase productivity, guide users to sleep, or conserve whatever vibes the user is trying to maintain.
 
-## Getting started
-1. Clone this repository (only this branch)
+Checkout [Lofy](https://lofy.onrender.com/)!
 
-2. Install dependencies
+## Technologies Used
+React
+Redux
+Python
+Flask
+Alembic
+HTML
+CSS
+PostgresSql
+SQLAlchemy
 
-      ```bash
-      pipenv install -r requirements.txt
-      ```
+## Features
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
+### Splash Page
 
-4. Make sure the SQLite3 database connection URL is in the **.env** file
+![image](https://github.com/CaSandraSmith/Lofy/assets/123069069/cc5f41db-3169-4e95-830a-422e361b6e54)
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
+### Playlists
 
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
+![image](https://github.com/CaSandraSmith/Lofy/assets/123069069/ea98571c-b525-4bfe-b937-d75398030c67)
 
-   ```bash
-   pipenv shell
-   ```
+### Playlist Reviews
 
-   ```bash
-   flask db upgrade
-   ```
+![image](https://github.com/CaSandraSmith/Lofy/assets/123069069/a958e553-3a7c-4ea6-8498-46b015cbb1ec)
 
-   ```bash
-   flask seed all
-   ```
+## Future Implementation Goals
+* User save other playlists, songs, and albums to thier library
+* Users can follow other users
+* Users can search through all materials
 
-   ```bash
-   flask run
-   ```
+## Contact Me
+[LinkedIn](https://www.linkedin.com/in/casandra-smith/)
+[WellFound](https://wellfound.com/u/ca-sandra-smith)
 
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+## EndPoints
 
-
-## Deployment through Render.com
-
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
-
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
-
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
-
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
-
-### Part A: Configure the Start and Build Commands
-
-Start by giving your application a name.
-
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
-
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
-
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
-
-For your Flask project, enter the following command into the Build field, all in
-one line:
-
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
-
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
-
-Now, add your start command in the Start field:
-
-```shell
-# start script
-gunicorn app:app
-```
-
-_If you are using websockets, use the following start command instead for increased performance:_
-
-`gunicorn --worker-class eventlet -w 1 app:app`
-
-### Part B: Add the Environment Variables
-
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
-
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from Internal Database URL field)
-
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
-
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
-
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
-
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+| Request                                                    | Purpose                                                            | Return Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+|------------------------------------------------------------|--------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| GET /api/auth                                              | Authenticates a user.                                              | {             'id': INTEGER,             'username': STRING,             'email': STRING,             'profile_image': STRING }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| POST /api/auth/login                                       | Logs a user in                                                     | {              'id': INTEGER,              'username': STRING,              'email': STRING,              'profile_image': STRING  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| GET /api/auth/logout                                       | Logs a user out                                                    | {'message': 'User logged out'}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| POST /api/auth/signup                                      | Creates a new user and logs them in                                | {              'id': INTEGER,              'username': STRING,              'email': STRING,              'profile_image': STRING  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| GET /api/auth/unauthorized                                 | Returns unauthorized JSON when flask-login authentication fails    | {'errors': ['Unauthorized']}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| GET /api/playlists/<int:id>/reviews                        | Gets all of the reviews for a playlist based on the playlist's id. | { [reviewId] : {             "id": INTEGER,             "playlist_id": INTEGER,             "review": STRING,             "stars": INTEGER,             "user": {                 "id": INTEGER,                 "username": STRING,                 "profile_image": STRING             }         }                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| POST /api/playlists/<int:id>/reviews                       | Creates a review for a playlist based on the playlist's id.        | {              "id": INTEGER,              "playlist_id": INTEGER,              "review": STRING,              "stars": INTEGER,              "user": {                  "id": INTEGER,                  "username": STRING,                  "profile_image": STRING              }  }                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| POST /api.playlists/<int:playlist_id>/songs/<int:song_id>. | Adds a song to a playlist                                          | {             'id': INTEGER,             'name': STRING,             'cover_image': STRING,             'description': STRING,             'first_created': DATE,             'last_updated': DATE,             'owner': {                 "id": INTEGER,                 "username": STRING,                 "profile_image": STRING             },             'songs': {[songId]: {             'id': INTEGER,             'name': STRING,             'artist_name': STRING,             'audio': STRING,             'length': INTEGER,             'album': {                 "id" : INTEGER,                 "name" : STRING,                 "cover_image": STRING                 }         }}         }                         |
+| DELETE /api/playlists/<int:id>                             | Deletes a playlist                                                 | {"message": "Playlist successfully deleted"}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| PUT /api/playlists/<int:id>                                | Edits the details of a playlist                                    | {              'id': INTEGER,              'name': STRING,              'cover_image': STRING,              'description': STRING,              'first_created': DATE,              'last_updated': DATE,              'owner': {                  "id": INTEGER,                  "username": STRING,                  "profile_image": STRING              },              'songs': {[songId]: {              'id': INTEGER,              'name': STRING,              'artist_name': STRING,              'audio': STRING,              'length': INTEGER,              'album': {                  "id" : INTEGER,                  "name" : STRING,                  "cover_image": STRING                  }          }}          } |
+| POST  /api/playlists/new                                   | Creates new playlist                                               | {              'id': INTEGER,              'name': STRING,              'cover_image': STRING,              'description': STRING,              'first_created': DATE,              'last_updated': DATE,              'owner': {                  "id": INTEGER,                  "username": STRING,                  "profile_image": STRING              }          }                                                                                                                                                                                                                                                                                                                                                                 |
+| GET /api/playlists/current                                 | Gets the playlists of the current user                             | { [playlistId]: {             'id': INTEGER,             'name': STRING,             'cover_image': STRING,             'description': STRING,             'first_created': DATE,             'last_updated': DATE,             'owner': {                 "id": INTEGER,                 "username": STRING,                 "profile_image": STRING             },             'songs': {[songId]: {             'id': INTEGER,             'name': STRING,             'artist_name': STRING,             'audio': STRING,             'length': INTEGER,             'album': {                 "id" : INTEGER,                 "name" : STRING,                 "cover_image": STRING                 }         }}         } }       |
+| GET /api/playlists/<int:id>                                | Gets a playlist by its id                                          | { 'id': INTEGER, 'name': STRING, 'cover_image': STRING, 'description': STRING, 'first_created': DATE, 'last_updated': DATE, 'owner': { "id": INTEGER, "username": STRING, "profile_image": STRING }, 'songs': {[songId]: { 'id': INTEGER, 'name': STRING, 'artist_name': STRING, 'audio': STRING, 'length': INTEGER, 'album': { "id" : INTEGER, "name" : STRING, "cover_image": STRING } }} }                                                                                                                                                                                                                                                                                                                                             |
+| GET /api/playlists                                         | Gets all playlists                                                 | { [playlistId]: { 'id': INTEGER, 'name': STRING, 'cover_image': STRING, 'description': STRING, 'first_created': DATE, 'last_updated': DATE, 'owner': { "id": INTEGER, "username": STRING, "profile_image": STRING },} }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| DELETE /api/reviews/<int:id>                               | Deletes a review                                                   | {"confirmation" : "Review successfully deleted"}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| PUT /api/reviews/<int:id>                                  | Edits the details of a review                                      | {              "id": INTEGER,              "playlist_id": INTEGER,              "review": STRING,              "stars": INTEGER,              "user": {                  "id": INTEGER,                  "username": STRING,                  "profile_image": STRING              }          }                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| GET /api/misc                                              | Gets all of the albums                                             | {              "id": INTEGER,              "name": STRING,              "artist": STRING,              "cover_image": STRING,              "songs": {[songId]: {'id': INTEGER,              'name': STRING,              'artist_name': STRING', 'audio': STRING,              'length': INTEGER,              'album': {                  "id" : INTEGER,                  "name" : STRING,                  "cover_image": STRING                  }}          }                                                                                                                                                                                                                                                                        |
+| GET /api/users                                             | Gets all users                                                     | {"users": [{              'id': INTEGER,              'username': STRING,              'email': STRING,              'profile_image': STRING  }]}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| GET /api/users/<int:id>                                    | Gets user by Id                                                    | { 'id': INTEGER, 'username': STRING, 'email': STRING, 'profile_image': STRING }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
