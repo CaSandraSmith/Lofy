@@ -291,3 +291,7 @@
 .playlist-song-row:hover {
     background-color: #2a2a2a;
 }
+
+.play-playlist-button-complete-heart, .play-playlist-button-incomplete-heart {
+    font-size: 25px;
+}

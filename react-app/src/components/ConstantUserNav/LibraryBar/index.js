@@ -25,8 +25,7 @@ export default function LibraryBar() {
     const savedAlbumsArr = Object.values(savedAlbums)
     const savedPlaylists = useSelector(state => state.playlists.currentUserSavedPlaylists)
     const savedPlaylistsArr = Object.values(savedPlaylists)
-    console.log("hello")
-    console.log("savedPlaylistsArr", savedPlaylistsArr)
+
     let handleNewPlaylistClick = async () => {
         let playlist = await dispatch(createNewPlaylist())
         history.push(`/playlist/${playlist.id}`)
@@ -85,7 +84,7 @@ export default function LibraryBar() {
                                     <div className="library-playlist-info-wrapper">
                                         <p className="library-playlist-info-desc">Playlist</p>
                                         <i className="fa-solid fa-circle library-playlist-info-dot"></i>
-                                        <p className="library-playlist-info-desc">{playlist.owner.username}</p>
+                                        <p className="library-playlist-info-desc">{playlist.owner?.username}</p>
                                     </div>
                                 </div>
                             </div>

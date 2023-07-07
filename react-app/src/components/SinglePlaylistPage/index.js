@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
 import { useModal } from "../../context/Modal"
 import { gatherAllSongs, getAllUserSavedSongs, removeSavedSong, createSavedSong } from "../../store/albums"
-import { getOnePlaylist, clearPlaylist, findCurrentUserPlaylists, addSongToPlaylist } from "../../store/playlists"
+import { getOnePlaylist, clearPlaylist, findCurrentUserPlaylists, addSongToPlaylist, getSavedPlaylistsOfCurrentUser } from "../../store/playlists"
 import { getPlaylistReviews, deletePlaylistReview } from "../../store/reviews"
 import { useAudio } from "../../context/Audio"
 import SinglePlaylistSearch from "./SinglePlaylistSearch"
@@ -25,6 +25,8 @@ export default function SinglePlaylistPage() {
     let user = useSelector(state => state.session.user)
     const savedSongs = useSelector(state => state.albums.savedSongs)
     let savedSongsIds = Object.keys(savedSongs)
+    const savedPlaylists = useSelector(state => state.playlists.currentUserSavedPlaylists)
+    const savedPlaylistsIds = Object.keys(savedPlaylists)
     let reviewsArr = Object.values(reviews)
     let allSongs = useSelector(state => state.albums.songs)
     const [loading, setLoading] = useState(false)
@@ -41,6 +43,7 @@ export default function SinglePlaylistPage() {
         dispatch(gatherAllSongs())
         dispatch(getPlaylistReviews(id))
         dispatch(getAllUserSavedSongs())
+        dispatch(getSavedPlaylistsOfCurrentUser())
     }, [dispatch, id, playlistEdits])
 
     useEffect(() => {
@@ -228,13 +231,27 @@ export default function SinglePlaylistPage() {
                                 onClick={() => handleSongClick(songsArr[0], 0)}
                             >
                             </i> : null}
-                        {playlist.owner.id === user.id ? <i className="fa-solid fa-ellipsis playlist-ellipsis-options" onClick={() => setEditPlaylistMenuOpen(!editPlaylistMenuOpen)}></i> : null}
+                        {playlist.owner.id === user.id ?
+                            <i className="fa-solid fa-ellipsis playlist-ellipsis-options" onClick={() => setEditPlaylistMenuOpen(!editPlaylistMenuOpen)}></i>
+                            :
+                            savedPlaylistsIds.includes(playlist.id.toString()) ?
+                                <i
+                                    // onClick={}
+                                    className="fa-solid fa-heart play-playlist-button-complete-heart"></i>
+                                :
+                                <i
+                                    // onClick={}
+                                    className="fa-regular fa-heart play-playlist-button-incomplete-heart"></i>
+                        }
                     </div>
                     {playlist.owner?.id === user.id ?
                         <div className={editMenuClassName} ref={editPlaylistRef}>
                             <div onClick={editPlaylistClick}>Edit Details</div>
                             <div onClick={deletePlaylistClick}>Delete</div>
                         </div> : null}
+                    {playlist.owner.id != user.id.CreatePlaylistReview
+
+                    }
                 </div>
                 {songsArr.length ?
                     <div>
@@ -270,8 +287,8 @@ export default function SinglePlaylistPage() {
                                         <td>{savedSongsIds.includes(song.id.toString()) ?
                                             <i
                                                 onClick={() => handleUnsaveSongClick(song.id)}
-                                                className="fa-solid fa-heart"></i> 
-                                                :
+                                                className="fa-solid fa-heart"></i>
+                                            :
                                             <i
                                                 onClick={() => handleSaveSongClick(song.id)}
                                                 className="fa-regular fa-heart"></i>
