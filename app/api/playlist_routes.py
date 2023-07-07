@@ -35,7 +35,7 @@ def create_saved_playlists(id):
     user.saved_playlists.append(playlist)
     db.session.commit()
 
-    return playlist
+    return playlist.general_to_dict()
 
 @playlist_routes.route("/current/saved/<int:id>", methods=["DELETE"])
 @login_required

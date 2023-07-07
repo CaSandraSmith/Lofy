@@ -88,7 +88,7 @@ export const unlikePlaylist = (playlistId) => async(dispatch) => {
 
     if (res.ok) {
         let message = await res.json()
-        dispatch(savePlaylist(playlistId))
+        dispatch(unsavePlaylist(playlistId))
         return message
     } else {
         let errors = await res.json()
@@ -227,6 +227,7 @@ export default function playlistReducer(state = initialState, action) {
                 currentUserSavedPlaylists: {...state.currentUserSavedPlaylists}
             }
             delete newState.currentUserSavedPlaylists[action.playlistId]
+            return newState
         case GET_USER_SAVED_PLAYLISTS:
             return {...state, 
                 allPlaylists: {...state.allPlaylists}, 

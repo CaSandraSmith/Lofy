@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
 import { useModal } from "../../context/Modal"
 import { gatherAllSongs, getAllUserSavedSongs, removeSavedSong, createSavedSong } from "../../store/albums"
-import { getOnePlaylist, clearPlaylist, findCurrentUserPlaylists, addSongToPlaylist, getSavedPlaylistsOfCurrentUser } from "../../store/playlists"
+import { getOnePlaylist, clearPlaylist, findCurrentUserPlaylists, addSongToPlaylist, getSavedPlaylistsOfCurrentUser, likePlaylist, unlikePlaylist } from "../../store/playlists"
 import { getPlaylistReviews, deletePlaylistReview } from "../../store/reviews"
 import { useAudio } from "../../context/Audio"
 import SinglePlaylistSearch from "./SinglePlaylistSearch"
@@ -178,6 +178,14 @@ export default function SinglePlaylistPage() {
         dispatch(removeSavedSong(songId))
     }
 
+    let handleSavePlaylistClick = async (playlistId) => {
+        dispatch(likePlaylist(playlistId))
+    }
+
+    let handleUnsavePlaylistClick = async (playlistId) => {
+        dispatch(unlikePlaylist(playlistId))
+    }
+
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
 
     return (
@@ -236,11 +244,11 @@ export default function SinglePlaylistPage() {
                             :
                             savedPlaylistsIds.includes(playlist.id.toString()) ?
                                 <i
-                                    // onClick={}
+                                    onClick={() => handleUnsavePlaylistClick(playlist.id)}
                                     className="fa-solid fa-heart play-playlist-button-complete-heart"></i>
                                 :
                                 <i
-                                    // onClick={}
+                                    onClick={() => handleSavePlaylistClick(playlist.id)}
                                     className="fa-regular fa-heart play-playlist-button-incomplete-heart"></i>
                         }
                     </div>
