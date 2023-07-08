@@ -75,7 +75,7 @@ export default function LibraryBar() {
                         : null
                     }
                     {viewableCategories === "all" || viewableCategories === "playlists" ?
-                        <button className="library-options-buttons" onClick={() => setViewableCategories("playlists")}>Playlists</button>
+                        <button style={{backgroundColor: viewableCategories === "playlists" ? "white" : null, color: viewableCategories === "playlists" ? "black" : null}} className="library-options-buttons" onClick={() => setViewableCategories("playlists")}>Playlists</button>
                         : null
                     }
                     {viewableCategories === "playlists" ?
@@ -89,7 +89,7 @@ export default function LibraryBar() {
                     </div>                        
                         : null}
                     {viewableCategories === "all" || viewableCategories === "albums" ?
-                        <button className="library-options-buttons" onClick={() => setViewableCategories("albums")} >Albums</button>
+                        <button style={{backgroundColor: viewableCategories === "albums" ? "white" : null, color: viewableCategories === "albums" ? "black" : null}} className="library-options-buttons" onClick={() => setViewableCategories("albums")} >Albums</button>
                         : null
                     }
                 </div>

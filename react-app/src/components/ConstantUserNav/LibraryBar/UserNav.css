@@ -171,6 +171,10 @@
     font-weight: 500;
 }
 
+.library-options-buttons:hover, .library-options-clear:hover {
+    background-color:#2a2a2a;
+}
+
 .library-options-clear {
     background-color: #232323;
     border-color: transparent;
