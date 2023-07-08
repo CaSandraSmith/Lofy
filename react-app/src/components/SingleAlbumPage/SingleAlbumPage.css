@@ -22,11 +22,13 @@
 .single-album-table-headers > th:nth-child(1) {
     width: 5%;
     text-align: left;
+    padding-left: 20px;
 }
 
 .single-album-table-headers > th:nth-child(2) {
     width: 60%;
     text-align: left;
+    padding-left: 10px;
 }
 
 .single-album-table-headers > th:nth-child(4) {

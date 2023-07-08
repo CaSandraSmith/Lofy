@@ -11,14 +11,15 @@ export default function SingleAlbumPage() {
     const history = useHistory()
     const { setPlaying, setQueue, setSong } = useAudio()
     const [loading, setLoading] = useState(false)
-    
+    const [hoverSongDiv, setHoverSongDiv] = useState(0)
+
     useEffect(() => {
         dispatch(gatherAllAlbums()).then(() => setLoading(true))
         dispatch(getAllUserSavedSongs())
         dispatch(getAllUsersSavedAlbums())
     }, [dispatch])
-    
-    
+
+
     let albums = useSelector(state => state.albums.albums)
     let album = useSelector(state => state.albums.albums[id])
     let artistAlbums = Object.values(albums).filter(singleAlbum => singleAlbum.artist === album.artist).slice(0, 4)
@@ -27,8 +28,8 @@ export default function SingleAlbumPage() {
     let savedSongsIds = Object.keys(savedSongs)
     const savedAlbums = useSelector(state => state.albums.savedAlbums)
     let savedAlbumsIds = Object.keys(savedAlbums)
-    
-    if (!loading ) return <h1>Loading</h1>
+
+    if (!loading) return <h1>Loading</h1>
 
     if (album.songs) {
         songsArr = Object.values(album.songs)
@@ -116,7 +117,7 @@ export default function SingleAlbumPage() {
                         </i>
                         {savedAlbumsIds.includes(album.id.toString()) ?
                             <i
-                            onClick={() => handleUnsaveAlbumClick(album.id)}
+                                onClick={() => handleUnsaveAlbumClick(album.id)}
                                 className="fa-solid fa-heart"></i>
                             :
                             <i
@@ -136,8 +137,18 @@ export default function SingleAlbumPage() {
                             </thead>
                             <tbody>
                                 {songsArr.map((song, i) => (
-                                    <tr className="playlist-song-row album-song-row" onClick={() => handleSongClick(song, i)}>
-                                        <td>{i + 1}</td>
+                                    <tr
+                                        onMouseEnter={() => setHoverSongDiv(song.id)}
+                                        onMouseLeave={() => setHoverSongDiv(0)}
+                                        className="playlist-song-row album-song-row"
+                                    >
+                                        <td>
+                                            {hoverSongDiv === song.id ?
+                                                <i className="fa-solid fa-play play-song-icon" onClick={() => handleSongClick(song, i)}></i>
+                                                :
+                                                i + 1
+                                            }
+                                        </td>
                                         <td>{song.name}</td>
                                         <td className="album-song-heart-icon">{savedSongsIds.includes(song.id.toString()) ?
                                             <i

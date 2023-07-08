@@ -33,7 +33,7 @@ export default function SinglePlaylistPage() {
     const [editPlaylistMenuOpen, setEditPlaylistMenuOpen] = useState(false)
     const [playlistEdits, setPlaylistEdits] = useState(false)
     const [editReviewOpen, setEditReviewOpen] = useState(false)
-    // const [shuffle, setShuffle] = useState(false)
+    const [hoverSongDiv, setHoverSongDiv] = useState(0)
     // const [otherSongs, setOtherSongs] = useState([])
     const { setPlaying, setQueue, setSong } = useAudio()
 
@@ -276,9 +276,15 @@ export default function SinglePlaylistPage() {
                             <tbody>
                                 {songsArr.map((song, i) => (
                                     <tr
+                                        onMouseEnter={() => setHoverSongDiv(song.id)}
+                                        onMouseLeave={() => setHoverSongDiv(0)}
                                         className="playlist-song-row"
-                                        onClick={() => handleSongClick(song, i)}>
-                                        <td>{i + 1}</td>
+                                        >
+                                        <td>{hoverSongDiv === song.id ? 
+                                            <i className="fa-solid fa-play play-song-icon" onClick={() => handleSongClick(song, i)}></i>
+                                             : 
+                                             i + 1 }
+                                        </td>
                                         <td>
                                             <div className="single-playlist-title">
                                                 <img
