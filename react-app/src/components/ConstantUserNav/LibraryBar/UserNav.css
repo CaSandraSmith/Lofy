@@ -37,7 +37,6 @@
 }
 
 .library-general-button>* {
-    color: #b3b3b3;
     font-size: 15px;
     padding: 10px;
 }
@@ -64,7 +63,7 @@
 .library-all-user-playlists {
     height: 100%;
     display: grid;
-    grid-template-rows: 10% 90%;
+    grid-template-rows: 10% 10% 80%;
 }
 
 .library-playlist-header-title {
@@ -151,6 +150,80 @@
     color: #919191;
     font-size: 12px;
 }
+
+.library-options-buttons-wrapper {
+    display: flex;
+    column-gap: 10px;
+    padding-left: 10px;
+}
+
+.library-options-buttons {
+    background-color: #232323;
+    color: white;
+    border-color: transparent;
+    padding: 10px;
+    margin: 0;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    font-weight: 500;
+}
+
+.library-options-clear {
+    background-color: #232323;
+    border-color: transparent;
+    margin: 0;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.library-options-clear > i {
+    color: white;
+}
+
+.by-you-playlists-button {
+    display: flex;
+    height: 30px;
+    align-items: center;
+    padding: 10px;
+    border-color: transparent;
+    position: relative;
+    width: 100%;
+}
+
+.by-you-playlists-button > button {
+    display: flex;
+    margin: 0;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    border-color: transparent;
+}
+
+.by-you-playlists-button > button:nth-child(1) {
+    background-color: white;
+    height: 30px;
+    z-index: 2;
+}
+
+.by-you-playlists-button > button:nth-child(2) {
+    background-color: #dedede;
+    position: absolute;
+    height: 30px;
+    padding-left: 30px;
+    left: 60px;
+}
+
+
 
 @media screen and (max-width: 1200px) {
     .full-user-nav {
