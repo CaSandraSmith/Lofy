@@ -33,6 +33,7 @@
 .library-general-button {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .library-general-button>* {
@@ -158,6 +159,9 @@
     }
 
     .library-playlist-info-title {
-        width: 210px;
+        width: 150px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 }

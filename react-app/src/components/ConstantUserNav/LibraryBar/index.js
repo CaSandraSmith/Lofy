@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useHistory, Link } from "react-router-dom"
 import { findCurrentUserPlaylists, createNewPlaylist, getSavedPlaylistsOfCurrentUser } from "../../../store/playlists"
 import { getAllUserSavedSongs, getAllUsersSavedAlbums } from "../../../store/albums"
@@ -8,6 +8,8 @@ import "./UserNav.css"
 export default function LibraryBar() {
     const dispatch = useDispatch()
     const history = useHistory()
+    const [homeHover, setHomeHover] = useState(false)
+    const [searchHover, setSearchHover] = useState(false)
 
     useEffect(() => {
         dispatch(getAllUserSavedSongs())
@@ -38,13 +40,22 @@ export default function LibraryBar() {
     return (
         <div className="full-user-nav">
             <div className="library-home-and-search">
-                <div className="library-general-button" onClick={() => history.push("/home")}>
-                    <i className="fa-solid fa-house"></i>
-                    <p>Home</p>
+                <div 
+                className="library-general-button" 
+                onClick={() => history.push("/home")}
+                onMouseEnter={() => setHomeHover(true)}
+                onMouseLeave={() => setHomeHover(false)}
+                >
+                    <i style={{color: homeHover ? "white" : "#b3b3b3"}} className="fa-solid fa-house"></i>
+                    <p style={{color: homeHover ? "white" : "#b3b3b3"}} >Home</p>
                 </div>
-                <div className="library-general-button">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <p>Search</p>
+                <div 
+                className="library-general-button"
+                onMouseEnter={() => setSearchHover(true)}
+                onMouseLeave={() => setSearchHover(false)}
+                >
+                    <i style={{color: searchHover ? "white" : "#b3b3b3"}} class="fa-solid fa-magnifying-glass"></i>
+                    <p style={{color: searchHover ? "white" : "#b3b3b3"}} >Search</p>
                 </div>
             </div>
             <div className="library-all-user-playlists">
