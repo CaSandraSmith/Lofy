@@ -16,13 +16,13 @@ def seed_reviews():
         stars="5"
     )
     review3 = PlaylistReview(
-        playlist_id=2,
+        playlist_id=5,
         user_id=1,
         review="very harsh",
         stars="1"
     )
     review4 = PlaylistReview(
-        playlist_id=3,
+        playlist_id=6,
         user_id=2,
         review="great",
         stars="4"
