@@ -5,6 +5,26 @@ from datetime import datetime
 from .tables import user_saved_songs, user_saved_albums, user_saved_playlists
 
 
+follows = db.Table(
+    "follows",
+    db.Column(
+        "follower",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod("users.id")),
+        primary_key=True
+    ),
+    db.Column(
+        "following",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod("users.id")),
+        primary_key=True
+    )
+)
+
+if environment == "production":
+    follows.schema = SCHEMA
+
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -39,6 +59,12 @@ class User(db.Model, UserMixin):
                                       back_populates="users_saved",
                                       secondary=user_saved_playlists
                                       )
+    followers = db.relationship( 'User',
+                                secondary="follows",
+                                primaryjoin=follows.c.following == id,
+                                secondaryjoin=follows.c.follower == id,
+                                backref='following'
+                                )
     
     
     @property
