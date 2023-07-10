@@ -52,8 +52,8 @@ export default function OtherUserProfile({ username }) {
                 </div>
                 <div>
                     <div>
-                        <p>Profile</p>
-                        <h1>{user.username}</h1>
+                        <p className="user-profile-caption">Profile</p>
+                        <h1 className="user-profile-name">{user.username}</h1>
                     </div>
                     <div className="user-profile-details">
                         <p>{userPlaylistsArr.length} Playlists</p>
