@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from 'react-router-dom'
-import { getByUsername, clearUser } from "../../store/session"
+import { getByUsername, clearUser, createFollow } from "../../store/session"
 
 export default function OtherUserProfile({ username }) {
     const history = useHistory()
@@ -33,6 +33,10 @@ export default function OtherUserProfile({ username }) {
         userFollowingArr = Object.values(userFollowing)
     }
 
+    let follow = async() => {
+        dispatch(createFollow(username))
+    }
+
     return (
         <div className="user-profiles-wrapper">
             <div className="user-profiles-header">
@@ -58,7 +62,7 @@ export default function OtherUserProfile({ username }) {
             </div>
             <div>
                 <div>
-                    {userFollowers[currentUser.id] ? <button>FOLLOWING</button> : <button>FOLLOW</button>}
+                    {userFollowers[currentUser.id] ? <button>FOLLOWING</button> : <button onClick={follow}>FOLLOW</button>}
                 </div>
                 <div>
                     <h2>Playlists</h2>

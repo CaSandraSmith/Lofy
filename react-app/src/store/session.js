@@ -156,7 +156,7 @@ export default function reducer(state = initialState, action) {
 				currentProfile: {
 					...state.currentProfile,
 					followers: {
-						...action.currentProfile.followers,
+						...state.currentProfile.followers,
 						[action.currentUser.id]: action.currentUser
 					}
 
