@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from 'react-router-dom'
-import { getByUsername } from "../../store/session"
+import { getByUsername, clearUser } from "../../store/session"
 
 export default function OtherUserProfile({username}) {
     const history = useHistory()
@@ -10,7 +10,11 @@ export default function OtherUserProfile({username}) {
     console.log("username", username)
     useEffect(() => {
         dispatch(getByUsername(username)).then(() => setLoading(true))
-    }, [dispatch])
+        return (async () => {
+            setLoading(false)
+            dispatch(clearUser())
+        })
+    }, [dispatch, username])
     
     const user = useSelector(state => state.session.currentProfile)
     let userPlaylists = useSelector(state => state.session.currentProfile?.playlists)
