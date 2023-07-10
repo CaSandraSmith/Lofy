@@ -52,7 +52,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     column-gap: 15px;
-    grid-template-rows: 300px;
     cursor: pointer;
     width: 100%;
 }
