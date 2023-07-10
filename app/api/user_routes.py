@@ -25,14 +25,14 @@ def user(id):
     return user.to_dict()
 
 
-@user_routes.route('/follow/<int:id>', methods=["POST"])
+@user_routes.route('/follow/<username>', methods=["POST"])
 @login_required
-def follow_user(id):
+def follow_user(username):
     """
     Gets the user that the current user wants to follow and adds them to their followers. Returns the current user.
     """
     current = User.query.get(current_user.id)
-    user = User.query.get(id)
+    user = User.query.filter(User.username == username).one_or_none()
 
     if not user:
         return {"errors": "User couldn't be found"}
@@ -49,14 +49,14 @@ def follow_user(id):
     return current.to_dict()
 
 
-@user_routes.route('/unfollow/<int:id>', methods=["DELETE"])
+@user_routes.route('/unfollow/<username>', methods=["DELETE"])
 @login_required
-def unfollow_user(id):
+def unfollow_user(username):
     """
     Gets the user that the current user wants to follow and removes them to their followers. Returns the user who was followed.
     """
     current = User.query.get(current_user.id)
-    user = User.query.get(id)
+    user = User.query.filter(User.username == username).one_or_none()
 
     if not user:
         return {"errors": "User couldn't be found"}
