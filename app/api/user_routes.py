@@ -44,31 +44,31 @@ def get_user_by_username(username):
 @login_required
 def follow_user(username):
     """
-    Gets the user that the current user wants to follow and adds them to their followers. Returns the current user.
+    Gets the user that the current user wants to follow and adds them to their followers. Returns the user who was followed and the current user.
     """
     current = User.query.get(current_user.id)
     user = User.query.filter(User.username == username).one_or_none()
 
     if not user:
-        return {"errors": "User couldn't be found"}
+        return {"errors": "User couldn't be found"}, 404
     
     if user == current:
-        return {"errors": "You can't follow yourself"}
+        return {"errors": "You can't follow yourself"}, 403
     
     if user in current.following:
-        return {"errors" : "You can't follow a user that you already follow"}
+        return {"errors" : "You can't follow a user that you already follow"}, 403
     
     current.following.append(user)
     db.session.commit()
 
-    return current.to_dict()
+    return [user.less_to_dict(), current.less_to_dict()]
 
 
 @user_routes.route('/unfollow/<username>', methods=["DELETE"])
 @login_required
 def unfollow_user(username):
     """
-    Gets the user that the current user wants to follow and removes them to their followers. Returns the user who was followed.
+    Gets the user that the current user wants to follow and removes them to their followers. Returns the user who was unfollowed.
     """
     current = User.query.get(current_user.id)
     user = User.query.filter(User.username == username).one_or_none()
@@ -85,4 +85,4 @@ def unfollow_user(username):
     current.following.remove(user)
     db.session.commit()
 
-    return current.to_dict()
+    return user.less_to_dict()

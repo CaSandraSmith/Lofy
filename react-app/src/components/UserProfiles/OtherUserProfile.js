@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from 'react-router-dom'
 import { getByUsername, clearUser } from "../../store/session"
 
-export default function OtherUserProfile({username}) {
+export default function OtherUserProfile({ username }) {
     const history = useHistory()
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
-    console.log("username", username)
+
     useEffect(() => {
         dispatch(getByUsername(username)).then(() => setLoading(true))
         return (async () => {
@@ -15,8 +15,9 @@ export default function OtherUserProfile({username}) {
             dispatch(clearUser())
         })
     }, [dispatch, username])
-    
+
     const user = useSelector(state => state.session.currentProfile)
+    const currentUser = useSelector(state => state.session.user)
     let userPlaylists = useSelector(state => state.session.currentProfile?.playlists)
     let userPlaylistsArr
     const userFollowers = useSelector(state => state.session.currentProfile?.followers)
@@ -25,7 +26,7 @@ export default function OtherUserProfile({username}) {
     let userFollowingArr
 
     if (!loading) return <h1>Loading</h1>
-
+  
     if (Object.values(user).length) {
         userPlaylistsArr = Object.values(userPlaylists)
         userFollowersArr = Object.values(userFollowers)
@@ -36,10 +37,10 @@ export default function OtherUserProfile({username}) {
         <div className="user-profiles-wrapper">
             <div className="user-profiles-header">
                 <div>
-                    <img 
-                    className="user-profile-main-image"
-                    src={user.profile_image ? user.profile_image : "https://res.cloudinary.com/djp7wsuit/image/upload/v1688998982/Untitled_design_13_wssosv.png"} 
-                    alt={`User ${user.username} profile image`} />
+                    <img
+                        className="user-profile-main-image"
+                        src={user.profile_image ? user.profile_image : "https://res.cloudinary.com/djp7wsuit/image/upload/v1688998982/Untitled_design_13_wssosv.png"}
+                        alt={`User ${user.username} profile image`} />
                 </div>
                 <div>
                     <div>
@@ -56,20 +57,25 @@ export default function OtherUserProfile({username}) {
                 </div>
             </div>
             <div>
-                <h2>Playlists</h2>
-                <div className="user-profile-playlists-wrapper">
-                    {userPlaylistsArr.map(playlist => (
-                        <div onClick={() => history.push(`/playlist/${playlist.id}`)}>
-                            <img
-                                className="user-profile-playlists-cover-image"
-                                src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"}
-                                alt={`Playlist ${playlist.name} cover image`}
-                            />
-                            <div>
-                                <p>{playlist.name}</p>
+                <div>
+                    {userFollowers[currentUser.id] ? <button>FOLLOWING</button> : <button>FOLLOW</button>}
+                </div>
+                <div>
+                    <h2>Playlists</h2>
+                    <div className="user-profile-playlists-wrapper">
+                        {userPlaylistsArr.map(playlist => (
+                            <div onClick={() => history.push(`/playlist/${playlist.id}`)}>
+                                <img
+                                    className="user-profile-playlists-cover-image"
+                                    src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"}
+                                    alt={`Playlist ${playlist.name} cover image`}
+                                />
+                                <div>
+                                    <p>{playlist.name}</p>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
                 {userFollowersArr.length ? <div>
                     <h2>Followers</h2>
@@ -77,7 +83,7 @@ export default function OtherUserProfile({username}) {
                         {userFollowersArr.map(user => (
                             <div onClick={() => history.push(`/user/${user.username}`)}>
                                 <img
-                                className="other-users-profile-images"
+                                    className="other-users-profile-images"
                                     src={user.profile_image ? user.profile_image : "https://res.cloudinary.com/djp7wsuit/image/upload/v1688998982/Untitled_design_13_wssosv.png"}
                                     alt={`User ${user.username} profile image`}
                                 />
@@ -95,7 +101,7 @@ export default function OtherUserProfile({username}) {
                         {userFollowingArr.map(user => (
                             <div onClick={() => history.push(`/user/${user.username}`)}>
                                 <img
-                                className="other-users-profile-images"
+                                    className="other-users-profile-images"
                                     src={user.profile_image ? user.profile_image : "https://res.cloudinary.com/djp7wsuit/image/upload/v1688998982/Untitled_design_13_wssosv.png"}
                                     alt={`User ${user.username} profile image`}
                                 />
