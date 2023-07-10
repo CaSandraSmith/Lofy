@@ -22,7 +22,9 @@ def user(id):
     Query for a user by id and returns that user in a dictionary
     """
     user = User.query.get(id)
-    return user.to_dict()
+    if user == current_user:
+        return user.to_dict()
+    else: return user.detailed_to_dict()
 
 
 @user_routes.route('/follow/<username>', methods=["POST"])

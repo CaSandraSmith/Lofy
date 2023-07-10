@@ -1,8 +1,14 @@
+import { useParams } from "react-router-dom"
+import { useSelector } from "react-redux"
+import CurrentUserProfile from './CurrentUserProfile'
+import OtherUserProfile from './OtherUserProfile'
 import './UserProfiles.css'
+
 export default function UserProfiles() {
-    return (
-        <div className="user-profiles-wrapper">
-            <h1>Hello</h1>
-        </div>
-    )
+    const { username } = useParams()
+    const user = useSelector(state => state.session.user)
+
+    if (user.username === username) return <CurrentUserProfile />
+    else return <OtherUserProfile />
 }
+
