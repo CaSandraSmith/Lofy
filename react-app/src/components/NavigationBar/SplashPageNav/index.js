@@ -40,7 +40,7 @@ function Navigation({ isLoaded }) {
 								<div >
 									<i class="fa-solid fa-chevron-up"></i>
 									<div className='navbar-splash-profile-options'>
-										<div onClick={() => alert("Feature coming soon")}>Account</div>
+										<div onClick={() => history.push(`/user/${sessionUser.username}`)}>Profile</div>
 										<div onClick={handleLogout}>Log out</div>
 									</div>
 								</div>

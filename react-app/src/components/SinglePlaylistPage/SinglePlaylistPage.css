@@ -309,3 +309,9 @@
     color: white;
     font-size: 15px;
 }
+
+.single-playlist-owner-username:hover, .single-playlist-songs-album-name:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+

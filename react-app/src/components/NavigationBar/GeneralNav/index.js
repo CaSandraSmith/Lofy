@@ -46,7 +46,7 @@ export default function GeneralNav() {
             <div ref={profileRef}>
                 {menu &&
                     <div className='navbar-general-profile-options'>
-                        <div onClick={() => alert("Feature coming soon")}>Account</div>
+                        <div onClick={() => history.push(`/user/${user.username}`)}>Profile</div>
                         <div onClick={handleLogout}>Log out</div>
                     </div>
                 }

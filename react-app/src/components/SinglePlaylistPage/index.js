@@ -213,7 +213,7 @@ export default function SinglePlaylistPage() {
                             }
                         </div>
                         <div>
-                            <p>{playlist.owner?.username}</p>
+                            <p className="single-playlist-owner-username" onClick={() => history.push(`/user/${user.username}`)}>{playlist.owner?.username}</p>
                         </div>
                         {songsArr.length ?
                             <div className="single-profile-with-songs">
@@ -297,7 +297,7 @@ export default function SinglePlaylistPage() {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{song.album.name}</td>
+                                        <td className="single-playlist-songs-album-name" onClick={() => history.push(`/album/${song.album.id}`)}>{song.album.name}</td>
                                         <td>{savedSongsIds.includes(song.id.toString()) ?
                                             <i
                                                 onClick={() => handleUnsaveSongClick(song.id)}
