@@ -3,7 +3,12 @@ const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const DELETE_SAVED_SONG = "delete/savedSongs"
 const SAVE_SONG = "post/savedSongs"
+const GET_USER = "user/getByUsername"
 
+const getUser = (user) => ({
+	type: GET_USER,
+	user
+})
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -14,17 +19,20 @@ const removeUser = () => ({
 	type: REMOVE_USER,
 });
 
-export const removeUserSavedSong = (songId) => ({
-	type: DELETE_SAVED_SONG,
-	songId
-})
+const initialState = { user: null, currentProfile: {} };
 
-export const saveNewSong = (songId) => ({
-	type: SAVE_SONG,
-	songId
-})
+export const getByUsername = (username) => async (dispatch) => {
+	let res = await fetch(`/api/users/find/${username}`)
 
-const initialState = { user: null };
+	if (res.ok) {
+		let user = await res.json()
+		dispatch(getUser(user))
+		return user
+	} else {
+		let errors = await res.json()
+		return errors
+	}
+}
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -109,6 +117,8 @@ export const signUp = (username, email, password) => async (dispatch) => {
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
+		case GET_USER:
+			return {...state, user: {...state.user}, currentProfile: action.user}
 		case SET_USER:
 			return { user: action.payload };
 		case REMOVE_USER:

@@ -26,6 +26,19 @@ def user(id):
         return user.to_dict()
     else: return user.detailed_to_dict()
 
+@user_routes.route('/find/<username>')
+@login_required
+def get_user_by_username(username):
+    """
+    Query for a user by username and returns that user in a dictionary
+    """
+    user = User.query.filter(User.username == username).one_or_none()
+
+    if not user:
+        return {"errors": "User couldn't be found"}, 404
+
+    return user.detailed_to_dict()
+
 
 @user_routes.route('/follow/<username>', methods=["POST"])
 @login_required

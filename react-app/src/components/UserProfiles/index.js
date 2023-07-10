@@ -9,6 +9,6 @@ export default function UserProfiles() {
     const user = useSelector(state => state.session.user)
 
     if (user.username === username) return <CurrentUserProfile />
-    else return <OtherUserProfile />
+    else return <OtherUserProfile username={username}/>
 }
 
