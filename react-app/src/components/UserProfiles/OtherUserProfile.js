@@ -26,18 +26,18 @@ export default function OtherUserProfile({ username }) {
     let userFollowingArr
 
     if (!loading) return <h1>Loading</h1>
-  
+
     if (Object.values(user).length) {
         userPlaylistsArr = Object.values(userPlaylists)
         userFollowersArr = Object.values(userFollowers)
         userFollowingArr = Object.values(userFollowing)
     }
 
-    let follow = async() => {
+    let follow = async () => {
         dispatch(createFollow(username))
     }
 
-    let unfollow = async() => {
+    let unfollow = async () => {
         dispatch(removeFollow(username))
     }
 
@@ -68,59 +68,62 @@ export default function OtherUserProfile({ username }) {
                 <div>
                     {userFollowers[currentUser.id] ? <button onClick={unfollow}>FOLLOWING</button> : <button onClick={follow}>FOLLOW</button>}
                 </div>
-                <div>
+                <div className="user-profile-section">
                     <h2>Playlists</h2>
-                    <div className="user-profile-playlists-wrapper">
-                        {userPlaylistsArr.map(playlist => (
-                            <div onClick={() => history.push(`/playlist/${playlist.id}`)}>
-                                <img
-                                    className="user-profile-playlists-cover-image"
-                                    src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"}
-                                    alt={`Playlist ${playlist.name} cover image`}
-                                />
-                                <div>
-                                    <p>{playlist.name}</p>
+                    {userPlaylistsArr.length ?
+                        <div className="user-profile-playlists-wrapper">
+                            {userPlaylistsArr.map(playlist => (
+                                <div className="individual-profile-instance-wrappers" onClick={() => history.push(`/playlist/${playlist.id}`)}>
+                                    <img
+                                        className="user-profile-playlists-cover-image"
+                                        src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"}
+                                        alt={`Playlist ${playlist.name} cover image`}
+                                    />
+                                    <p className="user-profile-playlist-name">{playlist.name}</p>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                        : <h3>No Playlists Yet</h3>}
                 </div>
-                {userFollowersArr.length ? <div>
+                <div className="user-profile-section">
                     <h2>Followers</h2>
-                    <div className="user-profile-followers-following-wrapper">
-                        {userFollowersArr.map(user => (
-                            <div onClick={() => history.push(`/user/${user.username}`)}>
-                                <img
-                                    className="other-users-profile-images"
-                                    src={user.profile_image ? user.profile_image : "https://res.cloudinary.com/djp7wsuit/image/upload/v1688998982/Untitled_design_13_wssosv.png"}
-                                    alt={`User ${user.username} profile image`}
-                                />
-                                <div>
-                                    <p>{user.username}</p>
+                    {userFollowersArr.length ?
+                        <div className="user-profile-followers-following-wrapper">
+                            {userFollowersArr.map(user => (
+                                <div className="individual-profile-instance-wrappers" onClick={() => history.push(`/user/${user.username}`)}>
+                                    <img
+                                        className="other-users-profile-images"
+                                        src={user.profile_image ? user.profile_image : "https://res.cloudinary.com/djp7wsuit/image/upload/v1688998982/Untitled_design_13_wssosv.png"}
+                                        alt={`User ${user.username} profile image`}
+                                    />
+                                    <p className="user-profile-follows-name">{user.username}</p>
                                     <p>Profile</p>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                </div> : null}
-                {userFollowingArr.length ? <div>
+                            ))}
+                        </div>
+                        : <h3>No Followers Yet</h3>
+                    }
+                </div>
+                <div>
                     <h2>Following</h2>
-                    <div className="user-profile-followers-following-wrapper">
-                        {userFollowingArr.map(user => (
-                            <div onClick={() => history.push(`/user/${user.username}`)}>
-                                <img
-                                    className="other-users-profile-images"
-                                    src={user.profile_image ? user.profile_image : "https://res.cloudinary.com/djp7wsuit/image/upload/v1688998982/Untitled_design_13_wssosv.png"}
-                                    alt={`User ${user.username} profile image`}
-                                />
-                                <div>
-                                    <p>{user.username}</p>
+                    {userFollowingArr.length ?
+                        <div className="user-profile-followers-following-wrapper">
+                            {userFollowingArr.map(user => (
+                                <div className="individual-profile-instance-wrappers" onClick={() => history.push(`/user/${user.username}`)}>
+                                    <img
+                                        className="other-users-profile-images"
+                                        src={user.profile_image ? user.profile_image : "https://res.cloudinary.com/djp7wsuit/image/upload/v1688998982/Untitled_design_13_wssosv.png"}
+                                        alt={`User ${user.username} profile image`}
+                                    />
+                                    <p className="user-profile-follows-name">{user.username}</p>
                                     <p>Profile</p>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                </div> : null}
+                            ))}
+                        </div>
+                        :
+                        <h3>You're not following any users!</h3>
+                    }
+                </div>
             </div>
         </div>
     )
