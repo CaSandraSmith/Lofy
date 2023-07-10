@@ -77,6 +77,13 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+    
+    def less_to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'profile_image': self.profile_image,
+        }
 
     def to_dict(self):
         return {
@@ -84,8 +91,8 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'profile_image': self.profile_image,
-            'followers': [user.username for user in self.followers],
-            'following': [user.username for user in self.following]
+            'followers': {user.id: user.less_to_dict() for user in self.followers},
+            'following': {user.id: user.less_to_dict() for user in self.following}
         }
 
     def detailed_to_dict(self):
@@ -94,7 +101,7 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'profile_image': self.profile_image,
-            'followers': [user.username for user in self.followers],
-            'following': [user.username for user in self.following],
+            'followers': {user.id: user.to_dict() for user in self.followers},
+            'following': {user.id: user.to_dict() for user in self.following},
             'playlists': {playlist.id: playlist.general_to_dict() for playlist in self.playlists}
         }
