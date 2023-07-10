@@ -85,4 +85,4 @@ def unfollow_user(username):
     current.following.remove(user)
     db.session.commit()
 
-    return user.less_to_dict()
+    return [user.less_to_dict(), current.less_to_dict()]

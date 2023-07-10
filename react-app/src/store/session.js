@@ -4,6 +4,7 @@ const REMOVE_USER = "session/REMOVE_USER";
 const GET_USER = "user/getByUsername"
 const CLEAR_USER = "user/clear"
 const FOLLOW_USER = "user/follow"
+const UNFOLLOW_USER = "user/unfollow"
 
 const getUser = (user) => ({
 	type: GET_USER,
@@ -30,6 +31,12 @@ const followUser = (followedUser, currentUser) => ({
 	currentUser
 })
 
+const unfollowUser = (followedUser, currentUser) => ({
+	type: UNFOLLOW_USER,
+	followedUser,
+	currentUser
+})
+
 const initialState = { user: null, currentProfile: {} };
 
 export const createFollow = (username) => async (dispatch) => {
@@ -46,6 +53,22 @@ export const createFollow = (username) => async (dispatch) => {
 		return errors
 	}
 }
+
+export const removeFollow = (username) => async (dispatch) => {
+	let res = await fetch(`/api/users/unfollow/${username}`, {
+		method: "DELETE"
+	})
+
+	if (res.ok) {
+		let [followedUser, currentUser] = await res.json()
+		dispatch(unfollowUser(followedUser, currentUser))
+		return [followedUser, currentUser]
+	} else {
+		let errors = await res.json()
+		return errors
+	}
+}
+
 
 export const getByUsername = (username) => async (dispatch) => {
 	let res = await fetch(`/api/users/find/${username}`)
@@ -143,6 +166,27 @@ export const signUp = (username, email, password) => async (dispatch) => {
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
+		case UNFOLLOW_USER:
+			let newState =  {
+				...state,
+				user: {
+					...state.user,
+					following: {
+						...state.user.following,
+					}
+				},
+				currentProfile: {
+					...state.currentProfile,
+					followers: {
+						...state.currentProfile.followers,
+					}
+
+				}
+			}
+
+			delete newState.user.following[action.followedUser.id]
+			delete newState.currentProfile.followers[action.currentUser.id]
+			return newState
 		case FOLLOW_USER:
 			return {
 				...state,
