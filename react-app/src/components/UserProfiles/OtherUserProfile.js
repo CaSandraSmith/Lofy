@@ -83,7 +83,7 @@ export default function OtherUserProfile({ username }) {
                                 </div>
                             ))}
                         </div>
-                        : <h3>No Playlists Yet</h3>}
+                        : <h3>No Playlists Yet <i class="fa-regular fa-face-sad-cry"></i></h3>}
                 </div>
                 <div className="user-profile-section">
                     <h2>Followers</h2>
@@ -101,7 +101,7 @@ export default function OtherUserProfile({ username }) {
                                 </div>
                             ))}
                         </div>
-                        : <h3>No Followers Yet</h3>
+                        : <h3>No Followers Yet <i class="fa-regular fa-face-sad-cry"></i></h3>
                     }
                 </div>
                 <div>
@@ -121,7 +121,7 @@ export default function OtherUserProfile({ username }) {
                             ))}
                         </div>
                         :
-                        <h3>You're not following any users!</h3>
+                        <h3>You're not following any users! <i class="fa-regular fa-face-sad-cry"></i></h3>
                     }
                 </div>
             </div>
