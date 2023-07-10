@@ -1,3 +1,47 @@
+.user-profiles-wrapper {
+    width: 100%;
+    padding: 10px;
+}
+
 .user-profiles-wrapper > * {
     color: white;
+}
+
+.user-profiles-header {
+    display: flex;
+    /* padding-top: 80px; */
+    width: 100%;
+    height: 325px;
+    align-items: flex-end;
+}
+
+.user-profile-main-image {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.user-profile-details {
+    display: flex;
+}
+
+.user-profile-playlists-wrapper, .user-profile-followers-following-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 15px;
+    grid-template-rows: 300px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.user-profile-playlists-cover-image, .other-users-profile-images {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.other-users-profile-images {
+    border-radius: 50%;
 }
