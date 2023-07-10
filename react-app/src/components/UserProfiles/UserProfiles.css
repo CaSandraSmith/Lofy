@@ -112,9 +112,15 @@
     color: #1ed660;
 }
 
-/* @media screen and (min-width: 1200px) {
-    .user-profile-playlists-wrapper, .user-profile-followers-following-wrapper {
-        grid-template-rows: 600px;
-        border: 1px solid red;
-    }
-} */
+.follows-button {
+    background-color: transparent;
+    border-color: white;
+    font-weight: 800;
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+}
+
+.profile-user-info-wrapper {
+    padding-top: 20px;
+}

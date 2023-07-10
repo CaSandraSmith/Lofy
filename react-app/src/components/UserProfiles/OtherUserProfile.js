@@ -64,9 +64,9 @@ export default function OtherUserProfile({ username }) {
                     </div>
                 </div>
             </div>
-            <div>
+            <div className="profile-user-info-wrapper">
                 <div>
-                    {userFollowers[currentUser.id] ? <button onClick={unfollow}>FOLLOWING</button> : <button onClick={follow}>FOLLOW</button>}
+                    {userFollowers[currentUser.id] ? <button className="follows-button" onClick={unfollow}>FOLLOWING</button> : <button className="follows-button" onClick={follow}>FOLLOW</button>}
                 </div>
                 <div className="user-profile-section">
                     <h2>Playlists</h2>
