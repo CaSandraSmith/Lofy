@@ -36,8 +36,9 @@ export default function CurrentUserProfile() {
                     </div>
                 </div>
             </div>
-            <div >
-               {userPlaylistsArr.length ? <div className="user-profile-section">
+            <div className="section">
+                {userPlaylistsArr.length ? 
+                <div className="user-profile-section">
                     <h2>Playlists</h2>
                     <div className="user-profile-playlists-wrapper">
                         {userPlaylistsArr.map(playlist => (
@@ -47,9 +48,7 @@ export default function CurrentUserProfile() {
                                     src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"}
                                     alt={`Playlist ${playlist.name} cover image`}
                                 />
-                                <div>
-                                    <p>{playlist.name}</p>
-                                </div>
+                                <p className="user-profile-playlist-name">{playlist.name}</p>
                             </div>
                         ))}
                     </div>
@@ -64,10 +63,8 @@ export default function CurrentUserProfile() {
                                     src={user.profile_image ? user.profile_image : "https://res.cloudinary.com/djp7wsuit/image/upload/v1688998982/Untitled_design_13_wssosv.png"}
                                     alt={`User ${user.username} profile image`}
                                 />
-                                <div>
-                                    <p>{user.username}</p>
+                                    <p className="user-profile-follows-name">{user.username}</p>
                                     <p>Profile</p>
-                                </div>
                             </div>
                         ))}
                     </div>
@@ -82,10 +79,8 @@ export default function CurrentUserProfile() {
                                     src={user.profile_image ? user.profile_image : "https://res.cloudinary.com/djp7wsuit/image/upload/v1688998982/Untitled_design_13_wssosv.png"}
                                     alt={`User ${user.username} profile image`}
                                 />
-                                <div>
-                                    <p>{user.username}</p>
+                                    <p className="user-profile-follows-name">{user.username}</p>
                                     <p>Profile</p>
-                                </div>
                             </div>
                         ))}
                     </div>
