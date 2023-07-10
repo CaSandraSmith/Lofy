@@ -87,3 +87,14 @@ class User(db.Model, UserMixin):
             'followers': [user.username for user in self.followers],
             'following': [user.username for user in self.following]
         }
+
+    def detailed_to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'profile_image': self.profile_image,
+            'followers': [user.username for user in self.followers],
+            'following': [user.username for user in self.following],
+            'playlists': {playlist.id: playlist.general_to_dict() for playlist in self.playlists}
+        }
