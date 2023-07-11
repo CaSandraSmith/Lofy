@@ -54,8 +54,9 @@ export default function LibraryBar() {
                     className="library-general-button"
                     onMouseEnter={() => setSearchHover(true)}
                     onMouseLeave={() => setSearchHover(false)}
+                    onClick={() => history.push("/search")}
                 >
-                    <i style={{ color: searchHover ? "white" : "#b3b3b3" }} class="fa-solid fa-magnifying-glass"></i>
+                    <i  style={{ color: searchHover ? "white" : "#b3b3b3" }} class="fa-solid fa-magnifying-glass"></i>
                     <p style={{ color: searchHover ? "white" : "#b3b3b3" }} >Search</p>
                 </div>
             </div>

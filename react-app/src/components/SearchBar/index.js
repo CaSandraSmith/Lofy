@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux"
 import { logout } from '../../store/session';
 import { useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { gatherAllAlbums, gatherAllSongs } from "../../store/albums";
+import { getAllPlaylists } from "../../store/playlists";
 import "./SearchBar.css"
 
 export default function SearchBar() {
@@ -9,7 +11,13 @@ export default function SearchBar() {
     const history = useHistory()
     let user = useSelector(state => state.session.user)
     const [menu, setMenu] = useState(false)
+    const [searching, setSearching] = useState(false)
+    const [searchParams, setSearchParams] = useState(false)
     const profileRef = useRef()
+
+    useEffect(() => {
+
+    }, [dispatch])
 
     useEffect(() => {
         if (!menu || !user) return;
@@ -33,7 +41,20 @@ export default function SearchBar() {
 
     return (
         <div>
-            <div className="general-nav" >
+            <div className="search-nav" >
+                <div>
+                    <form>
+                        <div>
+                            <i className="fa-solid fa-magnifying-glass"></i>
+                            <label>
+                                <input
+                                    type="search"
+                                    placeholder="What do you want to listen to?"
+                                />
+                            </label>
+                        </div>
+                    </form>
+                </div>
                 {!user.profile_image ?
                     <i
                         onClick={() => setMenu(!menu)}
