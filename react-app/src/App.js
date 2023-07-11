@@ -15,7 +15,7 @@ import SingleAlbumPage from "./components/SingleAlbumPage";
 import SplashFooter from "./components/HomePage/SplashPage/SplashFooter";
 import LikedSongsPlaylist from "./components/SinglePlaylistPage/LikedSongsPlaylist";
 import UserProfiles from "./components/UserProfiles";
-
+import SearchBar from "./components/SearchBar";
 
 function App() {
   const location = useLocation()
@@ -54,11 +54,15 @@ function App() {
             {location.pathname != "/" && location.pathname != "/login" && location.pathname != "/signup" &&
               <div className="changing-content">
                 <Switch>
+                  <Route path="/search">
+                    <SearchBar />
+                  </Route>
                   <Route path="/collection/tracks">
                     <GeneralNav />
                     <LikedSongsPlaylist />
                   </Route>
                   <Route path="/user/:username">
+                    <GeneralNav />
                     <UserProfiles />
                   </Route>
                   <Route path="/album/:id">
