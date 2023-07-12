@@ -111,7 +111,7 @@ export default function SearchBar() {
                             <i className="fa-solid fa-magnifying-glass"></i>
                             <label>
                                 <input
-                                    type="search"
+                                    type="text"
                                     value={searchParams}
                                     onChange={(e) => setSearchParams(e.target.value)}
                                     placeholder="What do you want to listen to?"
@@ -207,6 +207,25 @@ export default function SearchBar() {
                     </div>
                     :
                     <h2>No albums found with that name</h2>
+                    }
+                    {filterPlaylists().length ?
+                    <div>
+                        <h2>Playlists</h2>
+                        <div>
+                            {filterPlaylists().slice(0, 4).map(playlist => (
+                                <div>
+                                    <img 
+                                    src={playlist.cover_image}
+                                    alt={`Playlist ${playlist.name} cover image`}
+                                    />
+                                    <p>{playlist.name}</p>
+                                    <p>By {playlist.owner.username}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    :
+                    <h2>No playlists found with that name</h2>
                     }
                 </div> :
                 <h2 className="search-page-no-results">What do you want to listen to?</h2>
