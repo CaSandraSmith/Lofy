@@ -88,7 +88,6 @@ export default function SearchBar() {
     let handleSongClick = (song, i) => {
         setPlaying(true)
         setSong(song)
-        // let arr = [...songsArr.slice(i), ...songsArr.slice(0, i)]
         setQueue(filterSongs())
     }
 
@@ -107,37 +106,42 @@ export default function SearchBar() {
             <div className="search-nav" >
                 <div>
                     <form onSubmit={(e) => e.preventDefault()}>
-                        <div>
-                            <i className="fa-solid fa-magnifying-glass"></i>
+                        <div className="search-input-wrapper">
+                            <i className="fa-solid fa-magnifying-glass search-bar-icon"></i>
                             <label>
                                 <input
+                                    className="search-input"
                                     type="text"
                                     value={searchParams}
                                     onChange={(e) => setSearchParams(e.target.value)}
                                     placeholder="What do you want to listen to?"
                                 />
                             </label>
-                            <i className="fa-solid fa-xmark"></i>
+                            <i
+                            onClick={() => setSearchParams("")}
+                             className={`fa-solid fa-xmark ${!searchParams ? "clear-sear-hidden" : "clear-search"}`}></i>
                         </div>
                     </form>
                 </div>
-                {!user.profile_image ?
-                    <i
-                        onClick={() => setMenu(!menu)}
-                        className="general-nav-profile-no-image fa-regular fa-user"></i>
-                    :
-                    <img
-                        onClick={() => setMenu(!menu)}
-                        className="general-nav-profile-image"
-                        src={user.profile_image} />
-                }
-                <div ref={profileRef}>
-                    {menu &&
-                        <div className='navbar-general-profile-options'>
-                            <div onClick={() => history.push(`/user/${user.username}`)}>Profile</div>
-                            <div onClick={handleLogout}>Log out</div>
-                        </div>
+                <div>
+                    {!user.profile_image ?
+                        <i
+                            onClick={() => setMenu(!menu)}
+                            className="general-nav-profile-no-image fa-regular fa-user"></i>
+                        :
+                        <img
+                            onClick={() => setMenu(!menu)}
+                            className="general-nav-profile-image"
+                            src={user.profile_image} />
                     }
+                    <div ref={profileRef}>
+                        {menu &&
+                            <div className='navbar-general-profile-options'>
+                                <div onClick={() => history.push(`/user/${user.username}`)}>Profile</div>
+                                <div onClick={handleLogout}>Log out</div>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
             {searching &&
@@ -163,28 +167,28 @@ export default function SearchBar() {
                             <div>
                                 <h2>Songs</h2>
                                 <div className="search-songs-table">
-                                        {filterSongs().slice(0, 4).map(song => (
-                                            <div className="search-songs-table-row">
-                                                <div>
-                                                    <img className="song-results-cover-image" src={song.album.cover_image} alt={`Song ${song.name} album cover image`} />
-                                                    <i onClick={() => handleSongClick(song)} class="fa-solid fa-play search-song-play"></i>
-                                                </div>
-                                                <div className="song-result-name-artist-wrapper">
-                                                        <p>{song.name}</p>
-                                                        <p>{song.artist_name}</p>
-                                                </div>
-                                                <div>{savedSongsIds.includes(song.id.toString()) ?
-                                                    <i
-                                                        onClick={() => handleUnsaveSongClick(song.id)}
-                                                        className="fa-solid fa-heart"></i>
-                                                    :
-                                                    <i
-                                                        onClick={() => handleSaveSongClick(song.id)}
-                                                        className="fa-regular fa-heart search-not-saved-song"></i>
-                                                }</div>
-                                                <div className="search-song-length">{convertLengthTable(song.length)}</div>
+                                    {filterSongs().slice(0, 4).map(song => (
+                                        <div className="search-songs-table-row">
+                                            <div>
+                                                <img className="song-results-cover-image" src={song.album.cover_image} alt={`Song ${song.name} album cover image`} />
+                                                <i onClick={() => handleSongClick(song)} class="fa-solid fa-play search-song-play"></i>
                                             </div>
-                                        ))}
+                                            <div className="song-result-name-artist-wrapper">
+                                                <p>{song.name}</p>
+                                                <p>{song.artist_name}</p>
+                                            </div>
+                                            <div>{savedSongsIds.includes(song.id.toString()) ?
+                                                <i
+                                                    onClick={() => handleUnsaveSongClick(song.id)}
+                                                    className="fa-solid fa-heart"></i>
+                                                :
+                                                <i
+                                                    onClick={() => handleSaveSongClick(song.id)}
+                                                    className="fa-regular fa-heart search-not-saved-song"></i>
+                                            }</div>
+                                            <div className="search-song-length">{convertLengthTable(song.length)}</div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -255,7 +259,7 @@ export default function SearchBar() {
                     <h3>Please make sure your words are spelled correctly, or use fewer or different keywords.</h3>
                 </div>
                 : null}
-            {!searching ? <h2 className="search-page-no-results">What do you want to listen to?</h2> : null}
+            {!searching ? <h2 className="search-page-no-results">What can we play for you today?</h2> : null}
 
         </div>
     )

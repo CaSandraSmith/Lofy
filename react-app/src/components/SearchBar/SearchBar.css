@@ -1,22 +1,60 @@
+.search-page-wrapper {
+    background-color: #121212;
+    height: 100%;
+    border-radius: 15px;
+    width: 100%;
+    /* padding: 10px; */
+    position: relative;
+}
+
 .search-nav {
     position: fixed;
-    width: calc(100% - 400px);
+    width: calc(100% - 420px);
     height: 65px;
     display: flex;
     justify-content: flex-end;
     top: 0;
     align-items: center;
-    padding-right: 50px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #121212;
     display: flex;
     justify-content: space-between;
+    border-radius: 15px 15px 0 0;
+    padding: 0 20px;
 }
 
-.search-page-wrapper {
-    background-color: #121212;
-    height: 100%;
-    border-radius: 15px;
-    /* padding: 10px; */
+.search-input-wrapper {
+    background-color: #242424;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+.search-input-wrapper:focus-within {
+    border: 2px solid white;
+}
+
+.search-bar-icon {
+    color: #bdbdbd;
+}
+
+.clear-sear-hidden {
+    color: transparent;
+}
+
+.clear-search {
+    color: #bdbdbd;
+    cursor: pointer;
+}
+
+.search-input {
+    background-color: transparent;
+    width: 300px;
+    outline: none;
+    border: none;
+    color: #bdbdbd;
 }
 
 .search-results-wrapper>* {
@@ -36,6 +74,7 @@
 
 .search-page-no-results {
     color: white;
+    text-align: center;
 }
 
 .search-songs-results-wrapper {
@@ -189,5 +228,11 @@
 @media screen and (min-width: 1400px) {
     .search-songs-results-wrapper {
         grid-template-rows: 350px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .search-nav {
+        width: calc(100% - 258px);
     }
 }
