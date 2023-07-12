@@ -10,9 +10,10 @@ export default function ReviewsPage() {
     const history = useHistory()
     const [editReviewOpen, setEditReviewOpen] = useState(false)
     const [editedReview, setEditedReview] = useState(0)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        dispatch(getCurrentUserReviews())
+        dispatch(getCurrentUserReviews()).then(() => setLoading(true))
     }, [dispatch])
 
     let user = useSelector(state => state.session.user)
@@ -27,6 +28,8 @@ export default function ReviewsPage() {
         setEditReviewOpen(true)
         setEditedReview(id)
     }
+
+    if (!loading) return <h1>Loading</h1>
 
     return (
         <div className="review-page-wrapper">

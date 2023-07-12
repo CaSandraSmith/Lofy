@@ -17,6 +17,8 @@ import LikedSongsPlaylist from "./components/SinglePlaylistPage/LikedSongsPlayli
 import UserProfiles from "./components/UserProfiles";
 import SearchBar from "./components/SearchBar";
 import ReviewsPage from "./components/ReviewsPage";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   const location = useLocation()
@@ -32,7 +34,6 @@ function App() {
     <>
       {isLoaded && (
         <div className="entire-page">
-
           <div className="home">
             <Switch>
               <Route exact path="/">
@@ -47,41 +48,43 @@ function App() {
               <Route path="/signup">
                 <SignupFormPage />
               </Route>
-              <Route path="/">
-                {/* //need to make sure that only users can access this */}
+              <ProtectedRoute path="/">
                 <LibraryBar />
-              </Route>
+              </ProtectedRoute>
             </Switch>
 
             {location.pathname != "/" && location.pathname != "/login" && location.pathname != "/signup" &&
               <div className="changing-content">
                 <Switch>
-                  <Route path="/myreviews">
+                  <ProtectedRoute path="/myreviews">
                     <GeneralNav />
                     <ReviewsPage />
-                  </Route>
-                  <Route path="/search">
+                  </ProtectedRoute>
+                  <ProtectedRoute path="/search">
                     <SearchBar />
-                  </Route>
-                  <Route path="/collection/tracks">
+                  </ProtectedRoute>
+                  <ProtectedRoute path="/collection/tracks">
                     <GeneralNav />
                     <LikedSongsPlaylist />
-                  </Route>
-                  <Route path="/user/:username">
+                  </ProtectedRoute>
+                  <ProtectedRoute path="/user/:username">
                     <GeneralNav />
                     <UserProfiles />
-                  </Route>
-                  <Route path="/album/:id">
+                  </ProtectedRoute>
+                  <ProtectedRoute path="/album/:id">
                     <GeneralNav />
                     <SingleAlbumPage />
-                  </Route>
-                  <Route path="/playlist/:id">
+                  </ProtectedRoute>
+                  <ProtectedRoute path="/playlist/:id">
                     <GeneralNav />
                     <SinglePlaylistPage />
-                  </Route>
-                  <Route path="/home">
+                  </ProtectedRoute>
+                  <ProtectedRoute path="/home">
                     <GeneralNav />
                     <HomePage />
+                  </ProtectedRoute>
+                  <Route>
+                    <PageNotFound />
                   </Route>
                 </Switch>
               </div>}
