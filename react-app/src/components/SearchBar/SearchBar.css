@@ -226,11 +226,11 @@
     }
 }
 
-.search-albums-playlists-wrapper {
+.search-results-section {
     margin-top: 40px;
 }
 
-.search-albums-playlists-wrapper > h2  {
+.search-results-section > h2  {
     padding-bottom: 20px;
     font-weight: 800;
 }
@@ -275,6 +275,37 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.serarch-users-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 15px;
+    cursor: pointer;
+    width: 100%;
+    overflow: hidden;
+}
+
+.search-results-users {
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.5s;
+    border-radius: 5px;
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 50px;
+}
+
+.search-results-users:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.search-users-images {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 5px;
+    border-radius: 50%;
 }
 
 @media screen and (min-width: 1400px) {

@@ -195,7 +195,7 @@ export default function SearchBar() {
                         :
                         null}
                     {filterAlbums().length ?
-                        <div className="search-albums-playlists-wrapper">
+                        <div className="search-results-section">
                             <h2>Albums</h2>
                             <div className="search-results-albums-playlists-wrapper">
                                 {filterAlbums().slice(0, 4).map(album => (
@@ -215,7 +215,7 @@ export default function SearchBar() {
                         null
                     }
                     {filterPlaylists().length ?
-                        <div className="search-albums-playlists-wrapper">
+                        <div className="search-results-section">
                             <h2>Playlists</h2>
                             <div className="search-results-albums-playlists-wrapper">
                                 {filterPlaylists().slice(0, 4).map(playlist => (
@@ -234,14 +234,15 @@ export default function SearchBar() {
                         :
                         null
                     }
-                    {/* {filterUsers().length ?
-                        <div>
+                    {filterUsers().length ?
+                        <div className="search-results-section">
                             <h2>Profiles</h2>
-                            <div>
+                            <div className="serarch-users-wrapper">
                                 {filterUsers().slice(0, 4).map(user => (
-                                    <div>
+                                    <div className="search-results-users">
                                         <img
-                                            src={user.profile_image}
+                                            className="search-users-images"
+                                            src={user.profile_image ? user.profile_image : "https://res.cloudinary.com/djp7wsuit/image/upload/v1688998982/Untitled_design_13_wssosv.png"}
                                             alt={`User ${user.username} profile image`}
                                         />
                                         <p>{user.username}</p>
@@ -252,7 +253,7 @@ export default function SearchBar() {
                         </div>
                         :
                         null
-                    } */}
+                    }
                 </div>
             }
             {searching && !filterSongs().length && !filterAlbums().length && !filterPlaylists().length && !filterUsers().length ?
