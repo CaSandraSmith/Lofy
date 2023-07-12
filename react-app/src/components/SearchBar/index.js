@@ -138,6 +138,7 @@ export default function SearchBar() {
                         {menu &&
                             <div className='navbar-general-profile-options'>
                                 <div onClick={() => history.push(`/user/${user.username}`)}>Profile</div>
+                                <div>My Reviews</div>
                                 <div onClick={handleLogout}>Log out</div>
                             </div>
                         }
@@ -197,11 +198,11 @@ export default function SearchBar() {
                     {filterAlbums().length ?
                         <div className="search-results-section">
                             <h2>Albums</h2>
-                            <div  className="search-results-albums-playlists-wrapper">
+                            <div className="search-results-albums-playlists-wrapper">
                                 {filterAlbums().slice(0, 4).map(album => (
-                                    <div 
-                                    onClick={() => history.push(`/album/${album.id}`)} 
-                                    className="search-album-playlist-wrapper">
+                                    <div
+                                        onClick={() => history.push(`/album/${album.id}`)}
+                                        className="search-album-playlist-wrapper">
                                         <img
                                             className="search-album-playlist-cover-image"
                                             src={album.cover_image}
@@ -221,12 +222,12 @@ export default function SearchBar() {
                             <h2>Playlists</h2>
                             <div className="search-results-albums-playlists-wrapper">
                                 {filterPlaylists().slice(0, 4).map(playlist => (
-                                    <div 
-                                    onClick={() => history.push(`/playlist/${playlist.id}`)} 
-                                    className="search-album-playlist-wrapper">
+                                    <div
+                                        onClick={() => history.push(`/playlist/${playlist.id}`)}
+                                        className="search-album-playlist-wrapper">
                                         <img
-                                        className="search-album-playlist-cover-image"
-                                            src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png" }
+                                            className="search-album-playlist-cover-image"
+                                            src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"}
                                             alt={`Playlist ${playlist.name} cover image`}
                                         />
                                         <p>{playlist.name}</p>
@@ -243,9 +244,9 @@ export default function SearchBar() {
                             <h2>Profiles</h2>
                             <div className="serarch-users-wrapper">
                                 {filterUsers().slice(0, 4).map(user => (
-                                    <div 
-                                    onClick={() => history.push(`/user/${user.username}`)} 
-                                    className="search-results-users">
+                                    <div
+                                        onClick={() => history.push(`/user/${user.username}`)}
+                                        className="search-results-users">
                                         <img
                                             className="search-users-images"
                                             src={user.profile_image ? user.profile_image : "https://res.cloudinary.com/djp7wsuit/image/upload/v1688998982/Untitled_design_13_wssosv.png"}

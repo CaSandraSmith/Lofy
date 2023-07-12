@@ -41,6 +41,7 @@ function Navigation({ isLoaded }) {
 									<i class="fa-solid fa-chevron-up"></i>
 									<div className='navbar-splash-profile-options'>
 										<div onClick={() => history.push(`/user/${sessionUser.username}`)}>Profile</div>
+										<div>My Reviews</div>
 										<div onClick={handleLogout}>Log out</div>
 									</div>
 								</div>

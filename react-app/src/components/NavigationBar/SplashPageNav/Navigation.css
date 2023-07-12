@@ -33,6 +33,7 @@
   position: relative;
   align-items: center;
   column-gap: 5px;
+  cursor: pointer;
 }
 
 .navbar-splash-profile-options {
@@ -61,6 +62,10 @@
 }
 
 .navbar-splash-profile-options > div:nth-child(2) {
+  color: black;
+}
+
+.navbar-splash-profile-options > div:nth-child(3) {
   color: black;
 }
 

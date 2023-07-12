@@ -13,16 +13,18 @@
 .general-nav-profile-no-image {
     font-size: 40px;
     color: white;
+    cursor: pointer;
 }
 
 .general-nav-profile-image {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .navbar-general-profile-options {
-    width: 100px;
+    width: 150px;
     position: absolute;
     right: 50px;
     background-color: white;
