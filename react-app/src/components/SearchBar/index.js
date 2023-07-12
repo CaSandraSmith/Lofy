@@ -106,7 +106,7 @@ export default function SearchBar() {
         <div className="search-page-wrapper">
             <div className="search-nav" >
                 <div>
-                    <form>
+                    <form onSubmit={(e) => e.preventDefault()}>
                         <div>
                             <i className="fa-solid fa-magnifying-glass"></i>
                             <label>
@@ -117,6 +117,7 @@ export default function SearchBar() {
                                     placeholder="What do you want to listen to?"
                                 />
                             </label>
+                            <i className="fa-solid fa-xmark"></i>
                         </div>
                     </form>
                 </div>
@@ -139,31 +140,33 @@ export default function SearchBar() {
                     }
                 </div>
             </div>
-            {searching ?
+            {searching &&
                 <div className="search-results-wrapper">
                     {filterSongs().length ?
-                        <div>
+                        <div className="search-songs-results-wrapper">
                             <div>
                                 <h2>Top result</h2>
                                 {filterSongs().slice(0, 1).map(song => (
-                                    <div>
-                                        <img src={song.album.cover_image} alt={`Song ${song.name} album cover image`} />
-                                        <p>{song.name}</p>
-                                        <div>
-                                            <p>{song.artist_name}</p>
-                                            <p>Song</p>
+                                    <div className="top-result-wrapper">
+                                        <img
+                                            className="top-result-image"
+                                            src={song.album.cover_image} alt={`Song ${song.name} album cover image`} />
+                                        <p className="top-result-song-name">{song.name}</p>
+                                        <div className="top-result-name-caption">
+                                            <p className="">{song.artist_name}</p>
+                                            <p className="top-result-caption">Song</p>
                                         </div>
                                     </div>
                                 ))}
                             </div>
                             <div>
                                 <h2>Songs</h2>
-                                {filterSongs().slice(0, 5).map(song => (
-                                    <table>
-                                        <tbody>
+                                <table>
+                                    <tbody>
+                                        {filterSongs().slice(0, 5).map(song => (
                                             <tr>
                                                 <td>
-                                                    <img src={song.album.cover_image} alt={`Song ${song.name} album cover image`} />
+                                                    <img className="song-results-cover-image" src={song.album.cover_image} alt={`Song ${song.name} album cover image`} />
                                                 </td>
                                                 <td>
                                                     <div>
@@ -182,54 +185,80 @@ export default function SearchBar() {
                                                 }</td>
                                                 <td className="single-playlist-song-length">{convertLengthTable(song.length)}</td>
                                             </tr>
-                                        </tbody>
-                                    </table>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        :
+                        null}
+                    {filterAlbums().length ?
+                        <div>
+                            <h2>Albums</h2>
+                            <div>
+                                {filterAlbums().slice(0, 4).map(album => (
+                                    <div>
+                                        <img
+                                            src={album.cover_image}
+                                            alt={`Album ${album.name} cover image`}
+                                        />
+                                        <p>{album.name}</p>
+                                        <p>{album.artist}</p>
+                                    </div>
                                 ))}
                             </div>
                         </div>
                         :
-                    <h2>No songs found with that name</h2>}
-                    {filterAlbums().length ?
-                    <div>
-                        <h2>Albums</h2>
-                        <div>
-                            {filterAlbums().slice(0, 4).map(album => (
-                                <div>
-                                    <img 
-                                    src={album.cover_image}
-                                    alt={`Album ${album.name} cover image`}
-                                    />
-                                    <p>{album.name}</p>
-                                    <p>{album.artist}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    :
-                    <h2>No albums found with that name</h2>
+                        null
                     }
                     {filterPlaylists().length ?
-                    <div>
-                        <h2>Playlists</h2>
                         <div>
-                            {filterPlaylists().slice(0, 4).map(playlist => (
-                                <div>
-                                    <img 
-                                    src={playlist.cover_image}
-                                    alt={`Playlist ${playlist.name} cover image`}
-                                    />
-                                    <p>{playlist.name}</p>
-                                    <p>By {playlist.owner.username}</p>
-                                </div>
-                            ))}
+                            <h2>Playlists</h2>
+                            <div>
+                                {filterPlaylists().slice(0, 4).map(playlist => (
+                                    <div>
+                                        <img
+                                            src={playlist.cover_image}
+                                            alt={`Playlist ${playlist.name} cover image`}
+                                        />
+                                        <p>{playlist.name}</p>
+                                        <p>By {playlist.owner.username}</p>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                    :
-                    <h2>No playlists found with that name</h2>
+                        :
+                        null
                     }
-                </div> :
-                <h2 className="search-page-no-results">What do you want to listen to?</h2>
+                    {filterUsers().length ?
+                        <div>
+                            <h2>Profiles</h2>
+                            <div>
+                                {filterUsers().slice(0, 4).map(user => (
+                                    <div>
+                                        <img
+                                            src={user.profile_image}
+                                            alt={`User ${user.username} profile image`}
+                                        />
+                                        <p>{user.username}</p>
+                                        <p>Profile</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        :
+                        null
+                    }
+                </div>
             }
+            {searching && !filterSongs().length && !filterAlbums().length && !filterPlaylists().length && !filterUsers().length ?
+                <div className="search-page-no-results">
+                    <h2>No results found for "{searchParams}"</h2>
+                    <h3>Please make sure your words are spelled correctly, or use fewer or different keywords.</h3>
+                </div>
+                : null}
+            {!searching ? <h2 className="search-page-no-results">What do you want to listen to?</h2> : null}
+
         </div>
     )
 }
