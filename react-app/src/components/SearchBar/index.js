@@ -138,7 +138,7 @@ export default function SearchBar() {
                         {menu &&
                             <div className='navbar-general-profile-options'>
                                 <div onClick={() => history.push(`/user/${user.username}`)}>Profile</div>
-                                <div>My Reviews</div>
+                                <div onClick={() => history.push("/myreviews")}>My Reviews</div>
                                 <div onClick={handleLogout}>Log out</div>
                             </div>
                         }
