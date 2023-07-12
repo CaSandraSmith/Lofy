@@ -20,7 +20,7 @@
     /* padding: 10px; */
 }
 
-.search-results-wrapper > * {
+.search-results-wrapper>* {
     color: white;
 }
 
@@ -30,7 +30,8 @@
     border-radius: 15px;
 }
 
-.search-results-wrapper, .search-page-no-results {
+.search-results-wrapper,
+.search-page-no-results {
     padding-top: 100px;
 }
 
@@ -47,7 +48,7 @@
     grid-template-rows: 280px;
 }
 
-.search-songs-results-wrapper > div {
+.search-songs-results-wrapper>div {
     width: 100%;
     height: 100%;
     border: 1px solid green;
@@ -64,10 +65,24 @@
     height: 100%;
     display: grid;
     align-items: center;
+    position: relative;
+}
+
+.top-result-play {
+    font-size: 45px;
+    position: absolute;
+    right: 20px;
+    bottom: 0px;
+    transition: 0.5s;
+    color: transparent;
 }
 
 .top-result-wrapper:hover {
     background-color: rgba(255, 255, 255, .05);
+    .top-result-play {
+        color: var(--main-icon-color);
+        bottom: 20px;
+    }
 }
 
 .top-result-image {

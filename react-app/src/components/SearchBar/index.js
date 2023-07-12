@@ -156,6 +156,7 @@ export default function SearchBar() {
                                             <p className="">{song.artist_name}</p>
                                             <p className="top-result-caption">Song</p>
                                         </div>
+                                        <i class="fa-solid fa-circle-play top-result-play"></i>
                                     </div>
                                 ))}
                             </div>
