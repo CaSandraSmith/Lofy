@@ -17,7 +17,7 @@ function LoginFormPage() {
     e.preventDefault();
     const data = await dispatch(login(email, password));
     if (data) {
-      setErrors(data);
+      setErrors(["Invalid credentials."]);
     }
   };
 
@@ -28,8 +28,6 @@ function LoginFormPage() {
       setErrors(data);
     }
   }
-
-  console.log("errors", errors)
 
   return (
     <div className="login-all-content">
