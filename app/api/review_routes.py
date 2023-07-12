@@ -54,6 +54,6 @@ def current_user_reviews():
 
     reviews = {}
     for review in user.reviews:
-        reviews[review.id] = review.to_dict()
+        reviews[review.id] = review.to_dict_playlist_details()
 
     return reviews

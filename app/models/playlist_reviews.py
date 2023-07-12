@@ -31,4 +31,17 @@ class PlaylistReview(db.Model):
                 "profile_image": self.user.profile_image
             }
         }
+    
+    def to_dict_playlist_details(self):
+        return {
+            "id": self.id,
+            "review": self.review,
+            "stars": self.stars,
+            "playlist": {
+                "id": self.playlist.id,
+                "name": self.playlist.name,
+                "cover_image": self.playlist.cover_image,
+                "description": self.playlist.description
+            }
+        }
 
