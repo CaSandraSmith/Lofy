@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useHistory } from "react-router-dom"
 import { getCurrentUserReviews, deletePlaylistReview } from "../../store/reviews"
 import EditPlaylistReview from "../SinglePlaylistPage/PlaylistReviews/EditPlaylistReview"
 import "./ReviewsPage.css"
 
 export default function ReviewsPage() {
     const dispatch = useDispatch()
+    const history = useHistory()
     const [editReviewOpen, setEditReviewOpen] = useState(false)
     const [editedReview, setEditedReview] = useState(0)
 
@@ -33,7 +35,14 @@ export default function ReviewsPage() {
                 <div>
                     <div className="playlist-all-reviews-wrapper">
                         {reviewsArr.map(review => (
-                            <div className="playlist-review-wrapper">
+                            <div>
+                                <div>
+                                    <img 
+                                    src={review.playlist.cover_image ? review.playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"} 
+                                    alt={`Playlist ${review.playlist.name} cover image`}/>
+                                    <p>{review.playlist.name}</p>
+                                    <p>By {review.playlist.owner}</p>
+                                </div>
                                 <div className="review-star-rating">
                                     <i className={`${review.stars >= 1 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
                                     <i className={`${review.stars >= 2 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
@@ -43,7 +52,7 @@ export default function ReviewsPage() {
                                 </div>
                                 <p className="actual-playlist-review">{review.review}</p>
                                 <div className="completed-review-buttons">
-                                    <button>Go to Playlist's Page</button>
+                                    <button onClick={() => history.push(`/playlist/${review.playlist.id}`)}>Go to Playlist's Page</button>
                                     <button onClick={() => handleEditButtonClick(review.id)}>Edit</button>
                                     <button onClick={() => deleteReview(review.id)}>Delete</button>
                                     {editReviewOpen && editedReview === review.id ?
@@ -55,7 +64,10 @@ export default function ReviewsPage() {
                         ))}
                     </div>
                 </div>
-                : null
+                : <div>
+                    <h2>You don't have any reviews yet</h2>
+                    <h3>Check out a user's playlist and make a review today!</h3>
+                </div>
             }
         </div>
     )

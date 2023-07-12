@@ -19,29 +19,36 @@ class PlaylistReview(db.Model):
     playlist = db.relationship('Playlist', back_populates='reviews')
     user = db.relationship('User', back_populates='reviews')
 
+    # def to_dict(self):
+    #     return {
+    #         "id": self.id,
+    #         "playlist_id": self.playlist_id,
+    #         "review": self.review,
+    #         "stars": self.stars,
+    #         "user": {
+    #             "id": self.user.id,
+    #             "username": self.user.username,
+    #             "profile_image": self.user.profile_image
+    #         }
+    #     }
+    
     def to_dict(self):
         return {
             "id": self.id,
-            "playlist_id": self.playlist_id,
             "review": self.review,
+            "playlist_id": self.playlist_id,
             "stars": self.stars,
             "user": {
                 "id": self.user.id,
                 "username": self.user.username,
                 "profile_image": self.user.profile_image
-            }
-        }
-    
-    def to_dict_playlist_details(self):
-        return {
-            "id": self.id,
-            "review": self.review,
-            "stars": self.stars,
+            },
             "playlist": {
                 "id": self.playlist.id,
                 "name": self.playlist.name,
                 "cover_image": self.playlist.cover_image,
-                "description": self.playlist.description
+                "description": self.playlist.description,
+                "owner": self.playlist.user.username
             }
         }
 
