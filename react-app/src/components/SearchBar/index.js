@@ -156,7 +156,7 @@ export default function SearchBar() {
                                             <p className="">{song.artist_name}</p>
                                             <p className="top-result-caption">Song</p>
                                         </div>
-                                        <i class="fa-solid fa-circle-play top-result-play"></i>
+                                        <i onClick={() => handleSongClick(song)} class="fa-solid fa-circle-play top-result-play"></i>
                                     </div>
                                 ))}
                             </div>
@@ -167,7 +167,7 @@ export default function SearchBar() {
                                             <div className="search-songs-table-row">
                                                 <div>
                                                     <img className="song-results-cover-image" src={song.album.cover_image} alt={`Song ${song.name} album cover image`} />
-                                                    <i class="fa-solid fa-play search-song-play"></i>
+                                                    <i onClick={() => handleSongClick(song)} class="fa-solid fa-play search-song-play"></i>
                                                 </div>
                                                 <div className="song-result-name-artist-wrapper">
                                                         <p>{song.name}</p>
