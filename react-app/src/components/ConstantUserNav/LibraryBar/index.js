@@ -56,7 +56,7 @@ export default function LibraryBar() {
                     onMouseLeave={() => setSearchHover(false)}
                     onClick={() => history.push("/search")}
                 >
-                    <i  style={{ color: searchHover ? "white" : "#b3b3b3" }} class="fa-solid fa-magnifying-glass"></i>
+                    <i style={{ color: searchHover ? "white" : "#b3b3b3" }} class="fa-solid fa-magnifying-glass"></i>
                     <p style={{ color: searchHover ? "white" : "#b3b3b3" }} >Search</p>
                 </div>
             </div>
@@ -76,42 +76,47 @@ export default function LibraryBar() {
                         : null
                     }
                     {viewableCategories === "all" || viewableCategories === "playlists" ?
-                        <button style={{backgroundColor: viewableCategories === "playlists" ? "white" : null, color: viewableCategories === "playlists" ? "black" : null}} className="library-options-buttons" onClick={() => setViewableCategories("playlists")}>Playlists</button>
+                        <button style={{ backgroundColor: viewableCategories === "playlists" ? "white" : null, color: viewableCategories === "playlists" ? "black" : null }} className="library-options-buttons" onClick={() => setViewableCategories("playlists")}>Playlists</button>
                         : null
                     }
                     {viewableCategories === "playlists" ?
                         <button className="library-options-buttons" onClick={() => setViewableCategories("by you")}>By you</button>
                         : null
                     }
-                    {viewableCategories === "by you" ? 
-                    <div className="by-you-playlists-button">
-                        <button>Playlists</button>
-                        <button>By you</button>
-                    </div>                        
+                    {viewableCategories === "by you" ?
+                        <div className="by-you-playlists-button">
+                            <button>Playlists</button>
+                            <button>By you</button>
+                        </div>
                         : null}
                     {viewableCategories === "all" || viewableCategories === "albums" ?
-                        <button style={{backgroundColor: viewableCategories === "albums" ? "white" : null, color: viewableCategories === "albums" ? "black" : null}} className="library-options-buttons" onClick={() => setViewableCategories("albums")} >Albums</button>
+                        <button style={{ backgroundColor: viewableCategories === "albums" ? "white" : null, color: viewableCategories === "albums" ? "black" : null }} className="library-options-buttons" onClick={() => setViewableCategories("albums")} >Albums</button>
                         : null
                     }
                 </div>
                 <div className="current-user-playlists-wrapper">
                     {viewableCategories === "all" || viewableCategories === "playlists" ?
-                    <div className="user-playlists-info" onClick={() => history.push("/collection/tracks")}>
-                        <img
-                            className="user-playlists-cover-image"
-                            src="https://res.cloudinary.com/djp7wsuit/image/upload/v1688505274/Untitled_design_12_gksdh3.png"
-                            alt="white heart with blue gradient background" />
-                        <div className="library-playlist-info">
-                            <p className="library-playlist-info-title">Liked Songs</p>
-                            <div className="library-playlist-info-wrapper">
-                                <i className="fa-solid fa-thumbtack"></i>
-                                <p className="library-playlist-info-desc">Playlist</p>
-                                <i className="fa-solid fa-circle library-playlist-info-dot"></i>
-                                <p className="library-playlist-info-desc">{formatLikedSongs(savedSongsArr)}</p>
+                        <div className="user-playlists-info" onClick={() => history.push("/collection/tracks")}>
+                            <img
+                                className="user-playlists-cover-image"
+                                src="https://res.cloudinary.com/djp7wsuit/image/upload/v1688505274/Untitled_design_12_gksdh3.png"
+                                alt="white heart with blue gradient background" />
+                            <div className="library-playlist-info">
+                                <p className="library-playlist-info-title">Liked Songs</p>
+                                <div className="library-playlist-info-wrapper">
+                                    <i className="fa-solid fa-thumbtack"></i>
+                                    {viewableCategories === "all" &&
+                                        <>
+                                            <p className="library-playlist-info-desc">Playlist</p>
+                                            <i className="fa-solid fa-circle library-playlist-info-dot"></i>
+                                        </>
+                                    }
+
+                                    <p className="library-playlist-info-desc">{formatLikedSongs(savedSongsArr)}</p>
+                                </div>
                             </div>
-                        </div>
-                    </div> : null}
-                    {playlistArr.length && (viewableCategories === "all" || viewableCategories === "playlists" || viewableCategories === "by you")  ?
+                        </div> : null}
+                    {playlistArr.length && (viewableCategories === "all" || viewableCategories === "playlists" || viewableCategories === "by you") ?
                         playlistArr.map(playlist => (
                             <div className="user-playlists-info" onClick={() => history.push(`/playlist/${playlist.id}`)}>
                                 <img className="user-playlists-cover-image"
@@ -120,8 +125,12 @@ export default function LibraryBar() {
                                 <div className="library-playlist-info">
                                     <p className="library-playlist-info-title">{playlist.name}</p>
                                     <div className="library-playlist-info-wrapper">
-                                        <p className="library-playlist-info-desc">Playlist</p>
-                                        <i className="fa-solid fa-circle library-playlist-info-dot"></i>
+                                        {viewableCategories === "all" &&
+                                            <>
+                                                <p className="library-playlist-info-desc">Playlist</p>
+                                                <i className="fa-solid fa-circle library-playlist-info-dot"></i>
+                                            </>
+                                        }
                                         <p className="library-playlist-info-desc">{playlist.owner?.username}</p>
                                     </div>
                                 </div>
@@ -138,8 +147,12 @@ export default function LibraryBar() {
                                 <div className="library-playlist-info">
                                     <p className="library-playlist-info-title">{playlist.name}</p>
                                     <div className="library-playlist-info-wrapper">
-                                        <p className="library-playlist-info-desc">Playlist</p>
-                                        <i className="fa-solid fa-circle library-playlist-info-dot"></i>
+                                        {viewableCategories === "all" &&
+                                            <>
+                                                <p className="library-playlist-info-desc">Playlist</p>
+                                                <i className="fa-solid fa-circle library-playlist-info-dot"></i>
+                                            </>
+                                        }
                                         <p className="library-playlist-info-desc">{playlist.owner?.username}</p>
                                     </div>
                                 </div>
@@ -157,8 +170,12 @@ export default function LibraryBar() {
                                 <div className="library-playlist-info">
                                     <p className="library-playlist-info-title">{album.name}</p>
                                     <div className="library-playlist-info-wrapper">
-                                        <p className="library-playlist-info-desc">Album</p>
-                                        <i className="fa-solid fa-circle library-playlist-info-dot"></i>
+                                        {viewableCategories === "all" &&
+                                            <>
+                                                <p className="library-playlist-info-desc">Album</p>
+                                                <i className="fa-solid fa-circle library-playlist-info-dot"></i>
+                                            </>
+                                        }
                                         <p className="library-playlist-info-desc">{album.artist}</p>
                                     </div>
                                 </div>
