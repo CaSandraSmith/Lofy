@@ -12,3 +12,15 @@
     justify-content: space-between;
     border: 2px solid red;
 }
+
+.search-results-wrapper > * {
+    color: white;
+}
+
+.search-results-wrapper, .search-page-no-results {
+    padding-top: 100px;
+}
+
+.search-page-no-results {
+    color: white;
+}

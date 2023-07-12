@@ -13,7 +13,7 @@ export default function SearchBar() {
     let user = useSelector(state => state.session.user)
     const [menu, setMenu] = useState(false)
     const [searching, setSearching] = useState(false)
-    const [searchParams, setSearchParams] = useState(false)
+    const [searchParams, setSearchParams] = useState("")
     const profileRef = useRef()
 
     useEffect(() => {
@@ -37,6 +37,14 @@ export default function SearchBar() {
         return () => document.removeEventListener("click", closeMenu);
     }, [menu]);
 
+    useEffect(() => {
+        if (searchParams.length) {
+            setSearching(true)
+        } else {
+            setSearching(false)
+        }
+    }, [searchParams])
+
     let handleLogout = async () => {
         setMenu(false)
         history.push("/")
@@ -49,25 +57,31 @@ export default function SearchBar() {
     let songs = useSelector(state => state.albums.songs)
 
     let filterUsers = () => {
-
+        return Object.values(users).filter(user => user.username.toLowerCase().includes(searchParams.toLowerCase()))
     }
 
     let filterPlaylists = () => {
-        
+        return Object.values(playlists).filter(playlist => playlist.name.toLowerCase().includes(searchParams.toLowerCase()))
     }
 
     let filterAlbums = () => {
-        
+        return Object.values(albums).filter(album => album.name.toLowerCase().includes(searchParams.toLowerCase()))
     }
 
     let filterSongs = () => {
-        
+        return Object.values(songs).filter(song => song.name.toLowerCase().includes(searchParams.toLowerCase()))
     }
 
-    console.log("search params", searchParams)
+    let convertLength = () => {
+        let length = 0
+        for (let song of songsArr) {
+            length += song.length
+        }
+        return `${Math.floor(length / 60)} min ${length % 60} sec`
+    }
 
     return (
-        <div>
+        <div className="search-page-wrapper">
             <div className="search-nav" >
                 <div>
                     <form>
@@ -103,9 +117,27 @@ export default function SearchBar() {
                     }
                 </div>
             </div>
-            <div>
-
-            </div>
+            {searching ?
+                <div className="search-results-wrapper">
+                    {filterSongs().length ?
+                        <div>
+                            <h2>Top result</h2>
+                            {filterSongs().slice(0, 1).map(song => (
+                                <div>
+                                    <img src={song.album.cover_image} alt={`Song ${song.name} album cover image`} />
+                                    <p>{song.name}</p>
+                                    <div>
+                                        <p>{song.artist_name}</p>
+                                        <p>Song</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        :
+                        null}
+                </div> :
+                <h2 className="search-page-no-results">What do you want to listen to?</h2>
+            }
         </div>
     )
 }
