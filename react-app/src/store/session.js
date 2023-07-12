@@ -47,7 +47,7 @@ const allUsers = (users) => ({
 const initialState = { user: null, currentProfile: {}, allUsers: {} };
 
 export const getAllUsers = () => async (dispatch) => {
-	let res = await fetch("/api/users")
+	let res = await fetch("/api/users/")
 
 	if (res.ok) {
 		let users = await res.json()
@@ -207,8 +207,7 @@ export default function reducer(state = initialState, action) {
 					followers: {
 						...state.currentProfile.followers,
 					}
-
-				}
+				},
 			}
 
 			delete newState.user.following[action.followedUser.id]
@@ -230,7 +229,6 @@ export default function reducer(state = initialState, action) {
 						...state.currentProfile.followers,
 						[action.currentUser.id]: action.currentUser
 					}
-
 				}
 			}
 		case CLEAR_USER:

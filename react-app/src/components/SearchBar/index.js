@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { gatherAllAlbums, gatherAllSongs } from "../../store/albums";
 import { getAllPlaylists } from "../../store/playlists";
+import { getAllUsers } from "../../store/session";
 import "./SearchBar.css"
 
 export default function SearchBar() {
@@ -16,7 +17,10 @@ export default function SearchBar() {
     const profileRef = useRef()
 
     useEffect(() => {
-
+        dispatch(gatherAllAlbums())
+        dispatch(gatherAllSongs())
+        dispatch(getAllPlaylists())
+        dispatch(getAllUsers())
     }, [dispatch])
 
     useEffect(() => {
@@ -39,6 +43,29 @@ export default function SearchBar() {
         dispatch(logout())
     }
 
+    let users = useSelector(state => state.session.allUsers)
+    let playlists = useSelector(state => state.playlists.allPlaylists)
+    let albums = useSelector(state => state.albums.albums)
+    let songs = useSelector(state => state.albums.songs)
+
+    let filterUsers = () => {
+
+    }
+
+    let filterPlaylists = () => {
+        
+    }
+
+    let filterAlbums = () => {
+        
+    }
+
+    let filterSongs = () => {
+        
+    }
+
+    console.log("search params", searchParams)
+
     return (
         <div>
             <div className="search-nav" >
@@ -49,6 +76,8 @@ export default function SearchBar() {
                             <label>
                                 <input
                                     type="search"
+                                    value={searchParams}
+                                    onChange={(e) => setSearchParams(e.target.value)}
                                     placeholder="What do you want to listen to?"
                                 />
                             </label>
@@ -74,7 +103,9 @@ export default function SearchBar() {
                     }
                 </div>
             </div>
+            <div>
 
+            </div>
         </div>
     )
 }

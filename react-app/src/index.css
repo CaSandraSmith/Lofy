@@ -12,6 +12,10 @@
 .home {
     display: flex;
     height: 85vh;
+
+    /* display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 85vh; */
 }
 
 .splash-page-display {
