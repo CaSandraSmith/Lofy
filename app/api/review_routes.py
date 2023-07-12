@@ -1,10 +1,11 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import current_user, login_user, logout_user, login_required
-from ..models import PlaylistReview, db
+from ..models import PlaylistReview, db, User
 from ..forms import ReviewForm
 from .auth_routes import validation_errors_to_error_messages
 
 review_routes = Blueprint('reviews', __name__)
+
 
 @review_routes.route("/<int:id>", methods=["DELETE"])
 @login_required
@@ -44,3 +45,16 @@ def edit_playlist_review(id):
         return review.to_dict()
     
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@review_routes.route("/current")
+@login_required
+def current_user_reviews():
+    user = User.query.get(current_user.id)
+
+    reviews = {}
+
+    for review in user.reviews:
+        reviews[review.id]: review.to_dict()
+
+    return reviews
