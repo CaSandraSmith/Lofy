@@ -214,7 +214,7 @@ export default function SearchBar() {
                         :
                         null
                     }
-                    {/* {filterPlaylists().length ?
+                    {filterPlaylists().length ?
                         <div className="search-albums-playlists-wrapper">
                             <h2>Playlists</h2>
                             <div className="search-results-albums-playlists-wrapper">
@@ -222,7 +222,7 @@ export default function SearchBar() {
                                     <div className="search-album-playlist-wrapper">
                                         <img
                                         className="search-album-playlist-cover-image"
-                                            src={playlist.cover_image}
+                                            src={playlist.cover_image ? playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png" }
                                             alt={`Playlist ${playlist.name} cover image`}
                                         />
                                         <p>{playlist.name}</p>
@@ -234,7 +234,7 @@ export default function SearchBar() {
                         :
                         null
                     }
-                    {filterUsers().length ?
+                    {/* {filterUsers().length ?
                         <div>
                             <h2>Profiles</h2>
                             <div>
