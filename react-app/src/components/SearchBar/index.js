@@ -118,8 +118,8 @@ export default function SearchBar() {
                                 />
                             </label>
                             <i
-                            onClick={() => setSearchParams("")}
-                             className={`fa-solid fa-xmark ${!searchParams ? "clear-sear-hidden" : "clear-search"}`}></i>
+                                onClick={() => setSearchParams("")}
+                                className={`fa-solid fa-xmark ${!searchParams ? "clear-sear-hidden" : "clear-search"}`}></i>
                         </div>
                     </form>
                 </div>
@@ -194,13 +194,14 @@ export default function SearchBar() {
                         </div>
                         :
                         null}
-                    {/* {filterAlbums().length ?
-                        <div>
+                    {filterAlbums().length ?
+                        <div className="search-albums-playlists-wrapper">
                             <h2>Albums</h2>
-                            <div>
+                            <div className="search-results-albums-playlists-wrapper">
                                 {filterAlbums().slice(0, 4).map(album => (
-                                    <div>
+                                    <div className="search-album-playlist-wrapper">
                                         <img
+                                            className="search-album-playlist-cover-image"
                                             src={album.cover_image}
                                             alt={`Album ${album.name} cover image`}
                                         />
@@ -213,13 +214,14 @@ export default function SearchBar() {
                         :
                         null
                     }
-                    {filterPlaylists().length ?
-                        <div>
+                    {/* {filterPlaylists().length ?
+                        <div className="search-albums-playlists-wrapper">
                             <h2>Playlists</h2>
-                            <div>
+                            <div className="search-results-albums-playlists-wrapper">
                                 {filterPlaylists().slice(0, 4).map(playlist => (
-                                    <div>
+                                    <div className="search-album-playlist-wrapper">
                                         <img
+                                        className="search-album-playlist-cover-image"
                                             src={playlist.cover_image}
                                             alt={`Playlist ${playlist.name} cover image`}
                                         />
@@ -260,7 +262,6 @@ export default function SearchBar() {
                 </div>
                 : null}
             {!searching ? <h2 className="search-page-no-results">What can we play for you today?</h2> : null}
-
         </div>
     )
 }
