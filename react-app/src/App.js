@@ -57,6 +57,7 @@ function App() {
               <div className="changing-content">
                 <Switch>
                   <Route path="/myreviews">
+                    <GeneralNav />
                     <ReviewsPage />
                   </Route>
                   <Route path="/search">

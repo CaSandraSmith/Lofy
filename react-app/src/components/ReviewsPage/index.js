@@ -35,21 +35,21 @@ export default function ReviewsPage() {
                 <div>
                     <div className="playlist-all-reviews-wrapper">
                         {reviewsArr.map(review => (
-                            <div>
-                                <div>
-                                    <img 
-                                    src={review.playlist.cover_image ? review.playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"} 
-                                    alt={`Playlist ${review.playlist.name} cover image`}/>
-                                    <p>{review.playlist.name}</p>
-                                    <p>By {review.playlist.owner}</p>
+                            <div className="user-review-wrapper">
+                                <div className="review-playlist-info-wrapper">
+                                    <img
+                                        className="review-playlist-cover"
+                                        src={review.playlist.cover_image ? review.playlist.cover_image : "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"}
+                                        alt={`Playlist ${review.playlist.name} cover image`} />
+                                    <div className="review-star-rating">
+                                        <i className={`${review.stars >= 1 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
+                                        <i className={`${review.stars >= 2 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
+                                        <i className={`${review.stars >= 3 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
+                                        <i className={`${review.stars >= 4 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
+                                        <i className={`${review.stars === 5 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
+                                    </div>
                                 </div>
-                                <div className="review-star-rating">
-                                    <i className={`${review.stars >= 1 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
-                                    <i className={`${review.stars >= 2 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
-                                    <i className={`${review.stars >= 3 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
-                                    <i className={`${review.stars >= 4 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
-                                    <i className={`${review.stars === 5 ? "review-smiles-green" : ""} fa-regular fa-face-smile`}></i>
-                                </div>
+                                <p>{review.playlist.name} By {review.playlist.owner}</p>
                                 <p className="actual-playlist-review">{review.review}</p>
                                 <div className="completed-review-buttons">
                                     <button onClick={() => history.push(`/playlist/${review.playlist.id}`)}>Go to Playlist's Page</button>

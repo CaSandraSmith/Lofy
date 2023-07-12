@@ -1,3 +1,36 @@
+.review-page-wrapper {
+    background-color: #121212;
+    width: 100%;
+    border-radius: 5px;
+    height: 100%;
+    padding: 70px 15px 15px 15px;
+}
+
 .review-page-wrapper > * {
     color: white;
+}
+
+.review-playlist-cover {
+    width: 40%;
+}
+
+.user-review-wrapper {
+    position: relative;
+    border: 1px solid white;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    padding: 15px;
+    justify-content: space-between;
+}
+
+.review-page-wrapper > div {
+    margin-top: 20px;
+}
+
+.review-playlist-info-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
