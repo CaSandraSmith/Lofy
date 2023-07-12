@@ -107,6 +107,7 @@ export const getCurrentUserReviews = () => async (dispatch) => {
 
     if (res.ok) {
         let reviews = await res.json()
+        console.log("reviews in thunk", reviews)
         dispatch(getUserReviews(reviews))
         return reviews
     } else {

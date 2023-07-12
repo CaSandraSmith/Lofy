@@ -53,8 +53,7 @@ def current_user_reviews():
     user = User.query.get(current_user.id)
 
     reviews = {}
-
     for review in user.reviews:
-        reviews[review.id]: review.to_dict()
+        reviews[review.id] = review.to_dict()
 
     return reviews
