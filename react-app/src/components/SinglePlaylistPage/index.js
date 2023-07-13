@@ -203,7 +203,7 @@ export default function SinglePlaylistPage() {
                     <div>
                         <p>Playlist</p>
                         <h1 className="single-playlist-name">{playlist.name}</h1>
-                        <p>{playlist.description}</p>
+                        <p className="single-playlist-description">{playlist.description}</p>
                     </div>
                     <div className="single-playlist-header-owner-text">
                         <div>

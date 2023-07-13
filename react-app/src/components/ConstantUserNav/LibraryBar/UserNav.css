@@ -76,6 +76,7 @@
 
 .library-create-playlist-button {
     padding: 10px;
+    cursor: pointer;
 }
 
 /* .library-playlist-name {

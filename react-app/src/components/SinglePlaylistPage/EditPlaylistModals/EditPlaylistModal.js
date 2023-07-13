@@ -97,25 +97,32 @@ export default function EditPlaylistModal({ playlist, value, setter }) {
                             />
                         </label>
                         <div className="edit-playlist-nam-and-desc">
-                            <label className="edit-name-input-wrapper">
-                                <input
-                                    className="edit-name-input"
-                                    type="text"
-                                    value={name}
-                                    placholder="Add a name"
-                                    onChange={(e) => setName(e.target.value)}
-                                    maxLength={100}
-                                />
-                            </label>
-                            <label>
-                                <textarea
-                                    className="edit-desc-input"
-                                    type="text"
-                                    value={desc}
-                                    placholder="Add an optional description"
-                                    onChange={(e) => setDesc(e.target.value)}
-                                />
-                            </label>
+                            <div className="edit-name-input-wrapper">
+                                <label >
+                                    <input
+                                        className="edit-name-input"
+                                        type="text"
+                                        value={name}
+                                        placholder="Add a name"
+                                        onChange={(e) => setName(e.target.value)}
+                                        maxLength={100}
+                                    />
+                                </label>
+                                {name.length > 90 ? <p className="edit-input-length">{name.length} / 100</p> : null}
+                            </div>
+                            <div className="edit-name-input-wrapper">
+                                <label className="edit-name-input-wrapper">
+                                    <textarea
+                                        className="edit-desc-input"
+                                        type="text"
+                                        value={desc}
+                                        placholder="Add an optional description"
+                                        onChange={(e) => setDesc(e.target.value)}
+                                        maxLength={300}
+                                    />
+                                </label>
+                                {desc.length > 250 ? <p className="edit-input-length">{desc.length} / 300</p> : null}
+                            </div>
                         </div>
                     </div>
                 </div>
