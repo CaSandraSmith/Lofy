@@ -39,15 +39,12 @@ export default function LikedSongsPlaylist() {
     let handleSongClick = (song, e) => {
         setPlaying(true)
         setSong(song)
-        // let arr = [...songsArr.slice(i), ...songsArr.slice(0, i)]
         setQueue(savedSongsArr)
     }
 
     let removeSongFromLiked = async (songId) => {
         dispatch(removeSavedSong(songId))
     }
-
-    console.log("user songs", currentUser.saved_songs)
 
     return (
         <div className="single-playlist-page">

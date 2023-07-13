@@ -39,7 +39,6 @@ export default function AudioBar() {
     }
 
     let songFinished = () => {
-        console.log("shuffle", shuffleQueue)
         let queueCopy = []
         if (shuffleQueue.length) {
             queueCopy = shuffleQueue
