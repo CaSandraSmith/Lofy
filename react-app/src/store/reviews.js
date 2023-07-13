@@ -66,14 +66,12 @@ export const createNewReview = (playlistId, review, stars) => async (dispatch) =
 }
 
 export const deletePlaylistReview = (reviewId) => async (dispatch) => {
-    console.log("DELETE", reviewId)
     let res = await fetch(`/api/reviews/${reviewId}`, {
         method: "DELETE"
     })
 
     if (res.ok) {
         let review = await res.json()
-        console.log("DELETE in res.ok", res)
         dispatch(deleteReview(reviewId))
     } else {
         let errors = await res.json()
@@ -107,7 +105,6 @@ export const getCurrentUserReviews = () => async (dispatch) => {
 
     if (res.ok) {
         let reviews = await res.json()
-        console.log("reviews in thunk", reviews)
         dispatch(getUserReviews(reviews))
         return reviews
     } else {

@@ -64,9 +64,6 @@ export default function EditPlaylistModal({ playlist, value, setter }) {
         }
     }
 
-
-
-    // *TO DO: add visible validation errors to form
     return (
         <div className="edit-playlist-modal">
             <form onSubmit={handleSubmit}>
@@ -98,7 +95,7 @@ export default function EditPlaylistModal({ playlist, value, setter }) {
                         </label>
                         <div className="edit-playlist-nam-and-desc">
                             <div className="edit-name-input-wrapper">
-                                <label >
+                                <label>
                                     <input
                                         className="edit-name-input"
                                         type="text"
