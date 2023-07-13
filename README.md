@@ -15,13 +15,11 @@ CSS
 PostgresSql
 SQLAlchemy
 
-## Features
-
 ### Splash Page
 
 ![image](https://github.com/CaSandraSmith/Lofy/assets/123069069/cc5f41db-3169-4e95-830a-422e361b6e54)
 
-## Home Page
+### Home Page
 
 ![ezgif com-video-to-gif](https://github.com/CaSandraSmith/Lofy/assets/123069069/64c383b0-7783-45ca-80e9-549854dd58d0)
 
@@ -35,30 +33,41 @@ SQLAlchemy
 
 ![Screenshot 2023-07-13 034155](https://github.com/CaSandraSmith/Lofy/assets/123069069/8843894e-9bb3-4a67-8bb2-e23f69fb3d11)
 
-## User Profiles
-
-![Screenshot 2023-07-13 034248](https://github.com/CaSandraSmith/Lofy/assets/123069069/c5b641e3-3965-429f-a0a0-6e1d5377e276)
-
-## Users Following other users
+### Users Following other users
 
 ![ezgif com-video-to-gif (4)](https://github.com/CaSandraSmith/Lofy/assets/123069069/536bcb7e-69cd-4834-96b0-6e0c2fc0d757)
 
-## Users can save playlists, songs, and albums to their library
+## Features
 
+### Playlists
+* Users can create a playlist
+* Users can read and see all playlists
+* Users can edit a playlists details and the songs on thier playlists
+* Users can delete their playlists
 
-## Search and Continuous Play 
+### Reviews
+* Users can create a review
+* Users can read and see all reviews
+* Users can edit a reviews details
+* Users can delete their reviews
 
-![ezgif com-video-to-gif (5)](https://github.com/CaSandraSmith/Lofy/assets/123069069/79933e33-2170-4906-b144-ed067eaa07bf)
+### Following
+* Users can follow other users
+* Users can see all their followers and who they are following
+* Users can unfollow other users
 
-## Future Implementation Goals
-* User can change the orger of their queue
-* Playlists, albums, and songs change color when playing
-* Dynamic playlist and header backgrounds based on the dominant color in the cover image
-* Users can edit thier profiles
+### Search
+* Users can search for songs, playlists, albums, and other users
+* Search results are instantly updating
 
-## Contact Me
-[LinkedIn](https://www.linkedin.com/in/casandra-smith/)
-[WellFound](https://wellfound.com/u/ca-sandra-smith)
+### Playing
+* Users can play all songs, albums, and playlists
+* Music stays constant as user navigates throughout the site
+
+### Library
+* Users can see all of the playlists and albums of other users that they have liked
+* Users can add items to thier liked songs, albums, and playlists
+* Library is instantly updating
 
 ## EndPoints
 
@@ -83,3 +92,13 @@ SQLAlchemy
 | GET /api/misc                                              | Gets all of the albums                                             | {              "id": INTEGER,              "name": STRING,              "artist": STRING,              "cover_image": STRING,              "songs": {[songId]: {'id': INTEGER,              'name': STRING,              'artist_name': STRING', 'audio': STRING,              'length': INTEGER,              'album': {                  "id" : INTEGER,                  "name" : STRING,                  "cover_image": STRING                  }}          }                                                                                                                                                                                                                                                                        |
 | GET /api/users                                             | Gets all users                                                     | {"users": [{              'id': INTEGER,              'username': STRING,              'email': STRING,              'profile_image': STRING  }]}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | GET /api/users/<int:id>                                    | Gets user by Id                                                    | { 'id': INTEGER, 'username': STRING, 'email': STRING, 'profile_image': STRING }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+## Future Implementation Goals
+* User can change the order of their queue
+* Playlists, albums, and songs recognize when they are being played
+* Dynamic playlist and header backgrounds based on the dominant color in the cover image
+* Home page is more dynamic between users
+* Users can edit thier profiles
+
+## Contact Me
+[LinkedIn](https://www.linkedin.com/in/casandra-smith/)
+[WellFound](https://wellfound.com/u/ca-sandra-smith)
