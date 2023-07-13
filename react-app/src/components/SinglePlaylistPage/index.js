@@ -1,4 +1,4 @@
-import ColorThief from "colorthief";
+// import { FastAverageColor } from 'fast-average-color';
 import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
@@ -35,8 +35,9 @@ export default function SinglePlaylistPage() {
     const [playlistEdits, setPlaylistEdits] = useState(false)
     const [editReviewOpen, setEditReviewOpen] = useState(false)
     const [hoverSongDiv, setHoverSongDiv] = useState(0)
-    // const [otherSongs, setOtherSongs] = useState([])
+    const [backgroundColor, setBackgroundColor] = useState("121212")
     const { setPlaying, setQueue, setSong } = useAudio()
+    let imageRef = useRef()
 
     useEffect(() => {
         dispatch(getOnePlaylist(id)).then(() => setLoading(true))
@@ -187,9 +188,26 @@ export default function SinglePlaylistPage() {
         dispatch(unlikePlaylist(playlistId))
     }
 
-    let getBackgroundColor = (image) => {
-        const colorThief = new ColorThief();
-    }
+    // let getBackgroundColor = async (url) => {
+    //     if (!url) return
+    //     else {
+    //         console.log("in function else")
+    //         let image = new Image()
+    //         image.crossOrigin = "Anonymous"
+    //         image.src = url
+    //         if (image.complete) {
+    //             const fac = new FastAverageColor();
+    //             let color = fac.getColor(image)
+    //             console.log('Average color', color);
+    //         } else {
+    //             image.addEventListener('load', function () {
+    //                 const fac = new FastAverageColor();
+    //                 let color = fac.getColor(image)
+    //                 console.log('Average color', color);
+    //             });
+    //         }
+    //     }
+    // }
 
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
 
@@ -202,6 +220,7 @@ export default function SinglePlaylistPage() {
                             playlist.cover_image :
                             "https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"}
                         alt={`Playlist ${playlist.name} cover image`}
+                        onLoad={() => getBackgroundColor(playlist.cover_image)}
                     />
                 </div>
                 <div className="single-playlist-header-text">
@@ -284,11 +303,11 @@ export default function SinglePlaylistPage() {
                                         onMouseEnter={() => setHoverSongDiv(song.id)}
                                         onMouseLeave={() => setHoverSongDiv(0)}
                                         className="playlist-song-row"
-                                        >
-                                        <td>{hoverSongDiv === song.id ? 
+                                    >
+                                        <td>{hoverSongDiv === song.id ?
                                             <i className="fa-solid fa-play play-song-icon" onClick={() => handleSongClick(song, i)}></i>
-                                             : 
-                                             i + 1 }
+                                            :
+                                            i + 1}
                                         </td>
                                         <td>
                                             <div className="single-playlist-title">
