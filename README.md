@@ -21,18 +21,40 @@ SQLAlchemy
 
 ![image](https://github.com/CaSandraSmith/Lofy/assets/123069069/cc5f41db-3169-4e95-830a-422e361b6e54)
 
+## Home Page
+
+![ezgif com-video-to-gif](https://github.com/CaSandraSmith/Lofy/assets/123069069/64c383b0-7783-45ca-80e9-549854dd58d0)
+
 ### Playlists
 
-![image](https://github.com/CaSandraSmith/Lofy/assets/123069069/ea98571c-b525-4bfe-b937-d75398030c67)
+![ezgif com-video-to-gif (2)](https://github.com/CaSandraSmith/Lofy/assets/123069069/19e118f5-0cab-4407-897c-9f7d040f221f)
 
 ### Playlist Reviews
 
-![image](https://github.com/CaSandraSmith/Lofy/assets/123069069/a958e553-3a7c-4ea6-8498-46b015cbb1ec)
+![ezgif com-video-to-gif (3)](https://github.com/CaSandraSmith/Lofy/assets/123069069/19b1eb3e-10a7-4034-9da5-372864c89a3d)
+
+![Screenshot 2023-07-13 034155](https://github.com/CaSandraSmith/Lofy/assets/123069069/8843894e-9bb3-4a67-8bb2-e23f69fb3d11)
+
+## User Profiles
+
+![Screenshot 2023-07-13 034248](https://github.com/CaSandraSmith/Lofy/assets/123069069/c5b641e3-3965-429f-a0a0-6e1d5377e276)
+
+## Users Following other users
+
+![ezgif com-video-to-gif (4)](https://github.com/CaSandraSmith/Lofy/assets/123069069/536bcb7e-69cd-4834-96b0-6e0c2fc0d757)
+
+## Users can save playlists, songs, and albums to their library
+
+
+## Search and Continuous Play 
+
+![ezgif com-video-to-gif (5)](https://github.com/CaSandraSmith/Lofy/assets/123069069/79933e33-2170-4906-b144-ed067eaa07bf)
 
 ## Future Implementation Goals
-* User save other playlists, songs, and albums to thier library
-* Users can follow other users
-* Users can search through all materials
+* User can change the orger of their queue
+* Playlists, albums, and songs change color when playing
+* Dynamic playlist and header backgrounds based on the dominant color in the cover image
+* Users can edit thier profiles
 
 ## Contact Me
 [LinkedIn](https://www.linkedin.com/in/casandra-smith/)
