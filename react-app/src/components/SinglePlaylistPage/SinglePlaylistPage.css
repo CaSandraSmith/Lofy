@@ -6,11 +6,13 @@
     width: 100%;
     background-color: #121212;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
+    min-height: 100%;
 }
 
 .single-playlist-name {
     font-size: 35px;
+    word-break: break-all;
 }
 
 .single-playlist-options {
@@ -91,6 +93,7 @@
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
+    width: 100%;
 }
 
 .single-playlist-header-owner-text {
@@ -319,6 +322,8 @@
 
 .single-playlist-description {
     font-size: 15px;
+    /* overflow-wrap: break-word; */
+    word-break: break-all;
 }
 
 @media screen and (max-width: 1000px) {

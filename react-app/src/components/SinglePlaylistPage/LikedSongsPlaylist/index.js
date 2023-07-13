@@ -117,11 +117,11 @@ export default function LikedSongsPlaylist() {
                                         className="playlist-song-row"
                                         onMouseEnter={() => setHoverSongDiv(song.id)}
                                         onMouseLeave={() => setHoverSongDiv(0)}
-                                        >
-                                        <td>{hoverSongDiv === song.id ? 
+                                    >
+                                        <td>{hoverSongDiv === song.id ?
                                             <i className="fa-solid fa-play play-song-icon" onClick={() => handleSongClick(song, i)}></i>
-                                             : 
-                                             i + 1 }</td>
+                                            :
+                                            i + 1}</td>
                                         <td>
                                             <div className="single-playlist-title">
                                                 <img
@@ -149,7 +149,10 @@ export default function LikedSongsPlaylist() {
                         </table>
                     </div>
                     :
-                    <SinglePlaylistSearch />
+                    <div className="liked-songs-empty">
+                        <h3>Checkout some of our albums or other user's playlists to add songs to your liked songs!</h3>
+                    </div>
+                    // <SinglePlaylistSearch />
                 }
             </div>
         </div>

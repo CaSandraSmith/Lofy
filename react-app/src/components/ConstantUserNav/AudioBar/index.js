@@ -126,21 +126,23 @@ export default function AudioBar() {
                 autoPlay>
             </audio>
             <div className="visible-audio-bar">
-                {song ?
-                    <div className="audio-bar-song-details">
-                        <img className="audio-bar-album-cover" src={song.album.cover_image} alt={`Album cover for ${song.name}`} />
-                        <div className="audio-bar-song-name-artist">
-                            <p>{song.name}</p>
-                            <p>{song.artist_name}</p>
+                <div className="playing-song-details">
+                    {song ?
+                        <div className="audio-bar-song-details">
+                            <img className="audio-bar-album-cover" src={song.album.cover_image} alt={`Album cover for ${song.name}`} />
+                            <div className="audio-bar-song-name-artist">
+                                <p>{song.name}</p>
+                                <p>{song.artist_name}</p>
+                            </div>
                         </div>
-                    </div>
-                    : <div>
-                        <img
-                            className="audio-bar-album-cover"
-                            src="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"
-                        />
-                    </div>
-                }
+                        : <div>
+                            <img
+                                className="audio-bar-album-cover"
+                                src="https://lofy.s3.us-east-2.amazonaws.com/album_covers/Untitled+design+(5).png"
+                            />
+                        </div>
+                    }
+                </div>
                 <div className="audio-bar-song-controls">
                     <div className="audio-bar-song-buttons">
                         <button
@@ -201,7 +203,7 @@ export default function AudioBar() {
                         <span>{song ? convertLengthTable(song.length) : "--:--"}</span>
                     </div>
                 </div>
-                <div>
+                <div className="audio-range-slider">
                     <input
                         value={volume}
                         type="range"
