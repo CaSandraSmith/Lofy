@@ -297,7 +297,7 @@ export default function SinglePlaylistPage() {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="single-playlist-songs-album-name" onClick={() => history.push(`/album/${song.album.id}`)}>{song.album.name}</td>
+                                        <td className="single-playlist-songs-album-name" onClick={() => history.push(`/album/${song.album.id}`)}><p>{song.album.name}</p></td>
                                         <td>{savedSongsIds.includes(song.id.toString()) ?
                                             <i
                                                 onClick={() => handleUnsaveSongClick(song.id)}

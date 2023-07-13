@@ -1,12 +1,15 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllUserSavedSongs, removeSavedSong } from "../../../store/albums"
 import { useAudio } from "../../../context/Audio"
 import SinglePlaylistSearch from "../SinglePlaylistSearch"
 import './LikedSongsPlaylist.css'
+import { useHistory } from "react-router-dom"
 
 export default function LikedSongsPlaylist() {
     const dispatch = useDispatch()
+    const history = useHistory()
+    const [hoverSongDiv, setHoverSongDiv] = useState(0)
     const { setPlaying, setQueue, setSong } = useAudio()
     const heartRef = useRef()
 
@@ -68,7 +71,7 @@ export default function LikedSongsPlaylist() {
                             }
                         </div>
                         <div>
-                            <p>{currentUser.username}</p>
+                            <p className="single-playlist-owner-username" onClick={() => history.push(`/user/${currentUser.username}`)}>{currentUser.username}</p>
                         </div>
                         {savedSongsArr.length ?
                             <div className="single-profile-with-songs">
@@ -112,8 +115,13 @@ export default function LikedSongsPlaylist() {
                                 {savedSongsArr.map((song, i) => (
                                     <tr
                                         className="playlist-song-row"
-                                        onClick={(e) => handleSongClick(song, e)}>
-                                        <td>{i + 1}</td>
+                                        onMouseEnter={() => setHoverSongDiv(song.id)}
+                                        onMouseLeave={() => setHoverSongDiv(0)}
+                                        >
+                                        <td>{hoverSongDiv === song.id ? 
+                                            <i className="fa-solid fa-play play-song-icon" onClick={() => handleSongClick(song, i)}></i>
+                                             : 
+                                             i + 1 }</td>
                                         <td>
                                             <div className="single-playlist-title">
                                                 <img
@@ -126,7 +134,7 @@ export default function LikedSongsPlaylist() {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{song.album.name}</td>
+                                        <td className="single-playlist-songs-album-name" onClick={() => history.push(`/album/${song.album.id}`)}>{song.album.name}</td>
                                         <td>
                                             <i
                                                 className="fa-solid fa-heart"
