@@ -284,6 +284,7 @@
 
 .actual-playlist-review {
     font-size: 12px;
+    word-break: break-all;
 }
 
 .review-smiles-green {

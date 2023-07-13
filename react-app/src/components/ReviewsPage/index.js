@@ -13,7 +13,7 @@ export default function ReviewsPage() {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        dispatch(getCurrentUserReviews()).then(() => setLoading(true))
+        dispatch(getCurrentUserReviews()).then(() => setLoading)
     }, [dispatch])
 
     let user = useSelector(state => state.session.user)

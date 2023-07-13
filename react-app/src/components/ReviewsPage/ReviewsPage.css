@@ -2,6 +2,7 @@
     background-color: #121212;
     width: 100%;
     border-radius: 5px;
+    min-height: fit-content;
     height: 100%;
     padding: 70px 15px 15px 15px;
 }
@@ -11,13 +12,14 @@
 }
 
 .review-playlist-cover {
-    width: 40%;
+    width: 30%;
 }
 
 .user-review-wrapper {
     position: relative;
     border: 1px solid white;
     height: 300px;
+    /* min-height: fit-content; */
     display: flex;
     flex-direction: column;
     row-gap: 5px;
