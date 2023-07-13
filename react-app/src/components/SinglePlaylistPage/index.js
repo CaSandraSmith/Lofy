@@ -213,7 +213,7 @@ export default function SinglePlaylistPage() {
                             }
                         </div>
                         <div>
-                            <p className="single-playlist-owner-username" onClick={() => history.push(`/user/${user.username}`)}>{playlist.owner?.username}</p>
+                            <p className="single-playlist-owner-username" onClick={() => history.push(`/user/${playlist.owner.username}`)}>{playlist.owner?.username}</p>
                         </div>
                         {songsArr.length ?
                             <div className="single-profile-with-songs">

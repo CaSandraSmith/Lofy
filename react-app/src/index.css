@@ -49,6 +49,11 @@
 
 .fa-solid.fa-heart {
     color: #1ed660;
+    cursor: pointer;
+}
+
+.fa-solid.fa-play, .fa-regular.fa-heart {
+    cursor: pointer;
 }
 
 ::-webkit-scrollbar {
