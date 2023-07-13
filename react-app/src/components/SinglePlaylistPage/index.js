@@ -1,3 +1,4 @@
+import ColorThief from "colorthief";
 import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
@@ -184,6 +185,10 @@ export default function SinglePlaylistPage() {
 
     let handleUnsavePlaylistClick = async (playlistId) => {
         dispatch(unlikePlaylist(playlistId))
+    }
+
+    let getBackgroundColor = (image) => {
+        const colorThief = new ColorThief();
     }
 
     let editMenuClassName = editPlaylistMenuOpen ? "edit-playlist-menu" : "hidden edit-playlist-menu"
