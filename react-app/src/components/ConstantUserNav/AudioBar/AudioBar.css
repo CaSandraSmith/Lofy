@@ -15,7 +15,7 @@
     display: grid;
     /* align-items: center; */
     /* justify-content: space-between; */
-    grid-template-columns: 250px 1fr 250px;
+    grid-template-columns: 175px 1fr 175px;
     padding: 0 10px;
     align-items: center;
 }
@@ -60,6 +60,9 @@
 
 .audio-bar-song-name-artist > p:nth-child(2) {
     font-size: 10px;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .audio-bar-song-controls {
@@ -150,4 +153,10 @@ input[type="range"] {
 
 input[type="range"]:hover:not(:disabled){
     accent-color: #1ed660;
+}
+
+@media screen and (max-width: 900px) {
+    .visible-audio-bar {
+        grid-template-columns: 100px 1fr 100px;
+    }
 }
