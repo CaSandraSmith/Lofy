@@ -94,7 +94,6 @@ SQLAlchemy
 | GET /api/users/<int:id>                                    | Gets user by Id                                                    | { 'id': INTEGER, 'username': STRING, 'email': STRING, 'profile_image': STRING }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 ## Future Implementation Goals
 * User can change the order of their queue
-* Playlists, albums, and songs recognize when they are being played
 * Dynamic playlist and header backgrounds based on the dominant color in the cover image
 * Home page is more dynamic between users
 * Users can edit thier profiles
