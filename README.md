@@ -5,7 +5,7 @@ Lofy is a clone of Spotify. My favorite genre to listen to while coding is lo-fi
 Checkout [Lofy](https://lofy.onrender.com/)!
 
 ## Index
-https://github.com/CaSandraSmith/Lofy/wiki/MVP-Features
+
 [MVP Feature List](https://github.com/CaSandraSmith/Lofy/wiki/MVP-Features) |
 [Database Scheme](https://github.com/CaSandraSmith/Lofy/wiki/Database-Schema-Design) |
 [User Stories](https://github.com/CaSandraSmith/Lofy/wiki/User-Stories) |
