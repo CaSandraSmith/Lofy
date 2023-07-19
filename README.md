@@ -104,6 +104,45 @@ Checkout [Lofy](https://lofy.onrender.com/)!
 | GET /api/misc                                              | Gets all of the albums                                             | {              "id": INTEGER,              "name": STRING,              "artist": STRING,              "cover_image": STRING,              "songs": {[songId]: {'id': INTEGER,              'name': STRING,              'artist_name': STRING', 'audio': STRING,              'length': INTEGER,              'album': {                  "id" : INTEGER,                  "name" : STRING,                  "cover_image": STRING                  }}          }                                                                                                                                                                                                                                                                        |
 | GET /api/users                                             | Gets all users                                                     | {"users": [{              'id': INTEGER,              'username': STRING,              'email': STRING,              'profile_image': STRING  }]}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | GET /api/users/<int:id>                                    | Gets user by Id                                                    | { 'id': INTEGER, 'username': STRING, 'email': STRING, 'profile_image': STRING }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+## Launching App
+1. Clone this repository (only this branch): https://github.com/CaSandraSmith/Lofy.git
+
+2. Install dependencies
+
+      ```bash
+      pipenv install -r requirements.txt
+      ```
+
+3. Create a **.env** file based on the example with proper settings for your
+   development environment
+
+4. Make sure the SQLite3 database connection URL is in the **.env** file
+
+5. This starter organizes all tables inside the `flask_schema` schema, defined
+   by the `SCHEMA` environment variable.  Replace the value for
+   `SCHEMA` with a unique name, **making sure you use the snake_case
+   convention**.
+
+6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
+
+   ```bash
+   pipenv shell
+   ```
+
+   ```bash
+   flask db upgrade
+   ```
+
+   ```bash
+   flask seed all
+   ```
+
+   ```bash
+   flask run
+   ```
+
+7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+
 ## Future Implementation Goals
 * User can change the order of their queue
 * Dynamic playlist and header backgrounds based on the dominant color in the cover image
