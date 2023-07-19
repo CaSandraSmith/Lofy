@@ -4,12 +4,8 @@ Lofy is a clone of Spotify. My favorite genre to listen to while coding is lo-fi
 
 Checkout [Lofy](https://lofy.onrender.com/)!
 
-## Contact Me
-[LinkedIn](https://www.linkedin.com/in/casandra-smith/)
-[WellFound](https://wellfound.com/u/ca-sandra-smith)
-
 ## Table of Contents
-[Technologies Used](#technologies-used) | [Live App Images](#live-app) | [Features List](#features) | [Endpoints](#endpoints) | [Future Goals](#future-implementation-goals)
+[Technologies Used](#technologies-used) | [Live App Images](#live-app) | [Features List](#features) | [Endpoints](#endpoints) | [Future Goals](#future-implementation-goals) | [Contact Info](#contact-me)
 
 ## Index
 
@@ -113,3 +109,7 @@ Checkout [Lofy](https://lofy.onrender.com/)!
 * Dynamic playlist and header backgrounds based on the dominant color in the cover image
 * Home page is more dynamic between users
 * Users can edit thier profiles
+
+## Contact Me
+[LinkedIn](https://www.linkedin.com/in/casandra-smith/)
+[WellFound](https://wellfound.com/u/ca-sandra-smith)
