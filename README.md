@@ -12,15 +12,15 @@ Checkout [Lofy](https://lofy.onrender.com/)!
 [Wire Frames](https://github.com/CaSandraSmith/Lofy/wiki/Wireframes)
 
 ## Technologies Used
-React
-Redux
-Python
-Flask
-Alembic
-HTML
-CSS
-PostgresSql
-SQLAlchemy
+<div>
+  <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" />
+  <img src="https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white" />
+  <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" />
+  <img src="https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white" />
+  <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" />
+  <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" />
+  <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" />
+</div>
 
 ### Splash Page
 
